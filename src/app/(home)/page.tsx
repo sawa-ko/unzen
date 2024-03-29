@@ -13,22 +13,58 @@ export default function Page() {
 				<div className="max-w-3xl w-full">
 					<div className="flex flex-col gap-3">
 						<h1 className="text-5xl font-black">dbots.fun</h1>
-						<p className="text-sm text-default-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora magni nam omnis! Voluptas cumque neque sunt? Itaque tempore cum incidunt alias, ipsa unde autem qui magni et hic cumque quae.</p>
-						<Input endContent={<MagnifyingGlassIcon className="w-5 h-5" />} variant="bordered" color="secondary" className="w-full" placeholder="Search bots" />
+						<p className="text-sm text-default-600">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+							magni nam omnis! Voluptas cumque neque sunt? Itaque tempore cum
+							incidunt alias, ipsa unde autem qui magni et hic cumque quae.
+						</p>
+						<Input
+							endContent={<MagnifyingGlassIcon className="w-5 h-5" />}
+							variant="bordered"
+							color="secondary"
+							className="w-full"
+							placeholder="Search bots"
+						/>
 						<div className="flex flex-wrap gap-1">
-							<Button startContent={<HashtagIcon className="w-4 h-4 text-secondary" />} size="sm">Tag</Button>
-							<Button startContent={<HashtagIcon className="w-4 h-4 text-secondary" />} size="sm">Tag</Button>
-							<Button startContent={<HashtagIcon className="w-4 h-4 text-secondary" />} size="sm">Tag</Button>
-							<Button startContent={<HashtagIcon className="w-4 h-4 text-secondary" />} size="sm">Tag</Button>
+							<Button
+								startContent={
+									<HashtagIcon className="w-4 h-4 text-secondary" />
+								}
+								size="sm"
+							>
+								Tag
+							</Button>
+							<Button
+								startContent={
+									<HashtagIcon className="w-4 h-4 text-secondary" />
+								}
+								size="sm"
+							>
+								Tag
+							</Button>
+							<Button
+								startContent={
+									<HashtagIcon className="w-4 h-4 text-secondary" />
+								}
+								size="sm"
+							>
+								Tag
+							</Button>
+							<Button
+								startContent={
+									<HashtagIcon className="w-4 h-4 text-secondary" />
+								}
+								size="sm"
+							>
+								Tag
+							</Button>
 						</div>
 					</div>
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
 					<div className="grid grid-cols-5 gap-3">
 						{[...Array(15)].map(() => (
-							<div
-								className="w-20 h-20 rounded-xl bg-cover bg-center bg-content1"
-							/>
+							<div className="w-20 h-20 rounded-xl bg-cover bg-center bg-content1" />
 						))}
 					</div>
 				</div>
@@ -74,5 +110,5 @@ export default function Page() {
 				<BotCard id="xx" />
 			</BotRow>
 		</div>
-	)
+	);
 }

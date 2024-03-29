@@ -22,9 +22,7 @@ export default function RootLayout({
 			<body className={font.className}>
 				<Providers>
 					<Header />
-					<main className="px-6 lg:px-32">
-						{children}
-					</main>
+					<main className="px-6 lg:px-32">{children}</main>
 				</Providers>
 			</body>
 		</html>
