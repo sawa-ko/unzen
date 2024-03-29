@@ -40,6 +40,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^19.1.0
     version: 19.1.0
+  '@commitlint/format':
+    specifier: ^19.0.3
+    version: 19.0.3
   '@types/node':
     specifier: ^20
     version: 20.11.30
