@@ -5,8 +5,10 @@ import NextLink from "next/link";
 
 export default function OverviewBotTab() {
 	return (
-		<div className="flex items-center gap-3">
-			<div className="w-full">1</div>
+		<div className="flex gap-3">
+			<div className="w-full">
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero amet saepe eligendi ab, possimus eum aliquid et nesciunt labore iste officia nulla, quia beatae eos ullam vel corrupti, magnam illum?
+			</div>
 			<div className="w-1/3 flex flex-col gap-4">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-2xl font-bold">Overview</h1>
