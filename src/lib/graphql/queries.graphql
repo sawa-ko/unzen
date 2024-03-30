@@ -1,0 +1,7 @@
+# query Bots($filters: GetBotFormInput) {
+#   bots(filters: $filters) {
+#     totalCount
+#   }
+# }
+
+#! This is a test file, Apollo implementation is still in progress

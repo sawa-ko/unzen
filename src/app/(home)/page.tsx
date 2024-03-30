@@ -25,7 +25,7 @@ export default function Page() {
 							variant="bordered"
 							color="secondary"
 							className="w-full"
-							placeholder="Search bots"
+							placeholder={"Search through 100 bots"}
 						/>
 						<div className="flex flex-wrap gap-1">
 							<TagButton>Gaming</TagButton>
@@ -36,8 +36,9 @@ export default function Page() {
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
 					<div className="grid grid-cols-5 gap-3 opacity-60">
-						{[...Array(15)].map(() => (
+						{[...Array(15)].map((_, index) => (
 							<Avatar
+								key={index}
 								draggable={false}
 								radius="lg"
 								src="https://cdn.discordapp.com/embed/avatars/0.png"
@@ -48,12 +49,6 @@ export default function Page() {
 				</div>
 			</div>
 			<BotRow title="Latest bots" icon={<ClockIcon className="w-6 h-6" />}>
-				<BotCard id="xx" />
-				<BotCard id="xx" />
-				<BotCard id="xx" />
-				<BotCard id="xx" />
-				<BotCard id="xx" />
-				<BotCard id="xx" />
 				<BotCard id="xx" />
 			</BotRow>
 		</div>
