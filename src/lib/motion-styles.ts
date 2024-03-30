@@ -6,15 +6,15 @@ export const modalMotionProps: HTMLMotionProps<"section"> = {
 			y: 0,
 			opacity: 1,
 			transition: {
-				duration: 0.2,
+				duration: 0.3,
 				ease: "easeOut",
 			},
 		},
 		exit: {
-			y: 5,
+			y: 10,
 			opacity: 0,
 			transition: {
-				duration: 0.2,
+				duration: 0.1,
 				ease: "easeIn",
 			},
 		},

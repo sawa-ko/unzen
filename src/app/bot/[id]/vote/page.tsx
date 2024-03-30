@@ -1,4 +1,6 @@
-import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+"use client";
+
+import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import { Avatar, Button } from "@nextui-org/react";
 import Link from "next/link";
 
@@ -15,7 +17,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					/>
 					<h1 className="text-3xl font-bold">Probot</h1>
 				</div>
-				<p className="text-red-500">You can vote tomorrow</p>
+				<Button startContent={<ArrowUpIcon className="w-5 h-5" />} color="secondary">Vote Probot</Button>
 			</div>
 			<Button
 				as={Link}

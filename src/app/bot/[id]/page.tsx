@@ -1,6 +1,8 @@
 "use client";
 
+import FallbackAvatar from "@/components/common/fallback-avatar";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
+import SettingsBotTab from "@/components/modules/bot/tabs/settings";
 import {
 	ArrowUpIcon,
 	ChatBubbleBottomCenterIcon,
@@ -29,6 +31,8 @@ export default function Page({ params }: { params: { id: string } }) {
 				<div className="flex lg:flex-row gap-3 flex-col justify-between w-full items-center">
 					<div className="flex lg:flex-row flex-col gap-4 items-center">
 						<Avatar
+							fallback={<FallbackAvatar />}
+							showFallback
 							src="https://cdn.discordapp.com/embed/avatars/0.png"
 							radius="full"
 							isBordered
@@ -103,7 +107,9 @@ export default function Page({ params }: { params: { id: string } }) {
 									<Cog6ToothIcon className="w-4 h-4" /> Settings
 								</div>
 							}
-						/>
+						>
+							<SettingsBotTab />
+						</Tab>
 					</Tabs>
 				</div>
 			</div>

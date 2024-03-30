@@ -5,6 +5,28 @@ const primaryColor = commonColors.cyan;
 const contentColor = "#100f13"
 const contentForegroundColor = "#D4D4D4"
 
+// const customThemes = Object.entries(commonColors).filter(([name]) => !["black", "white", "cyan"].includes(name)).map(([name, value]) => {
+//   return {
+//     [name]: {
+//       colors: {
+//         background: "#05040a",
+//         secondary: {
+//           foreground: commonColors.black,
+//           DEFAULT: value["500"]
+//         },
+//         default: {
+//           DEFAULT: contentColor,
+//           foreground: contentForegroundColor
+//         },
+//         content1: contentColor,
+//         content2: contentColor,
+//         content3: contentColor,
+//         content4: contentColor
+//       }
+//     } as ConfigTheme
+//   };
+// }) as unknown as ConfigThemes
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -18,15 +40,15 @@ const config: Config = {
     prefix: "dbots",
     defaultExtendTheme: "dark",
     defaultTheme: "dark",
+    layout: {
+      radius: {
+        small: "0.5rem",
+        medium: "0.75rem",
+        large: "0.75rem",
+      }
+    },
     themes: {
       main: {
-        layout: {
-          radius: {
-            small: "0.5rem",
-            medium: "0.75rem",
-            large: "0.75rem",
-          }
-        },
         colors: {
           background: "#05040a",
           secondary: {
@@ -43,7 +65,8 @@ const config: Config = {
           content3: contentColor,
           content4: contentColor
         }
-      }
+      },
+      // ...customThemes
     }
   }),
   require("tailwind-gradient-mask-image")]
