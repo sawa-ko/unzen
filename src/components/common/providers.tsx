@@ -1,10 +1,9 @@
 "use client";
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
-
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const router = useRouter();
@@ -15,9 +14,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	});
 	return (
 		<NextUIProvider navigate={router.push}>
-			<ApolloProvider client={apolloClient}>
-				{children}
-			</ApolloProvider>
+			<ApolloProvider client={apolloClient}>{children}</ApolloProvider>
 			<Toaster theme="dark" richColors closeButton />
 		</NextUIProvider>
 	);

@@ -1,8 +1,8 @@
 export function GET() {
-    return Response.json({
-        ok: true,
-        data: {
-            message: "WIP"
-        }
-    })
+	return Response.json({
+		ok: true,
+		data: {
+			message: "WIP",
+		},
+	});
 }
