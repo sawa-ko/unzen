@@ -17,7 +17,7 @@ export default function BotRow({
 	return (
 		<div className="flex flex-col gap-5">
 			<div className="flex gap-3 items-center">
-				<div className="bg-secondary text-secondary-foreground p-3 rounded-full">
+				<div className="bg-secondary-900 text-secondary p-3 rounded-full">
 					{icon}
 				</div>
 				<h1 className="text-2xl font-semibold">{title}</h1>

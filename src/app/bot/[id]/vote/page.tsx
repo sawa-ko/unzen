@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import { Avatar, Button } from "@nextui-org/react";
+import { IconArrowLeft, IconArrowUp } from "@tabler/icons-react";
 import Link from "next/link";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					<h1 className="text-3xl font-bold">Probot</h1>
 				</div>
 				<Button
-					startContent={<ArrowUpIcon className="w-5 h-5" />}
+					startContent={<IconArrowUp className="w-5 h-5" />}
 					color="secondary"
 				>
 					Vote Probot
@@ -28,7 +28,7 @@ export default function Page({ params }: { params: { id: string } }) {
 				as={Link}
 				href={`/bot/${params.id}`}
 				size="sm"
-				startContent={<ArrowLeftIcon className="w-5 h-5" />}
+				startContent={<IconArrowLeft className="w-5 h-5" />}
 			>
 				Return to Probot
 			</Button>

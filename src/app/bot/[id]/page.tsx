@@ -3,14 +3,8 @@
 import FallbackAvatar from "@/components/common/fallback-avatar";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import SettingsBotTab from "@/components/modules/bot/tabs/settings";
-import {
-	ArrowUpIcon,
-	ChatBubbleBottomCenterIcon,
-	Cog6ToothIcon,
-	InformationCircleIcon,
-	PlusCircleIcon,
-} from "@heroicons/react/20/solid";
 import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
+import { IconArrowUp, IconInfoCircleFilled, IconMessageCircle2Filled, IconSettingsFilled, IconSquareRoundedPlusFilled } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -48,7 +42,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					<div className="flex lg:flex-row flex-col gap-2 w-full lg:w-fit">
 						<Button
 							fullWidth
-							startContent={<PlusCircleIcon className="w-5 h-5" />}
+							startContent={<IconSquareRoundedPlusFilled className="w-6 h-6" />}
 							size="lg"
 							color="secondary"
 						>
@@ -58,7 +52,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							as={Link}
 							href={`/bot/${params.id}/vote`}
 							fullWidth
-							startContent={<ArrowUpIcon className="w-5 h-5" />}
+							startContent={<IconArrowUp className="w-6 h-6" />}
 							size="lg"
 						>
 							Vote
@@ -83,7 +77,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							key="overview"
 							title={
 								<div className="flex items-center gap-2">
-									<InformationCircleIcon className="w-4 h-4" /> Overview
+									<IconInfoCircleFilled className="w-4 h-4" /> Overview
 								</div>
 							}
 						>
@@ -96,7 +90,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							key="reviews"
 							title={
 								<div className="flex items-center gap-2">
-									<ChatBubbleBottomCenterIcon className="w-4 h-4" /> Reviews
+									<IconMessageCircle2Filled className="w-4 h-4" /> Reviews
 								</div>
 							}
 						/>
@@ -104,7 +98,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							key="settings"
 							title={
 								<div className="flex items-center gap-2">
-									<Cog6ToothIcon className="w-4 h-4" /> Settings
+									<IconSettingsFilled className="w-4 h-4" /> Settings
 								</div>
 							}
 						>

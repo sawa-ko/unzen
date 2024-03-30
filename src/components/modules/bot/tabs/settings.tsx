@@ -1,9 +1,5 @@
-import {
-	CubeTransparentIcon,
-	PencilIcon,
-	TrashIcon,
-} from "@heroicons/react/20/solid";
 import { Button, Input, Tab, Tabs } from "@nextui-org/react";
+import { IconBallpenFilled, IconLoader2, IconRefresh, IconTrashFilled } from "@tabler/icons-react";
 
 export default function SettingsBotTab() {
 	return (
@@ -13,26 +9,29 @@ export default function SettingsBotTab() {
 					<div className="flex flex-wrap gap-1">
 						<Button
 							className="w-fit"
-							startContent={<PencilIcon className="w-5 h-5" />}
+							startContent={<IconBallpenFilled className="w-5 h-5" />}
 						>
 							Edit Probot
 						</Button>
 						<Button
 							className="w-fit"
-							startContent={<CubeTransparentIcon className="w-5 h-5" />}
+							startContent={<IconRefresh className="w-5 h-5" />}
 						>
 							Sync Probot
 						</Button>
 					</div>
 				</Tab>
 				<Tab key="webhooks" title="Webhooks">
-					<Input labelPlacement="outside" autoFocus label="Webhook URL" />
+					<div className="flex gap-2">
+						<Input errorMessage="Invalid webhook (quick reminder: webhook url is NOT a Discord webhook)" autoFocus size="sm" radius="md" label="Webhook URL" />
+						<Button spinner={<div><IconLoader2 className="w-5 h-5 animate-spin" /></div>} isLoading size="lg" color="success">Test webhook</Button>
+					</div>
 				</Tab>
 				<Tab key="danger" title="Danger zone">
 					<Button
 						color="danger"
 						className="w-fit"
-						startContent={<TrashIcon className="w-5 h-5" />}
+						startContent={<IconTrashFilled className="w-5 h-5" />}
 					>
 						Delete Probot
 					</Button>

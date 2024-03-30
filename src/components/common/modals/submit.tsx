@@ -1,6 +1,5 @@
 import { modalMotionProps } from "@/lib/motion-styles";
 import type { CommonModalProps } from "@/lib/types/modals";
-import { ArchiveBoxIcon, SquaresPlusIcon } from "@heroicons/react/20/solid";
 import {
 	Card,
 	CardBody,
@@ -10,6 +9,7 @@ import {
 	ModalHeader,
 	Tooltip,
 } from "@nextui-org/react";
+import { IconArchiveFilled, IconLegoFilled } from "@tabler/icons-react";
 import Link from "next/link";
 
 export default function SubmitModal({ ...props }: CommonModalProps) {
@@ -30,7 +30,7 @@ export default function SubmitModal({ ...props }: CommonModalProps) {
 										<CardBody>
 											<div className="flex gap-3 items-center">
 												<div className="p-3 rounded-medium bg-default-100">
-													<ArchiveBoxIcon className="w-6 h-6 text-default-600" />
+													<IconArchiveFilled className="w-6 h-6 text-default-600" />
 												</div>
 												<h1>Bot pack</h1>
 											</div>
@@ -48,7 +48,7 @@ export default function SubmitModal({ ...props }: CommonModalProps) {
 									<CardBody>
 										<div className="flex gap-3 items-center">
 											<div className="p-3 rounded-medium bg-default-100">
-												<SquaresPlusIcon className="w-6 h-6 text-default-600" />
+												<IconLegoFilled className="w-6 h-6 text-default-600" />
 											</div>
 											<h1>Discord bot</h1>
 										</div>

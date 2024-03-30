@@ -1,12 +1,6 @@
 "use client";
 
 import {
-	ArrowLeftStartOnRectangleIcon,
-	Cog6ToothIcon,
-	PlusIcon,
-	UserIcon,
-} from "@heroicons/react/20/solid";
-import {
 	Avatar,
 	Dropdown,
 	DropdownItem,
@@ -14,6 +8,7 @@ import {
 	DropdownTrigger,
 	useDisclosure,
 } from "@nextui-org/react";
+import { IconLogout2, IconPlus, IconSettingsFilled, IconUserFilled } from "@tabler/icons-react";
 import SubmitModal from "../../modals/submit";
 
 export default function HeaderAuthUser() {
@@ -33,23 +28,23 @@ export default function HeaderAuthUser() {
 					/>
 				</DropdownTrigger>
 				<DropdownMenu variant="faded" aria-label="Static Actions">
-					<DropdownItem startContent={<UserIcon className="w-5 h-5" />}>
+					<DropdownItem startContent={<IconUserFilled className="w-5 h-5" />}>
 						Profile
 					</DropdownItem>
 					<DropdownItem
 						href="/settings"
-						startContent={<Cog6ToothIcon className="w-5 h-5" />}
+						startContent={<IconSettingsFilled className="w-5 h-5" />}
 					>
 						Settings
 					</DropdownItem>
 					<DropdownItem
 						onClick={disclosureProps.onOpen}
-						startContent={<PlusIcon className="w-5 h-5" />}
+						startContent={<IconPlus className="w-5 h-5" />}
 					>
 						Submit
 					</DropdownItem>
 					<DropdownItem
-						startContent={<ArrowLeftStartOnRectangleIcon className="w-5 h-5" />}
+						startContent={<IconLogout2 className="w-5 h-5" />}
 						className="text-danger"
 						color="danger"
 					>

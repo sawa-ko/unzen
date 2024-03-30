@@ -37,8 +37,8 @@ export default function Header() {
 			</NavbarContent>
 			<NavbarContent justify="end">
 				<NavbarItem className="flex items-center gap-3">
-					<HeaderAuthUser />
 					<LoginButton />
+					<HeaderAuthUser />
 				</NavbarItem>
 			</NavbarContent>
 		</Navbar>

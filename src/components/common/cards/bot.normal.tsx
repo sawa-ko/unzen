@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowUpIcon, ChartBarIcon } from "@heroicons/react/16/solid";
 import {
 	Avatar,
 	Card,
@@ -9,6 +8,7 @@ import {
 	CardHeader,
 	ScrollShadow,
 } from "@nextui-org/react";
+import { IconArrowUp, IconChartAreaFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import FallbackAvatar from "../fallback-avatar";
 
@@ -54,10 +54,10 @@ export default function BotCard({ id }: BotCardProps) {
 			</ScrollShadow>
 			<CardFooter className="flex justify-between w-full text-default-600 text-lg">
 				<div className="flex items-center gap-1">
-					<ArrowUpIcon className="w-5 h-5" /> 1
+					<IconArrowUp className="w-5 h-5" /> 1
 				</div>
 				<div className="flex items-center gap-1">
-					<ChartBarIcon className="w-5 h-5" /> 1
+					<IconChartAreaFilled className="w-5 h-5" /> 1
 				</div>
 			</CardFooter>
 		</Card>

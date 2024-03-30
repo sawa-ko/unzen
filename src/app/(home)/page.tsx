@@ -3,8 +3,8 @@
 import TagButton from "@/components/common/buttons/tag-button";
 import BotCard from "@/components/common/cards/bot.normal";
 import BotRow from "@/components/modules/bot/row";
-import { ClockIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Avatar, Input } from "@nextui-org/react";
+import { IconClockFilled, IconSearch, IconTrendingUp } from "@tabler/icons-react";
 
 export default function Page() {
 	return (
@@ -21,7 +21,7 @@ export default function Page() {
 							incidunt alias, ipsa unde autem qui magni et hic cumque quae.
 						</p>
 						<Input
-							endContent={<MagnifyingGlassIcon className="w-5 h-5" />}
+							endContent={<IconSearch className="w-5 h-5" />}
 							variant="bordered"
 							color="secondary"
 							className="w-full"
@@ -48,7 +48,10 @@ export default function Page() {
 					</div>
 				</div>
 			</div>
-			<BotRow title="Latest bots" icon={<ClockIcon className="w-6 h-6" />}>
+			<BotRow title="Most popular bots" icon={<IconTrendingUp className="w-6 h-6" />}>
+				<BotCard id="xx" />
+			</BotRow>
+			<BotRow title="Latest bots" icon={<IconClockFilled className="w-6 h-6" />}>
 				<BotCard id="xx" />
 			</BotRow>
 		</div>
