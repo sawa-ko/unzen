@@ -7,7 +7,9 @@ export default function OverviewBotTab() {
 	return (
 		<div className="flex gap-3">
 			<div className="w-full">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero amet saepe eligendi ab, possimus eum aliquid et nesciunt labore iste officia nulla, quia beatae eos ullam vel corrupti, magnam illum?
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero amet
+				saepe eligendi ab, possimus eum aliquid et nesciunt labore iste officia
+				nulla, quia beatae eos ullam vel corrupti, magnam illum?
 			</div>
 			<div className="w-1/3 flex flex-col gap-4">
 				<div className="flex flex-col gap-1">
