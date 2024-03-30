@@ -4,7 +4,11 @@ import TagButton from "@/components/common/buttons/tag-button";
 import BotCard from "@/components/common/cards/bot.normal";
 import BotRow from "@/components/modules/bot/row";
 import { Avatar, Input } from "@nextui-org/react";
-import { IconClockFilled, IconSearch, IconTrendingUp } from "@tabler/icons-react";
+import {
+	IconClockFilled,
+	IconSearch,
+	IconTrendingUp,
+} from "@tabler/icons-react";
 
 export default function Page() {
 	return (
@@ -48,10 +52,16 @@ export default function Page() {
 					</div>
 				</div>
 			</div>
-			<BotRow title="Most popular bots" icon={<IconTrendingUp className="w-6 h-6" />}>
+			<BotRow
+				title="Most popular bots"
+				icon={<IconTrendingUp className="w-6 h-6" />}
+			>
 				<BotCard id="xx" />
 			</BotRow>
-			<BotRow title="Latest bots" icon={<IconClockFilled className="w-6 h-6" />}>
+			<BotRow
+				title="Latest bots"
+				icon={<IconClockFilled className="w-6 h-6" />}
+			>
 				<BotCard id="xx" />
 			</BotRow>
 		</div>

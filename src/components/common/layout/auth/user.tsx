@@ -8,7 +8,12 @@ import {
 	DropdownTrigger,
 	useDisclosure,
 } from "@nextui-org/react";
-import { IconLogout2, IconPlus, IconSettingsFilled, IconUserFilled } from "@tabler/icons-react";
+import {
+	IconLogout2,
+	IconPlus,
+	IconSettingsFilled,
+	IconUserFilled,
+} from "@tabler/icons-react";
 import SubmitModal from "../../modals/submit";
 
 export default function HeaderAuthUser() {

@@ -1,5 +1,10 @@
 import { Button, Input, Tab, Tabs } from "@nextui-org/react";
-import { IconBallpenFilled, IconLoader2, IconRefresh, IconTrashFilled } from "@tabler/icons-react";
+import {
+	IconBallpenFilled,
+	IconLoader2,
+	IconRefresh,
+	IconTrashFilled,
+} from "@tabler/icons-react";
 
 export default function SettingsBotTab() {
 	return (
@@ -23,8 +28,25 @@ export default function SettingsBotTab() {
 				</Tab>
 				<Tab key="webhooks" title="Webhooks">
 					<div className="flex gap-2">
-						<Input errorMessage="Invalid webhook (quick reminder: webhook url is NOT a Discord webhook)" autoFocus size="sm" radius="md" label="Webhook URL" />
-						<Button spinner={<div><IconLoader2 className="w-5 h-5 animate-spin" /></div>} isLoading size="lg" color="success">Test webhook</Button>
+						<Input
+							errorMessage="Invalid webhook (quick reminder: webhook url is NOT a Discord webhook)"
+							autoFocus
+							size="sm"
+							radius="md"
+							label="Webhook URL"
+						/>
+						<Button
+							spinner={
+								<div>
+									<IconLoader2 className="w-5 h-5 animate-spin" />
+								</div>
+							}
+							isLoading
+							size="lg"
+							color="success"
+						>
+							Test webhook
+						</Button>
 					</div>
 				</Tab>
 				<Tab key="danger" title="Danger zone">

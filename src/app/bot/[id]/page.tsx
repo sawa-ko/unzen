@@ -4,7 +4,13 @@ import FallbackAvatar from "@/components/common/fallback-avatar";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import SettingsBotTab from "@/components/modules/bot/tabs/settings";
 import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
-import { IconArrowUp, IconInfoCircleFilled, IconMessageCircle2Filled, IconSettingsFilled, IconSquareRoundedPlusFilled } from "@tabler/icons-react";
+import {
+	IconArrowUp,
+	IconInfoCircleFilled,
+	IconMessageCircle2Filled,
+	IconSettingsFilled,
+	IconSquareRoundedPlusFilled,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 
