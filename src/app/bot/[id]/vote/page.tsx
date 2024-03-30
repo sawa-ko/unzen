@@ -17,7 +17,12 @@ export default function Page({ params }: { params: { id: string } }) {
 					/>
 					<h1 className="text-3xl font-bold">Probot</h1>
 				</div>
-				<Button startContent={<ArrowUpIcon className="w-5 h-5" />} color="secondary">Vote Probot</Button>
+				<Button
+					startContent={<ArrowUpIcon className="w-5 h-5" />}
+					color="secondary"
+				>
+					Vote Probot
+				</Button>
 			</div>
 			<Button
 				as={Link}

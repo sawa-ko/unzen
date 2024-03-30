@@ -28,8 +28,18 @@ export default function OverviewBotTab() {
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl font-bold">Owners</h1>
 					<div className="flex flex-col gap-1">
-						<Button className="flex justify-start gap-2 h-11" variant="bordered" radius="full">
-							<Avatar className="w-7 h-7" src="https://cdn.discordapp.com/embed/avatars/0.png" radius="full" size="sm" /> Simxnet
+						<Button
+							className="flex justify-start gap-2 h-11"
+							variant="bordered"
+							radius="full"
+						>
+							<Avatar
+								className="w-7 h-7"
+								src="https://cdn.discordapp.com/embed/avatars/0.png"
+								radius="full"
+								size="sm"
+							/>{" "}
+							Simxnet
 						</Button>
 					</div>
 				</div>

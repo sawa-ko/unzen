@@ -12,7 +12,9 @@ export default function Page() {
 			<div className="flex justify-between w-full max-h-72 ">
 				<div className="max-w-3xl w-full">
 					<div className="flex flex-col gap-3">
-						<h1 className="text-5xl font-black">discord<span className="text-secondary">bots</span></h1>
+						<h1 className="text-5xl font-black">
+							discord<span className="text-secondary">bots</span>
+						</h1>
 						<p className="text-sm text-default-600">
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
 							magni nam omnis! Voluptas cumque neque sunt? Itaque tempore cum
@@ -35,7 +37,12 @@ export default function Page() {
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
 					<div className="grid grid-cols-5 gap-3 opacity-60">
 						{[...Array(15)].map(() => (
-							<Avatar draggable={false} radius="lg" src="https://cdn.discordapp.com/embed/avatars/0.png" className="w-20 h-20" />
+							<Avatar
+								draggable={false}
+								radius="lg"
+								src="https://cdn.discordapp.com/embed/avatars/0.png"
+								className="w-20 h-20"
+							/>
 						))}
 					</div>
 				</div>

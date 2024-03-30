@@ -48,8 +48,8 @@ export default function BotCard({ id }: BotCardProps) {
 			<ScrollShadow hideScrollBar className="h-64">
 				<CardBody className="overflow-clip">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dicta
-					cupiditate esse ab animi beatae obcaecati corporis, assumenda, magni at
-					atque nam dolorem.
+					cupiditate esse ab animi beatae obcaecati corporis, assumenda, magni
+					at atque nam dolorem.
 				</CardBody>
 			</ScrollShadow>
 			<CardFooter className="flex justify-between w-full text-default-600 text-lg">

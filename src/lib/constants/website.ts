@@ -1,3 +1,3 @@
-import DefaultImage from "@public/fallback.png"
+import DefaultImage from "@public/fallback.png";
 
-export const defaultImage = DefaultImage
+export const defaultImage = DefaultImage;
