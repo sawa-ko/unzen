@@ -64,6 +64,9 @@ const config: Config = {
 				purple: {
 					colors: generateColors(commonColors.purple),
 				},
+				orange: {
+					colors: generateColors(commonColors.yellow),
+				},
 			},
 		}),
 		require("tailwind-gradient-mask-image"),

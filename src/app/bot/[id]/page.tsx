@@ -1,11 +1,14 @@
 "use client";
 
 import FallbackAvatar from "@/components/common/fallback-avatar";
-import Loader from "@/components/common/loader";
+import LoadingScreen from "@/components/common/layout/loading-screen";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
 import SettingsBotTab from "@/components/modules/bot/tabs/settings";
-import { type BotOwnerObject, useSingleBotQuery } from "@/lib/types/apollo";
+import {
+	type BotOwnerObject,
+	useSingleBotSuspenseQuery,
+} from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import {
 	Avatar,
@@ -32,11 +35,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-	const {
-		data: bot,
-		loading: gettingBot,
-		error,
-	} = useSingleBotQuery({
+	const { data: bot, error } = useSingleBotSuspenseQuery({
 		variables: {
 			input: {
 				id: params.id,
@@ -44,8 +43,8 @@ export default function Page({ params }: { params: { id: string } }) {
 		},
 	});
 
-	if (error) return notFound();
-	if (gettingBot || !bot) return <Loader />;
+	if (!bot) return <LoadingScreen />;
+	if (error || !bot) return notFound();
 	return (
 		<div>
 			<div className="w-full h-screen z-[0] absolute pointer-events-none inset-0">

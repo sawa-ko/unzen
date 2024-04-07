@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "@/components/common/loader";
+import LoadingScreen from "@/components/common/layout/loading-screen";
 import { useSingleBotQuery } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import { Avatar, Button } from "@nextui-org/react";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-	const { data: bot, loading: gettingBot } = useSingleBotQuery({
+	const { data: bot, error } = useSingleBotQuery({
 		variables: {
 			input: {
 				id: params.id,
@@ -18,7 +18,8 @@ export default function Page({ params }: { params: { id: string } }) {
 		onError: () => notFound(),
 	});
 
-	if (gettingBot || !bot) return <Loader />;
+	if (!bot) return <LoadingScreen />;
+	if (error || !bot) return notFound();
 	return (
 		<div className="flex flex-col gap-3 items-center justify-center h-[70vh]">
 			<div className="max-w-xl w-full flex justify-between items-center">

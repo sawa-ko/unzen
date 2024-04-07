@@ -6,7 +6,7 @@ import {
 } from "@/lib/types/zod/submit-bot.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
-import { IconReload, IconSend } from "@tabler/icons-react";
+import { IconReload, IconSend, IconSparkles } from "@tabler/icons-react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
 export default function Page() {
@@ -55,6 +55,18 @@ export default function Page() {
 				{...register("prefix")}
 			/>
 			<Select
+				description={
+					<div className="flex w-full justify-end">
+						<Button
+							startContent={<IconSparkles className="w-4 h-4" />}
+							variant="bordered"
+							size="sm"
+							className="justify-end flex border-secondary"
+						>
+							Suggest tags
+						</Button>
+					</div>
+				}
 				errorMessage={errors.tags?.message}
 				{...register("tags")}
 				label="Select at least 1 tag"

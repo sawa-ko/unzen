@@ -2,8 +2,8 @@ import Loader from "../loader";
 
 export default function LoadingScreen() {
 	return (
-		<div className="flex flex-col h-[70vh] justify-center w-full">
-			<Loader />
+		<div className="flex flex-col h-[50vh] justify-center w-full">
+			<Loader className="w-6 h-6 mx-auto" />
 		</div>
 	);
 }

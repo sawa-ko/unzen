@@ -21,7 +21,13 @@ export const submitBotFormSchema = z.object({
 		.min(0)
 		.max(10, { message: "Prefix length must be lower or equal than 10" })
 		.optional(),
-	tags: z.string(),
+	tags: z
+		.string({
+			invalid_type_error: "You must select at least 1 tag",
+			required_error: "You must select at least 1 tag",
+		})
+		.refine((t) => t.split(",").length >= 1)
+		.transform((t) => t.split(",")),
 });
 
 export type SubmitBotFormSchemaType = z.infer<typeof submitBotFormSchema>;

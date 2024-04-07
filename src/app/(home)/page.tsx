@@ -5,8 +5,12 @@ import BotCard from "@/components/common/cards/bot.normal";
 import Loader from "@/components/common/loader";
 import BotRow from "@/components/modules/bot/row";
 import { useBotsQuery } from "@/lib/types/apollo";
-import { Avatar, Input } from "@nextui-org/react";
-import { IconSearch, IconTrendingUp } from "@tabler/icons-react";
+import { Input } from "@nextui-org/react";
+import {
+	IconDiamondFilled,
+	IconSearch,
+	IconThumbUpFilled,
+} from "@tabler/icons-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
@@ -58,20 +62,24 @@ export default function Page() {
 						className="grid grid-cols-5 gap-3 opacity-60"
 					>
 						{[...Array(15)].map((_, index) => (
-							<Avatar
-								key={index}
-								draggable={false}
-								radius="lg"
-								src="/default-avatar.png"
-								className="w-20 h-20"
-							/>
+							<div key={index} className="w-20 h-20 rounded-xl bg-secondary" />
 						))}
 					</motion.div>
 				</div>
 			</div>
 			<BotRow
-				title="Most popular bots"
-				icon={<IconTrendingUp className="w-6 h-6" />}
+				loading={gettingBots}
+				title="Popular"
+				subtitle="This month most voted bots"
+				icon={<IconDiamondFilled className="w-6 h-6" />}
+			>
+				{botRow}
+			</BotRow>
+			<BotRow
+				loading={gettingBots}
+				title="Trending"
+				subtitle="This month most rated bots"
+				icon={<IconThumbUpFilled className="w-6 h-6" />}
 			>
 				{botRow}
 			</BotRow>

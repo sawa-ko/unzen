@@ -34,6 +34,10 @@ const visibleColors = [
 		name: "Purple",
 		value: "purple",
 	},
+	{
+		name: "Orange",
+		value: "orange",
+	},
 ];
 
 // Color theme changer (WIP)

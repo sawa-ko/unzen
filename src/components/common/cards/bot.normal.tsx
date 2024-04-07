@@ -47,7 +47,7 @@ export default function BotCard({
 						/>
 						<div className="flex flex-col">
 							<div className="flex items-center gap-1">
-								<h3 className="text-2xl font-bold">{name ?? "Unknown"}</h3>
+								<h3 className="text-lg font-bold">{name ?? "Unknown"}</h3>
 								{certified && <CertifiedBotBadge />}
 							</div>
 							<p className="text-sm text-default-500">Tag, Tag, Tag</p>

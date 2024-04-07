@@ -1,18 +1,23 @@
 import ErrorMessage from "@/components/common/error-message";
+import LoadingScreen from "@/components/common/layout/loading-screen";
 import { cn } from "@nextui-org/react";
 import type { ReactNode } from "react";
 
 interface BotRowProps {
 	title: string;
+	subtitle?: string;
 	icon: ReactNode;
 	gridClassNames?: string;
+	loading?: boolean;
 	children?: ReactNode;
 }
 
 export default function BotRow({
 	title,
+	subtitle,
 	icon,
 	gridClassNames = "md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:grid-cols-4 gap-3",
+	loading,
 	children,
 }: BotRowProps) {
 	return (
@@ -21,9 +26,14 @@ export default function BotRow({
 				<div className="bg-secondary-900 text-secondary p-3 rounded-full">
 					{icon}
 				</div>
-				<h1 className="text-2xl font-semibold">{title}</h1>
+				<div className="flex flex-col">
+					<h1 className="text-2xl font-semibold">{title}</h1>
+					{subtitle && <p className="text-default-600 text-sm">{subtitle}</p>}
+				</div>
 			</div>
-			{children ? (
+			{loading ? (
+				<LoadingScreen />
+			) : children ? (
 				<div className={cn("grid", gridClassNames)}>{children}</div>
 			) : (
 				<ErrorMessage centered message="No bots found" />
