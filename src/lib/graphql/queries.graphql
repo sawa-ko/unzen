@@ -5,3 +5,49 @@
 # }
 
 #! This is a test file, Apollo implementation is still in progress
+
+query Bots {
+  bots {
+    totalCount
+    nodes {
+      avatar
+      certified
+      guildCount
+      id
+      name
+      shortDescription
+    }
+  }
+}
+
+query SingleBot($input: GetBotInput!) {
+  getBot(input: $input) {
+    avatar
+    certified
+    description
+    website
+    supportServer
+    status
+    shortDescription
+    prefix
+    github
+    guildCount
+    id
+    importedFrom
+    inviteLink
+    name
+    owners {
+      username
+      id
+    }
+  }
+}
+
+query Session {
+  me {
+    id
+    username
+    permissions
+    avatar
+  }
+}

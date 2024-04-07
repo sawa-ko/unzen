@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://api.dbots.fun/"
+schema: "http://localhost:3001/graphql"
 documents: "src/**/*.graphql"
 generates:
   src/lib/types/apollo.ts:

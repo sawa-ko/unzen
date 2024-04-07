@@ -1,5 +1,8 @@
 "use client";
 
+import CertifiedBotBadge from "@/components/modules/bot/badges/certified-badge";
+import type { BotObject } from "@/lib/types/apollo";
+import { parseAvatar } from "@/lib/utils/common";
 import {
 	Avatar,
 	Card,
@@ -8,15 +11,19 @@ import {
 	CardHeader,
 	ScrollShadow,
 } from "@nextui-org/react";
-import { IconArrowUp, IconChartAreaFilled } from "@tabler/icons-react";
+import { IconArrowUp, IconChartBar } from "@tabler/icons-react";
 import Link from "next/link";
 import FallbackAvatar from "../fallback-avatar";
 
-interface BotCardProps {
-	id: string;
-}
+interface BotCardProps extends Partial<BotObject> {}
 
-export default function BotCard({ id }: BotCardProps) {
+export default function BotCard({
+	id,
+	avatar,
+	name,
+	shortDescription,
+	certified,
+}: BotCardProps) {
 	return (
 		<Card
 			as={Link}
@@ -24,40 +31,39 @@ export default function BotCard({ id }: BotCardProps) {
 			isPressable
 			key={id}
 			shadow="none"
-			className="max-h-64 h-full p-2"
+			radius="lg"
+			className="max-h-64 max-w-sm h-full p-3"
 		>
 			<CardHeader>
 				<div className="flex justify-between items-center w-full">
-					<div className="flex flex-row gap-4 items-center">
+					<div className="flex flex-row gap-3 items-center">
 						<Avatar
 							showFallback
 							fallback={<FallbackAvatar />}
 							key={id}
-							src="https://cdn.discordapp.com/embed/avatars/0.png"
-							radius="lg"
-							isBordered
-							className="w-20 h-20"
+							src={parseAvatar(avatar, id as string)}
+							radius="md"
+							className="w-16 h-16"
 						/>
 						<div className="flex flex-col">
-							<h3 className="text-2xl font-bold">Probot</h3>
+							<div className="flex items-center gap-1">
+								<h3 className="text-2xl font-bold">{name ?? "Unknown"}</h3>
+								{certified && <CertifiedBotBadge />}
+							</div>
 							<p className="text-sm text-default-500">Tag, Tag, Tag</p>
 						</div>
 					</div>
 				</div>
 			</CardHeader>
 			<ScrollShadow hideScrollBar className="h-64">
-				<CardBody className="overflow-clip">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dicta
-					cupiditate esse ab animi beatae obcaecati corporis, assumenda, magni
-					at atque nam dolorem.
-				</CardBody>
+				<CardBody className="overflow-clip">{shortDescription}</CardBody>
 			</ScrollShadow>
 			<CardFooter className="flex justify-between w-full text-default-600 text-lg">
 				<div className="flex items-center gap-1">
 					<IconArrowUp className="w-5 h-5" /> 1
 				</div>
 				<div className="flex items-center gap-1">
-					<IconChartAreaFilled className="w-5 h-5" /> 1
+					<IconChartBar className="w-5 h-5" /> 1
 				</div>
 			</CardFooter>
 		</Card>

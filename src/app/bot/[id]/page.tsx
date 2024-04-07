@@ -1,25 +1,56 @@
 "use client";
 
 import FallbackAvatar from "@/components/common/fallback-avatar";
+import Loader from "@/components/common/loader";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
+import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
 import SettingsBotTab from "@/components/modules/bot/tabs/settings";
-import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
+import { type BotOwnerObject, useSingleBotQuery } from "@/lib/types/apollo";
+import { parseAvatar } from "@/lib/utils/common";
+import {
+	Avatar,
+	Button,
+	Dropdown,
+	DropdownItem,
+	DropdownMenu,
+	DropdownTrigger,
+	Tab,
+	Tabs,
+} from "@nextui-org/react";
 import {
 	IconArrowUp,
+	IconCopyPlusFilled,
+	IconDots,
+	IconFlag2Filled,
 	IconInfoCircleFilled,
 	IconMessageCircle2Filled,
+	IconPlus,
 	IconSettingsFilled,
-	IconSquareRoundedPlusFilled,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
+	const {
+		data: bot,
+		loading: gettingBot,
+		error,
+	} = useSingleBotQuery({
+		variables: {
+			input: {
+				id: params.id,
+			},
+		},
+	});
+
+	if (error) return notFound();
+	if (gettingBot || !bot) return <Loader />;
 	return (
 		<div>
 			<div className="w-full h-screen z-[0] absolute pointer-events-none inset-0">
 				<Image
-					src="https://cdn.discordapp.com/embed/avatars/0.png"
+					src={parseAvatar(bot.getBot.avatar, bot.getBot.id)}
 					width={1000}
 					height={1000}
 					alt="bot banner background"
@@ -27,28 +58,28 @@ export default function Page({ params }: { params: { id: string } }) {
 					draggable={false}
 				/>
 			</div>
-			<div className="flex flex-col gap-10">
+			<div className="flex flex-col gap-10 z-10">
 				<div className="flex lg:flex-row gap-3 flex-col justify-between w-full items-center">
 					<div className="flex lg:flex-row flex-col gap-4 items-center">
 						<Avatar
+							isFocusable
 							fallback={<FallbackAvatar />}
 							showFallback
-							src="https://cdn.discordapp.com/embed/avatars/0.png"
+							src={parseAvatar(bot.getBot.avatar, bot.getBot.id)}
 							radius="full"
-							isBordered
 							className="w-24 h-24"
 						/>
 						<div className="flex flex-col items-center lg:items-start">
-							<h1 className="text-3xl font-bold">Probot</h1>
+							<h1 className="text-3xl font-bold">{bot.getBot.name}</h1>
 							<p className="text-sm lg:text-left text-center text-default-600">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								{bot.getBot.shortDescription}
 							</p>
 						</div>
 					</div>
 					<div className="flex lg:flex-row flex-col gap-2 w-full lg:w-fit">
 						<Button
 							fullWidth
-							startContent={<IconSquareRoundedPlusFilled className="w-6 h-6" />}
+							startContent={<IconPlus className="w-6 h-6" />}
 							size="lg"
 							color="secondary"
 						>
@@ -56,13 +87,34 @@ export default function Page({ params }: { params: { id: string } }) {
 						</Button>
 						<Button
 							as={Link}
-							href={`/bot/${params.id}/vote`}
+							href={`/bot/${bot.getBot.id}/vote`}
 							fullWidth
 							startContent={<IconArrowUp className="w-6 h-6" />}
 							size="lg"
 						>
 							Vote
 						</Button>
+						<Dropdown showArrow placement="bottom-end">
+							<DropdownTrigger>
+								<Button className="lg:flex hidden" isIconOnly size="lg">
+									<IconDots className="w-6 h-6" />
+								</Button>
+							</DropdownTrigger>
+							<DropdownMenu aria-label="Static Actions">
+								<DropdownItem
+									startContent={<IconCopyPlusFilled className="w-5 h-5" />}
+								>
+									Copy ID
+								</DropdownItem>
+								<DropdownItem
+									startContent={<IconFlag2Filled className="w-5 h-5" />}
+									className="text-danger"
+									color="danger"
+								>
+									Report {bot.getBot.name}
+								</DropdownItem>
+							</DropdownMenu>
+						</Dropdown>
 					</div>
 				</div>
 				<div className="w-full">
@@ -87,19 +139,23 @@ export default function Page({ params }: { params: { id: string } }) {
 								</div>
 							}
 						>
-							<OverviewBotTab />
+							<OverviewBotTab
+								description={bot.getBot.description}
+								owners={bot.getBot.owners as BotOwnerObject[]}
+								guildCount={bot.getBot.guildCount}
+								prefix={bot.getBot.prefix}
+							/>
 						</Tab>
 						<Tab
-							isDisabled
-							disabled
-							aria-disabled
 							key="reviews"
 							title={
 								<div className="flex items-center gap-2">
 									<IconMessageCircle2Filled className="w-4 h-4" /> Reviews
 								</div>
 							}
-						/>
+						>
+							<ReviewsBotTab />
+						</Tab>
 						<Tab
 							key="settings"
 							title={
@@ -108,7 +164,7 @@ export default function Page({ params }: { params: { id: string } }) {
 								</div>
 							}
 						>
-							<SettingsBotTab />
+							<SettingsBotTab id={bot.getBot.id} />
 						</Tab>
 					</Tabs>
 				</div>

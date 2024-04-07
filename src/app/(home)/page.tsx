@@ -2,15 +2,28 @@
 
 import TagButton from "@/components/common/buttons/tag-button";
 import BotCard from "@/components/common/cards/bot.normal";
+import Loader from "@/components/common/loader";
 import BotRow from "@/components/modules/bot/row";
+import { useBotsQuery } from "@/lib/types/apollo";
 import { Avatar, Input } from "@nextui-org/react";
-import {
-	IconClockFilled,
-	IconSearch,
-	IconTrendingUp,
-} from "@tabler/icons-react";
+import { IconSearch, IconTrendingUp } from "@tabler/icons-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
+	const { data: bots, loading: gettingBots } = useBotsQuery();
+	const { scrollY: progress } = useScroll();
+	const springProgress = useSpring(progress, {
+		stiffness: 150,
+		damping: 30,
+		restDelta: 0.001,
+	});
+
+	const botRow = gettingBots ? (
+		<Loader />
+	) : bots?.bots.nodes?.length ? (
+		bots.bots.nodes.map((bot, key) => <BotCard key={key} {...bot} />)
+	) : undefined;
+
 	return (
 		<div className="flex flex-col gap-10">
 			<div className="flex justify-between w-full max-h-72 ">
@@ -25,7 +38,8 @@ export default function Page() {
 							incidunt alias, ipsa unde autem qui magni et hic cumque quae.
 						</p>
 						<Input
-							endContent={<IconSearch className="w-5 h-5" />}
+							isClearable
+							startContent={<IconSearch className="w-5 h-5" />}
 							variant="bordered"
 							color="secondary"
 							className="w-full"
@@ -39,30 +53,27 @@ export default function Page() {
 					</div>
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
-					<div className="grid grid-cols-5 gap-3 opacity-60">
+					<motion.div
+						style={{ translateY: springProgress }}
+						className="grid grid-cols-5 gap-3 opacity-60"
+					>
 						{[...Array(15)].map((_, index) => (
 							<Avatar
 								key={index}
 								draggable={false}
 								radius="lg"
-								src="https://cdn.discordapp.com/embed/avatars/0.png"
+								src="/default-avatar.png"
 								className="w-20 h-20"
 							/>
 						))}
-					</div>
+					</motion.div>
 				</div>
 			</div>
 			<BotRow
 				title="Most popular bots"
 				icon={<IconTrendingUp className="w-6 h-6" />}
 			>
-				<BotCard id="xx" />
-			</BotRow>
-			<BotRow
-				title="Latest bots"
-				icon={<IconClockFilled className="w-6 h-6" />}
-			>
-				<BotCard id="xx" />
+				{botRow}
 			</BotRow>
 		</div>
 	);

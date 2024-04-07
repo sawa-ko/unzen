@@ -1,0 +1,13 @@
+mutation CreateBot($input: CreateBotInput!) {
+  createBot(input: $input) {
+    id
+    name
+  }
+}
+
+mutation DeleteBot($input: DeleteBotInput!) {
+  deleteBot(input: $input) {
+    id
+    name
+  }
+}

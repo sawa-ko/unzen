@@ -1,3 +1,6 @@
+"use client";
+
+import { useSession } from "@/lib/hooks/session";
 import {
 	Divider,
 	Image,
@@ -8,9 +11,12 @@ import {
 import BrandLogo from "@public/dbots-white_256x256.png";
 import Link from "next/link";
 import LoginButton from "../buttons/login-button";
+import Loader from "../loader";
 import HeaderAuthUser from "./auth/user";
+import ColorThemeChanger from "./theme/theme-changer";
 
 export default function Header() {
+	const { data: session, loading: gettingSession } = useSession();
 	return (
 		<Navbar shouldHideOnScroll className="mb-10 w-full" maxWidth="xl">
 			<NavbarContent
@@ -37,8 +43,14 @@ export default function Header() {
 			</NavbarContent>
 			<NavbarContent justify="end">
 				<NavbarItem className="flex items-center gap-3">
-					<LoginButton />
-					<HeaderAuthUser />
+					<ColorThemeChanger />
+					{gettingSession ? (
+						<Loader />
+					) : session ? (
+						<HeaderAuthUser {...session.me} />
+					) : (
+						<LoginButton />
+					)}
 				</NavbarItem>
 			</NavbarContent>
 		</Navbar>

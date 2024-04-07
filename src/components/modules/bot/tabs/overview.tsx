@@ -1,17 +1,21 @@
 import TagButton from "@/components/common/buttons/tag-button";
 import DiscordIcon from "@/components/common/icons/discord";
+import type { BotObject } from "@/lib/types/apollo";
 import { Avatar, Button, Chip, Link } from "@nextui-org/react";
 import NextLink from "next/link";
 
-export default function OverviewBotTab() {
+export default function OverviewBotTab({
+	description,
+	owners,
+	guildCount,
+	prefix,
+}: Pick<BotObject, "description" | "owners" | "guildCount" | "prefix">) {
 	return (
-		<div className="flex gap-3">
+		<div className="flex lg:flex-row flex-col gap-3">
 			<div className="w-full">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero amet
-				saepe eligendi ab, possimus eum aliquid et nesciunt labore iste officia
-				nulla, quia beatae eos ullam vel corrupti, magnam illum?
+				<div className="break-all min-w-full table">{description}</div>
 			</div>
-			<div className="w-1/3 flex flex-col gap-4">
+			<div className="lg:w-1/3 w-full flex flex-col gap-4">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-2xl font-bold">Overview</h1>
 					<div className="flex flex-col gap-1 font-bold text-default-600">
@@ -21,30 +25,33 @@ export default function OverviewBotTab() {
 						</div>
 						<div className="flex w-full justify-between items-center">
 							<span>Guilds</span>
-							<Chip>2.3k</Chip>
+							<Chip>{guildCount}</Chip>
 						</div>
 						<div className="flex w-full justify-between items-center">
 							<span>Prefix</span>
-							<Chip>#</Chip>
+							<Chip>{prefix ?? "Slash commands"}</Chip>
 						</div>
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl font-bold">Owners</h1>
 					<div className="flex flex-col gap-1">
-						<Button
-							className="flex justify-start gap-2 h-11"
-							variant="bordered"
-							radius="full"
-						>
-							<Avatar
-								className="w-7 h-7"
-								src="https://cdn.discordapp.com/embed/avatars/0.png"
+						{owners.map((owner, key) => (
+							<Button
+								key={key}
+								className="flex justify-start gap-2 h-11"
+								variant="bordered"
 								radius="full"
-								size="sm"
-							/>{" "}
-							Simxnet
-						</Button>
+							>
+								<Avatar
+									className="w-7 h-7"
+									src="/default-avatar.png"
+									radius="full"
+									size="sm"
+								/>{" "}
+								{owner.username}
+							</Button>
+						))}
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">

@@ -9,7 +9,7 @@ import {
 	ModalHeader,
 	Tooltip,
 } from "@nextui-org/react";
-import { IconArchiveFilled, IconLegoFilled } from "@tabler/icons-react";
+import { IconAppsFilled, IconArchiveFilled } from "@tabler/icons-react";
 import Link from "next/link";
 
 export default function SubmitModal({ ...props }: CommonModalProps) {
@@ -25,11 +25,11 @@ export default function SubmitModal({ ...props }: CommonModalProps) {
 								<Tooltip showArrow content="Coming soon">
 									<Card
 										shadow="none"
-										className="bg-default-50 opacity-50 cursor-not-allowed"
+										className="opacity-50 bg-content2 cursor-not-allowed"
 									>
 										<CardBody>
 											<div className="flex gap-3 items-center">
-												<div className="p-3 rounded-medium bg-default-100">
+												<div className="p-3 rounded-medium bg-content3">
 													<IconArchiveFilled className="w-6 h-6 text-default-600" />
 												</div>
 												<h1>Bot pack</h1>
@@ -42,13 +42,13 @@ export default function SubmitModal({ ...props }: CommonModalProps) {
 									as={Link}
 									href="/bot/add"
 									shadow="none"
-									className="bg-default-50"
+									className="bg-content2"
 									isPressable
 								>
 									<CardBody>
 										<div className="flex gap-3 items-center">
-											<div className="p-3 rounded-medium bg-default-100">
-												<IconLegoFilled className="w-6 h-6 text-default-600" />
+											<div className="p-3 rounded-medium bg-content3">
+												<IconAppsFilled className="w-6 h-6 text-default-600" />
 											</div>
 											<h1>Discord bot</h1>
 										</div>

@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/common/error-message";
 import { cn } from "@nextui-org/react";
 import type { ReactNode } from "react";
 
@@ -5,13 +6,13 @@ interface BotRowProps {
 	title: string;
 	icon: ReactNode;
 	gridClassNames?: string;
-	children: ReactNode;
+	children?: ReactNode;
 }
 
 export default function BotRow({
 	title,
 	icon,
-	gridClassNames = "md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-3",
+	gridClassNames = "md:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:grid-cols-4 gap-3",
 	children,
 }: BotRowProps) {
 	return (
@@ -22,7 +23,11 @@ export default function BotRow({
 				</div>
 				<h1 className="text-2xl font-semibold">{title}</h1>
 			</div>
-			<div className={cn("grid", gridClassNames)}>{children}</div>
+			{children ? (
+				<div className={cn("grid", gridClassNames)}>{children}</div>
+			) : (
+				<ErrorMessage centered message="No bots found" />
+			)}
 		</div>
 	);
 }

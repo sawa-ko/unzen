@@ -1,5 +1,7 @@
 "use client";
 
+import type { AuthUserObject } from "@/lib/types/apollo";
+import { parseAvatar } from "@/lib/utils/common";
 import {
 	Avatar,
 	Dropdown,
@@ -16,7 +18,10 @@ import {
 } from "@tabler/icons-react";
 import SubmitModal from "../../modals/submit";
 
-export default function HeaderAuthUser() {
+export default function HeaderAuthUser({
+	avatar,
+	id,
+}: Partial<AuthUserObject>) {
 	const disclosureProps = useDisclosure();
 	return (
 		<>
@@ -26,13 +31,12 @@ export default function HeaderAuthUser() {
 					<Avatar
 						isBordered
 						as="button"
-						className="transition-transform"
+						className="transition-transform w-9 h-9"
 						color="default"
-						size="sm"
-						src="https://cdn.discordapp.com/avatars/1076700780175831100/a_6fbf039c0576b0b98e586b3ad26b34c7.png"
+						src={parseAvatar(avatar, id as string)}
 					/>
 				</DropdownTrigger>
-				<DropdownMenu variant="faded" aria-label="Static Actions">
+				<DropdownMenu variant="faded" aria-label="User dropdown">
 					<DropdownItem startContent={<IconUserFilled className="w-5 h-5" />}>
 						Profile
 					</DropdownItem>

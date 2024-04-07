@@ -21,11 +21,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html suppressHydrationWarning lang="en" className="main">
+		<html suppressHydrationWarning lang="en" id="main_element" className="cyan">
 			<body className={font.className}>
 				<Providers>
 					<Header />
-					<main className="max-w-[1280px] w-full mx-auto">{children}</main>
+					<main className="px-4 sm:px-12 lg:px-32">{children}</main>
 					<Footer />
 				</Providers>
 			</body>
