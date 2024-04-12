@@ -52,9 +52,7 @@ export default function BotDeleteModal({
 						<ModalFooter>
 							<Button onClick={onClose}>Cancel</Button>
 							<Button
-								onClick={() =>
-									deleteFn({ variables: { input: { id: id + 1 } } })
-								}
+								onClick={() => deleteFn({ variables: { input: { id: id } } })}
 								color="secondary"
 							>
 								Yes, delete {name}
