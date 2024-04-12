@@ -1,15 +1,38 @@
 "use client";
 
+import LoadingScreen from "@/components/common/layout/loading-screen";
+import { useCreateBotMutation } from "@/lib/types/apollo";
 import {
 	type SubmitBotFormSchemaType,
 	submitBotFormSchema,
 } from "@/lib/types/zod/submit-bot.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
-import { IconReload, IconSend, IconSparkles } from "@tabler/icons-react";
+import {
+	IconItalic,
+	IconReload,
+	IconSend,
+	IconSparkles,
+} from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { italicCommand, useTextAreaMarkdownEditor } from "react-mde";
+import { toast } from "sonner";
+
+const toolbarButtons = [
+	{
+		id: "italic",
+		icon: <IconItalic className="w-5 h-5" />,
+	},
+];
 
 export default function Page() {
+	const router = useRouter();
+	const { commandController } = useTextAreaMarkdownEditor({
+		commandMap: {
+			italic: italicCommand,
+		},
+	});
 	const {
 		register,
 		handleSubmit,
@@ -18,9 +41,25 @@ export default function Page() {
 	} = useForm<SubmitBotFormSchemaType>({
 		resolver: zodResolver(submitBotFormSchema),
 	});
+	const [create, { loading: creating }] = useCreateBotMutation({
+		onCompleted: (data) => {
+			toast.success(`Submitted ${data.createBot.name} successfully ☺️`);
+			router.replace("/");
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
-	const onSubmit: SubmitHandler<SubmitBotFormSchemaType> = (data) =>
-		console.log(data);
+	const onSubmit: SubmitHandler<SubmitBotFormSchemaType> = (input) => {
+		create({
+			variables: {
+				input,
+			},
+		});
+	};
+
+	if (creating) return <LoadingScreen />;
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
@@ -54,6 +93,35 @@ export default function Page() {
 				description="Leaving this field in blank will set the prefix as 'Slash commands'"
 				{...register("prefix")}
 			/>
+			<div className="flex flex-col gap-1">
+				<div className="flex flex-wrap gap-2">
+					{toolbarButtons.map((button, key) => (
+						<Button
+							onClick={() =>
+								commandController.executeCommand(button.id as "italic")
+							}
+							key={key}
+							size="sm"
+							isIconOnly
+						>
+							{button.icon}
+						</Button>
+					))}
+				</div>
+				<Textarea
+					errorMessage={errors.description?.message}
+					description="Min 100, max 5000 (Markdown is recommended)"
+					label="A long description"
+					rows={10}
+					disableAnimation
+					classNames={{
+						input: "resize-y min-h-[40px]",
+					}}
+					disableAutosize
+					{...register("description")}
+					isRequired
+				/>
+			</div>
 			<Select
 				description={
 					<div className="flex w-full justify-end">
@@ -72,10 +140,10 @@ export default function Page() {
 				label="Select at least 1 tag"
 				selectionMode="multiple"
 			>
-				<SelectItem key={"fun"} value={"Fun"}>
+				<SelectItem key={"Fun"} value={"Fun"}>
 					Fun
 				</SelectItem>
-				<SelectItem key={"mod"} value={"Moderation"}>
+				<SelectItem key={"Moderation"} value={"Moderation"}>
 					Moderation
 				</SelectItem>
 			</Select>

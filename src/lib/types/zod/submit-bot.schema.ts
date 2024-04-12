@@ -14,6 +14,12 @@ export const submitBotFormSchema = z.object({
 		})
 		.min(25, { message: "Short description should be greater or equal to 25" })
 		.max(100, { message: "Short description should be lower or equal to 100" }),
+	description: z
+		.string({
+			required_error: "The description is required",
+		})
+		.min(100, { message: "Description should be greater or equal to 100" })
+		.max(5_000, { message: "Ddescription should be lower or equal to 5000" }),
 	prefix: z
 		.string({
 			required_error: "The prefix is required",

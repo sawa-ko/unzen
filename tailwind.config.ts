@@ -1,30 +1,6 @@
 import { commonColors, nextui } from "@nextui-org/react";
 import type { Config } from "tailwindcss";
-
-const contentColors = {
-	contentColor1: "#18161e",
-	contentColor2: "#22202b",
-	contentColor3: "#2b2936",
-	contentColor4: "#343241",
-};
-const contentForegroundColor = "#D4D4D4";
-const backgroundColor = "#070510";
-
-const generateColors = (mainColor: typeof commonColors.cyan) => {
-	return {
-		background: backgroundColor,
-		secondary: {
-			...mainColor,
-			foreground: commonColors.black,
-			DEFAULT: mainColor["500"],
-		},
-		default: {
-			DEFAULT: contentColors.contentColor1,
-			foreground: contentForegroundColor,
-		},
-		...contentColors,
-	};
-};
+import { generateColors, rosePineColors } from "./tailwind.colors";
 
 const config: Config = {
 	content: [
@@ -66,6 +42,58 @@ const config: Config = {
 				},
 				orange: {
 					colors: generateColors(commonColors.yellow),
+				},
+				"rose-pine": {
+					colors: {
+						background: rosePineColors.default.base,
+						secondary: {
+							900: rosePineColors.default.surface,
+							foreground: rosePineColors.default.base,
+							DEFAULT: rosePineColors.default.iris,
+						},
+						default: {
+							DEFAULT: rosePineColors.default.surface,
+							foreground: rosePineColors.default.text,
+							100: rosePineColors.default.overlay,
+							200: rosePineColors.default.base,
+						},
+						content1: rosePineColors.default.surface,
+						content2: rosePineColors.default.overlay,
+						content3: rosePineColors.default.muted,
+						content4: rosePineColors.default.subtle,
+						danger: {
+							DEFAULT: rosePineColors.default.love,
+							foreground: rosePineColors.default.base,
+						},
+						warning: rosePineColors.default.gold,
+						success: rosePineColors.default.pine,
+					},
+				},
+				"rose-pine-moon": {
+					colors: {
+						background: rosePineColors.moon.base,
+						secondary: {
+							900: rosePineColors.moon.surface,
+							foreground: rosePineColors.moon.base,
+							DEFAULT: rosePineColors.moon.iris,
+						},
+						default: {
+							DEFAULT: rosePineColors.moon.surface,
+							foreground: rosePineColors.moon.text,
+							100: rosePineColors.moon.overlay,
+							200: rosePineColors.moon.base,
+						},
+						content1: rosePineColors.moon.surface,
+						content2: rosePineColors.moon.overlay,
+						content3: rosePineColors.moon.muted,
+						content4: rosePineColors.moon.subtle,
+						danger: {
+							DEFAULT: rosePineColors.moon.love,
+							foreground: rosePineColors.moon.base,
+						},
+						warning: rosePineColors.moon.gold,
+						success: rosePineColors.moon.pine,
+					},
 				},
 			},
 		}),

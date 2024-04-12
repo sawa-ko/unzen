@@ -21,7 +21,7 @@ export default function ErrorMessage({
 			)}
 		>
 			<div className="mr-2">
-				{icon ?? <IconMoodSadFilled className="w-5 h-5" />}
+				{icon ?? <IconMoodSadFilled className="w-6 h-6" />}
 			</div>
 			<span>{message}</span>
 		</div>

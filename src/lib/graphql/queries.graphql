@@ -39,7 +39,23 @@ query SingleBot($input: GetBotInput!) {
     owners {
       username
       id
+      avatar
     }
+    tags {
+      displayName
+      name
+    }
+  }
+}
+
+query SingleBotVote($input: GetBotInput!) {
+  getBot(input: $input) {
+    avatar
+    certified
+    website
+    guildCount
+    id
+    name
   }
 }
 
@@ -49,5 +65,14 @@ query Session {
     username
     permissions
     avatar
+  }
+}
+
+query Vanity($input: GetVanityInput!) {
+  getVanity(input: $input) {
+    id
+    targetId
+    type
+    userId
   }
 }

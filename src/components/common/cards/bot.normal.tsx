@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/react";
 import { IconArrowUp, IconChartBar } from "@tabler/icons-react";
 import Link from "next/link";
+import TagButton from "../buttons/tag-button";
 import FallbackAvatar from "../fallback-avatar";
 
 interface BotCardProps extends Partial<BotObject> {}
@@ -50,7 +51,20 @@ export default function BotCard({
 								<h3 className="text-lg font-bold">{name ?? "Unknown"}</h3>
 								{certified && <CertifiedBotBadge />}
 							</div>
-							<p className="text-sm text-default-500">Tag, Tag, Tag</p>
+							<ScrollShadow
+								hideScrollBar
+								orientation="horizontal"
+								className="max-w-44"
+							>
+								<div className="flex">
+									<TagButton>XD</TagButton>
+									<TagButton>XD</TagButton>
+									<TagButton>XD</TagButton>
+									<TagButton>XD</TagButton>
+									<TagButton>XD</TagButton>
+									<TagButton>XD</TagButton>
+								</div>
+							</ScrollShadow>
 						</div>
 					</div>
 				</div>

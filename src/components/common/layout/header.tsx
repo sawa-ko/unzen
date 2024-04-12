@@ -7,9 +7,11 @@ import {
 	Navbar,
 	NavbarContent,
 	NavbarItem,
+	cn,
 } from "@nextui-org/react";
 import BrandLogo from "@public/dbots-white_256x256.png";
 import Link from "next/link";
+import { useWindowScroll } from "react-use";
 import LoginButton from "../buttons/login-button";
 import Loader from "../loader";
 import HeaderAuthUser from "./auth/user";
@@ -17,8 +19,16 @@ import ColorThemeChanger from "./theme/theme-changer";
 
 export default function Header() {
 	const { data: session, loading: gettingSession } = useSession();
+	const { y } = useWindowScroll();
 	return (
-		<Navbar shouldHideOnScroll className="mb-10 w-full" maxWidth="xl">
+		<Navbar
+			isBlurred={false}
+			className={cn(
+				"mb-10 w-full duration-200",
+				y >= 20 ? "backdrop-blur bg-background/80" : "bg-transparent",
+			)}
+			maxWidth="xl"
+		>
 			<NavbarContent
 				className="hidden sm:flex gap-4 items-center"
 				justify="start"

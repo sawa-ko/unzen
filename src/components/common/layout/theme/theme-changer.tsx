@@ -38,6 +38,14 @@ const visibleColors = [
 		name: "Orange",
 		value: "orange",
 	},
+	{
+		name: "Rosé Pine",
+		value: "rose-pine",
+	},
+	{
+		name: "Rosé Pine (Moon)",
+		value: "rose-pine-moon",
+	},
 ];
 
 // Color theme changer (WIP)

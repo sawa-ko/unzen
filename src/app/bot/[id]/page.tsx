@@ -7,7 +7,9 @@ import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
 import SettingsBotTab from "@/components/modules/bot/tabs/settings";
 import {
 	type BotOwnerObject,
+	type BotTagObject,
 	useSingleBotSuspenseQuery,
+	useVanitySuspenseQuery,
 } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import {
@@ -35,10 +37,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-	const { data: bot, error } = useSingleBotSuspenseQuery({
+	const {
+		data: { getVanity: vanity },
+	} = useVanitySuspenseQuery({
+		variables: { input: { id: params.id } },
+		errorPolicy: "ignore",
+	});
+	const {
+		data: { getBot: bot },
+		error,
+	} = useSingleBotSuspenseQuery({
 		variables: {
 			input: {
-				id: params.id,
+				id: vanity?.targetId ?? params.id,
 			},
 		},
 	});
@@ -49,7 +60,7 @@ export default function Page({ params }: { params: { id: string } }) {
 		<div>
 			<div className="w-full h-screen z-[0] absolute pointer-events-none inset-0">
 				<Image
-					src={parseAvatar(bot.getBot.avatar, bot.getBot.id)}
+					src={parseAvatar(bot.avatar, bot.id)}
 					width={1000}
 					height={1000}
 					alt="bot banner background"
@@ -61,17 +72,18 @@ export default function Page({ params }: { params: { id: string } }) {
 				<div className="flex lg:flex-row gap-3 flex-col justify-between w-full items-center">
 					<div className="flex lg:flex-row flex-col gap-4 items-center">
 						<Avatar
-							isFocusable
+							isBordered
+							color="secondary"
 							fallback={<FallbackAvatar />}
 							showFallback
-							src={parseAvatar(bot.getBot.avatar, bot.getBot.id)}
+							src={parseAvatar(bot.avatar, bot.id)}
 							radius="full"
 							className="w-24 h-24"
 						/>
 						<div className="flex flex-col items-center lg:items-start">
-							<h1 className="text-3xl font-bold">{bot.getBot.name}</h1>
+							<h1 className="text-3xl font-bold">{bot.name}</h1>
 							<p className="text-sm lg:text-left text-center text-default-600">
-								{bot.getBot.shortDescription}
+								{bot.shortDescription}
 							</p>
 						</div>
 					</div>
@@ -86,7 +98,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						</Button>
 						<Button
 							as={Link}
-							href={`/bot/${bot.getBot.id}/vote`}
+							href={`/bot/${bot.id}/vote`}
 							fullWidth
 							startContent={<IconArrowUp className="w-6 h-6" />}
 							size="lg"
@@ -99,7 +111,7 @@ export default function Page({ params }: { params: { id: string } }) {
 									<IconDots className="w-6 h-6" />
 								</Button>
 							</DropdownTrigger>
-							<DropdownMenu aria-label="Static Actions">
+							<DropdownMenu variant="faded" aria-label="Static Actions">
 								<DropdownItem
 									startContent={<IconCopyPlusFilled className="w-5 h-5" />}
 								>
@@ -110,7 +122,7 @@ export default function Page({ params }: { params: { id: string } }) {
 									className="text-danger"
 									color="danger"
 								>
-									Report {bot.getBot.name}
+									Report {bot.name}
 								</DropdownItem>
 							</DropdownMenu>
 						</Dropdown>
@@ -139,10 +151,11 @@ export default function Page({ params }: { params: { id: string } }) {
 							}
 						>
 							<OverviewBotTab
-								description={bot.getBot.description}
-								owners={bot.getBot.owners as BotOwnerObject[]}
-								guildCount={bot.getBot.guildCount}
-								prefix={bot.getBot.prefix}
+								description={bot.description}
+								owners={bot.owners as BotOwnerObject[]}
+								guildCount={bot.guildCount}
+								prefix={bot.prefix}
+								tags={bot.tags as BotTagObject[]}
 							/>
 						</Tab>
 						<Tab
@@ -163,7 +176,7 @@ export default function Page({ params }: { params: { id: string } }) {
 								</div>
 							}
 						>
-							<SettingsBotTab id={bot.getBot.id} />
+							<SettingsBotTab name={bot.name} id={bot.id} />
 						</Tab>
 					</Tabs>
 				</div>

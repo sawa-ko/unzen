@@ -1,7 +1,8 @@
 import TagButton from "@/components/common/buttons/tag-button";
 import DiscordIcon from "@/components/common/icons/discord";
 import type { BotObject } from "@/lib/types/apollo";
-import { Avatar, Button, Chip, Link } from "@nextui-org/react";
+import { parseAvatar } from "@/lib/utils/common";
+import { Chip, Link, User } from "@nextui-org/react";
 import NextLink from "next/link";
 
 export default function OverviewBotTab({
@@ -9,7 +10,11 @@ export default function OverviewBotTab({
 	owners,
 	guildCount,
 	prefix,
-}: Pick<BotObject, "description" | "owners" | "guildCount" | "prefix">) {
+	tags,
+}: Pick<
+	BotObject,
+	"description" | "owners" | "guildCount" | "prefix" | "tags"
+>) {
 	return (
 		<div className="flex lg:flex-row flex-col gap-3">
 			<div className="w-full">
@@ -35,33 +40,35 @@ export default function OverviewBotTab({
 				</div>
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl font-bold">Owners</h1>
-					<div className="flex flex-col gap-1">
+					<div className="flex flex-col items-start gap-1">
 						{owners.map((owner, key) => (
-							<Button
+							<User
 								key={key}
-								className="flex justify-start gap-2 h-11"
-								variant="bordered"
-								radius="full"
-							>
-								<Avatar
-									className="w-7 h-7"
-									src="/default-avatar.png"
-									radius="full"
-									size="sm"
-								/>{" "}
-								{owner.username}
-							</Button>
+								avatarProps={{
+									src: parseAvatar(owner.avatar, owner.id),
+									size: "sm",
+								}}
+								name={owner.username}
+							/>
 						))}
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl font-bold">Tags</h1>
 					<div className="flex flex-wrap gap-1">
-						<TagButton>Test</TagButton>
+						{tags.map((tag, key) => (
+							<TagButton
+								key={key}
+								as={NextLink}
+								href={`/explore?tag=${tag.name}`}
+							>
+								{tag.displayName}
+							</TagButton>
+						))}
 					</div>
 				</div>
 				<div className="flex flex-col gap-2">
-					<h1 className="text-2xl font-bold">Links</h1>
+					<h1 className="text-2xl font-bold">Links TDIDIDIDIDO</h1>
 					<div className="flex flex-col gap-2">
 						<Link color="secondary" underline="always" as={NextLink} href="/gg">
 							<DiscordIcon className="w-5 h-5 mr-2" />

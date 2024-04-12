@@ -14,7 +14,7 @@ import {
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
-	const { data: bots, loading: gettingBots } = useBotsQuery();
+	const { data: bots, loading: gettingBots } = useBotsQuery(); // todo: make a single query that fetchs "tags" and "bots"
 	const { scrollY: progress } = useScroll();
 	const springProgress = useSpring(progress, {
 		stiffness: 150,
@@ -34,7 +34,7 @@ export default function Page() {
 				<div className="max-w-3xl w-full">
 					<div className="flex flex-col gap-3">
 						<h1 className="text-5xl font-black">
-							discord<span className="text-secondary">bots</span>
+							dbots<span className="text-secondary">.fun</span>
 						</h1>
 						<p className="text-sm text-default-600">
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
