@@ -5,19 +5,19 @@ import type { ReactNode } from "react";
 interface ErrorMessageProps {
 	icon?: ReactNode;
 	message: string;
-	centered?: boolean;
+	isCentered?: boolean;
 }
 
 export default function ErrorMessage({
 	icon,
 	message,
-	centered,
+	isCentered,
 }: ErrorMessageProps) {
 	return (
 		<div
 			className={cn(
 				"font-bold text-danger",
-				centered ? "flex items-center justify-center h-32 w-full" : "",
+				isCentered ? "flex items-center justify-center h-32 w-full" : "",
 			)}
 		>
 			<div className="mr-2">

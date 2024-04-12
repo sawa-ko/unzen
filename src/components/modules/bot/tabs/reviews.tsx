@@ -56,14 +56,14 @@ export default function ReviewsBotTab() {
 					<ErrorMessage
 						icon={<IconAlertTriangleFilled className="w-6 h-6" />}
 						message="This section is work in progress"
-						centered
+						isCentered
 					/>
 				</div>
 			</div>
 			<ErrorMessage
 				icon={<IconAlertTriangleFilled className="w-6 h-6" />}
 				message="This section is also work in progress"
-				centered
+				isCentered
 			/>
 		</div>
 	);

@@ -36,7 +36,7 @@ export default function BotRow({
 			) : children ? (
 				<div className={cn("grid", gridClassNames)}>{children}</div>
 			) : (
-				<ErrorMessage centered message="No bots found" />
+				<ErrorMessage isCentered message="No bots found" />
 			)}
 		</div>
 	);

@@ -2,9 +2,9 @@
 
 import FallbackAvatar from "@/components/common/fallback-avatar";
 import LoadingScreen from "@/components/common/layout/loading-screen";
+import SettingsBotTab from "@/components/modules/bot/tabs/manage";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
-import SettingsBotTab from "@/components/modules/bot/tabs/settings";
 import {
 	type BotOwnerObject,
 	type BotTagObject,
