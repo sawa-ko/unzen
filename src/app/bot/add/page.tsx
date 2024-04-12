@@ -6,6 +6,7 @@ import {
 	type SubmitBotFormSchemaType,
 	submitBotFormSchema,
 } from "@/lib/types/zod/submit-bot.schema";
+import { handleError } from "@/lib/utils/common";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import {
@@ -46,9 +47,7 @@ export default function Page() {
 			toast.success(`Submitted ${data.createBot.name} successfully ☺️`);
 			router.replace("/");
 		},
-		onError: (error) => {
-			toast.error(error.message);
-		},
+		onError: (error) => handleError(error),
 	});
 
 	const onSubmit: SubmitHandler<SubmitBotFormSchemaType> = (input) => {

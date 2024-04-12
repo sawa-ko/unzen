@@ -10,7 +10,6 @@ import {
 	type BotTagObject,
 	useSingleBotSuspenseQuery,
 	useVanityQuery,
-	useVanitySuspenseQuery,
 } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import {

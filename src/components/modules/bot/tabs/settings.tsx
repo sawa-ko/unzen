@@ -2,6 +2,7 @@ import Loader from "@/components/common/loader";
 import BotDeleteModal from "@/components/common/modals/delete";
 import { type BotObject, useDeleteBotMutation } from "@/lib/types/apollo";
 import { removeFromCache } from "@/lib/utils/cache";
+import { handleError } from "@/lib/utils/common";
 import { Button, Input, Tab, Tabs, useDisclosure } from "@nextui-org/react";
 import {
 	IconBallpenFilled,
@@ -23,7 +24,7 @@ export default function SettingsBotTab({
 			deleteModal.onClose();
 			router.replace("/");
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => handleError(error),
 		update: (cache) => removeFromCache(cache, { id, __typename: "BotObject" }),
 	});
 	return (
