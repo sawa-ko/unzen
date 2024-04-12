@@ -9,6 +9,7 @@ import {
 	type BotOwnerObject,
 	type BotTagObject,
 	useSingleBotSuspenseQuery,
+	useVanityQuery,
 	useVanitySuspenseQuery,
 } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
@@ -37,11 +38,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-	const {
-		data: { getVanity: vanity },
-	} = useVanitySuspenseQuery({
+	const { data: vanity } = useVanityQuery({
 		variables: { input: { id: params.id } },
-		errorPolicy: "ignore",
+		errorPolicy: "none",
 	});
 	const {
 		data: { getBot: bot },
@@ -49,7 +48,7 @@ export default function Page({ params }: { params: { id: string } }) {
 	} = useSingleBotSuspenseQuery({
 		variables: {
 			input: {
-				id: vanity?.targetId ?? params.id,
+				id: vanity?.getVanity.targetId ?? params.id,
 			},
 		},
 	});

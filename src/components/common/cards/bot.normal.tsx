@@ -9,11 +9,9 @@ import {
 	CardBody,
 	CardFooter,
 	CardHeader,
-	ScrollShadow,
 } from "@nextui-org/react";
-import { IconArrowUp, IconChartBar } from "@tabler/icons-react";
+import { IconArrowUp, IconServer } from "@tabler/icons-react";
 import Link from "next/link";
-import TagButton from "../buttons/tag-button";
 import FallbackAvatar from "../fallback-avatar";
 
 interface BotCardProps extends Partial<BotObject> {}
@@ -33,7 +31,7 @@ export default function BotCard({
 			key={id}
 			shadow="none"
 			radius="lg"
-			className="max-h-64 max-w-sm h-full p-3"
+			className="max-h-64 max-w-lg h-full p-2"
 		>
 			<CardHeader>
 				<div className="flex justify-between items-center w-full">
@@ -51,33 +49,20 @@ export default function BotCard({
 								<h3 className="text-lg font-bold">{name ?? "Unknown"}</h3>
 								{certified && <CertifiedBotBadge />}
 							</div>
-							<ScrollShadow
-								hideScrollBar
-								orientation="horizontal"
-								className="max-w-44"
-							>
-								<div className="flex">
-									<TagButton>XD</TagButton>
-									<TagButton>XD</TagButton>
-									<TagButton>XD</TagButton>
-									<TagButton>XD</TagButton>
-									<TagButton>XD</TagButton>
-									<TagButton>XD</TagButton>
-								</div>
-							</ScrollShadow>
+							<p className="text-default-600 text-sm">Fun, Moderation, Etc.</p>
 						</div>
 					</div>
 				</div>
 			</CardHeader>
-			<ScrollShadow hideScrollBar className="h-64">
-				<CardBody className="overflow-clip">{shortDescription}</CardBody>
-			</ScrollShadow>
+			<CardBody className="overflow-clip h-64 gradient-mask-b-0">
+				<p className="text-small">{shortDescription}</p>
+			</CardBody>
 			<CardFooter className="flex justify-between w-full text-default-600 text-lg">
 				<div className="flex items-center gap-1">
 					<IconArrowUp className="w-5 h-5" /> 1
 				</div>
 				<div className="flex items-center gap-1">
-					<IconChartBar className="w-5 h-5" /> 1
+					<IconServer className="w-5 h-5" /> 1
 				</div>
 			</CardFooter>
 		</Card>

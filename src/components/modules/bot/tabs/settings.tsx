@@ -43,13 +43,13 @@ export default function SettingsBotTab({
 								className="w-fit"
 								startContent={<IconBallpenFilled className="w-5 h-5" />}
 							>
-								Edit Probot
+								Edit {name}
 							</Button>
 							<Button
 								className="w-fit"
 								startContent={<IconRefresh className="w-5 h-5" />}
 							>
-								Sync Probot
+								Sync {name}
 							</Button>
 						</div>
 					</Tab>
@@ -76,7 +76,7 @@ export default function SettingsBotTab({
 							startContent={<IconTrashFilled className="w-5 h-5" />}
 							onClick={deleteModal.onOpen}
 						>
-							Delete Probot
+							Delete {name}
 						</Button>
 					</Tab>
 				</Tabs>
