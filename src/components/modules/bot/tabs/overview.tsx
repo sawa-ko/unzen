@@ -1,5 +1,6 @@
 import TagButton from "@/components/common/buttons/tag-button";
 import DiscordIcon from "@/components/common/icons/discord";
+import MarkdownRender from "@/components/common/markdown";
 import type { BotObject } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import { Chip, Link, User } from "@nextui-org/react";
@@ -18,7 +19,9 @@ export default function OverviewBotTab({
 	return (
 		<div className="flex lg:flex-row flex-col gap-3">
 			<div className="w-full">
-				<div className="break-all min-w-full table">{description}</div>
+				<div className="break-all min-w-full table">
+					<MarkdownRender content={description} />
+				</div>
 			</div>
 			<div className="lg:w-1/3 w-full flex flex-col gap-4">
 				<div className="flex flex-col gap-1">

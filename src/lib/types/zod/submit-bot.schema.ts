@@ -21,12 +21,11 @@ export const submitBotFormSchema = z.object({
 		.min(100, { message: "Description should be greater or equal to 100" })
 		.max(5_000, { message: "Ddescription should be lower or equal to 5000" }),
 	prefix: z
-		.string({
-			required_error: "The prefix is required",
-		})
+		.string()
 		.min(0)
 		.max(10, { message: "Prefix length must be lower or equal than 10" })
-		.optional(),
+		.nullish()
+		.nullable(),
 	tags: z
 		.string({
 			invalid_type_error: "You must select at least 1 tag",

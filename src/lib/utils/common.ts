@@ -15,6 +15,6 @@ export function parseAvatar(
 
 export function handleError(error: ApolloError) {
 	return error.graphQLErrors.map((e) =>
-		toast.error(`${e.message} ${e.extensions.face}`),
+		toast.error(`${e.message} ${e.extensions.face ?? ""}`),
 	);
 }

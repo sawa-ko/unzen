@@ -26,6 +26,9 @@ dependencies:
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
+  markdown-to-jsx:
+    specifier: ^7.4.6
+    version: 7.4.6(react@18.2.0)
   next:
     specifier: 14.2.0
     version: 14.2.0(@babel/core@7.24.4)(react-dom@18.2.0)(react@18.2.0)
@@ -6016,6 +6019,15 @@ packages:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /markdown-to-jsx@7.4.6(react@18.2.0):
+    resolution: {integrity: sha512-3cyNxI/PwotvYkjg6KmFaN1uyN/7NqETteD2DobBB8ro/FR9jsHIh4Fi7ywAz0s9QHRKCmGlOUggs5GxSWACKA==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      react: '>= 0.14.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}

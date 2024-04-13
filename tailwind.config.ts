@@ -25,6 +25,9 @@ const config: Config = {
 			},
 			themes: {
 				// todo: find a better way to do this shit
+				dark: {
+					colors: generateColors(commonColors.cyan),
+				},
 				cyan: {
 					colors: generateColors(commonColors.cyan),
 				},

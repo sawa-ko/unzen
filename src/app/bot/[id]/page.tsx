@@ -2,9 +2,11 @@
 
 import FallbackAvatar from "@/components/common/fallback-avatar";
 import LoadingScreen from "@/components/common/layout/loading-screen";
+import Policy from "@/components/common/policy";
 import SettingsBotTab from "@/components/modules/bot/tabs/manage";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
+import { useSession } from "@/lib/hooks/session";
 import {
 	type BotOwnerObject,
 	type BotTagObject,
@@ -37,6 +39,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
+	const { data: user } = useSession();
 	const { data: vanity } = useVanityQuery({
 		variables: { input: { id: params.id } },
 		errorPolicy: "none",
@@ -51,6 +54,9 @@ export default function Page({ params }: { params: { id: string } }) {
 			},
 		},
 	});
+
+	const isValidOwner =
+		!!bot.owners.find((owner) => owner.id === user?.me.id) ?? false;
 
 	if (!bot) return <LoadingScreen />;
 	if (error || !bot) return notFound();
@@ -166,16 +172,18 @@ export default function Page({ params }: { params: { id: string } }) {
 						>
 							<ReviewsBotTab />
 						</Tab>
-						<Tab
-							key="settings"
-							title={
-								<div className="flex items-center gap-2">
-									<IconSettingsFilled className="w-4 h-4" /> Settings
-								</div>
-							}
-						>
-							<SettingsBotTab name={bot.name} id={bot.id} />
-						</Tab>
+						{isValidOwner && (
+							<Tab
+								key="settings"
+								title={
+									<div className="flex items-center gap-2">
+										<IconSettingsFilled className="w-4 h-4" /> Settings
+									</div>
+								}
+							>
+								<SettingsBotTab name={bot.name} id={bot.id} />
+							</Tab>
+						)}
 					</Tabs>
 				</div>
 			</div>

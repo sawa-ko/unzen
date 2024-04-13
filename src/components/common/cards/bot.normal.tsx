@@ -22,6 +22,7 @@ export default function BotCard({
 	name,
 	shortDescription,
 	certified,
+	guildCount,
 }: BotCardProps) {
 	return (
 		<Card
@@ -31,8 +32,19 @@ export default function BotCard({
 			key={id}
 			shadow="none"
 			radius="lg"
-			className="max-h-64 max-w-lg h-full p-2"
+			className="max-h-64 max-w-lg h-full"
+			classNames={{
+				header: "p-4",
+				body: "p-4",
+				footer: "p-6",
+			}}
 		>
+			<div
+				style={{
+					backgroundImage: `url('${parseAvatar(avatar, id as string)}')`,
+				}}
+				className="animate-in bg-no-repeat group-hover:scale-110 duration-150 bg-cover fade-in absolute w-full h-32 gradient-mask-b-0 opacity-[0.15]"
+			/>
 			<CardHeader>
 				<div className="flex justify-between items-center w-full">
 					<div className="flex flex-row gap-3 items-center">
@@ -62,7 +74,7 @@ export default function BotCard({
 					<IconArrowUp className="w-5 h-5" /> 1
 				</div>
 				<div className="flex items-center gap-1">
-					<IconServer className="w-5 h-5" /> 1
+					<IconServer className="w-5 h-5" /> {guildCount}
 				</div>
 			</CardFooter>
 		</Card>

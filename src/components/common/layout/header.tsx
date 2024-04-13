@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useWindowScroll } from "react-use";
 import LoginButton from "../buttons/login-button";
 import Loader from "../loader";
+import Policy from "../policy";
 import HeaderAuthUser from "./auth/user";
 import ColorThemeChanger from "./theme/theme-changer";
 
@@ -54,13 +55,12 @@ export default function Header() {
 			<NavbarContent justify="end">
 				<NavbarItem className="flex items-center gap-3">
 					<ColorThemeChanger />
-					{gettingSession ? (
+					<Policy condition={gettingSession}>
 						<Loader />
-					) : session ? (
-						<HeaderAuthUser {...session.me} />
-					) : (
-						<LoginButton />
-					)}
+					</Policy>
+					<Policy condition={!!session} fallback={<LoginButton />}>
+						<HeaderAuthUser {...session?.me} />
+					</Policy>
 				</NavbarItem>
 			</NavbarContent>
 		</Navbar>

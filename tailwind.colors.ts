@@ -34,7 +34,7 @@ export const rosePineColors = {
         highlightLow: "#2a283e",
         highlightMed: "#44415a",
         highlightHigh: "#56526e",
-      }
+      },
 };
 
 export const baseColors = {

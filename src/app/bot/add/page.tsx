@@ -53,7 +53,10 @@ export default function Page() {
 	const onSubmit: SubmitHandler<SubmitBotFormSchemaType> = (input) => {
 		create({
 			variables: {
-				input,
+				input: {
+					...input,
+					prefix: input.prefix?.length! >= 1 ? input.prefix : undefined,
+				},
 			},
 		});
 	};
@@ -128,7 +131,8 @@ export default function Page() {
 							startContent={<IconSparkles className="w-4 h-4" />}
 							variant="bordered"
 							size="sm"
-							className="justify-end flex border-secondary"
+							color="secondary"
+							className="justify-end flex"
 						>
 							Suggest tags
 						</Button>

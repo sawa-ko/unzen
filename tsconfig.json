@@ -14,14 +14,20 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+
+    // "no" corner
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": false,
+
+    // Plugins?
     "plugins": [
       {
         "name": "next"
       }
     ],
+
+    // Custom paths
     "paths": {
       "@/*": ["./src/*"],
       "@public/*": ["./public/*"]
