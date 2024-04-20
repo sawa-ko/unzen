@@ -12,9 +12,10 @@ export default function OverviewBotTab({
 	guildCount,
 	prefix,
 	tags,
+	votes,
 }: Pick<
 	BotObject,
-	"description" | "owners" | "guildCount" | "prefix" | "tags"
+	"description" | "owners" | "guildCount" | "prefix" | "tags" | "votes"
 >) {
 	return (
 		<div className="flex lg:flex-row flex-col gap-3">
@@ -29,7 +30,7 @@ export default function OverviewBotTab({
 					<div className="flex flex-col gap-1 font-bold text-default-600">
 						<div className="flex w-full justify-between items-center">
 							<span>Votes</span>
-							<Chip>4k</Chip>
+							<Chip>{votes.totalCount}</Chip>
 						</div>
 						<div className="flex w-full justify-between items-center">
 							<span>Guilds</span>

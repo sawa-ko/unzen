@@ -7,8 +7,7 @@ import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
 import { useSession } from "@/lib/hooks/session";
 import {
-	type BotOwnerObject,
-	type BotTagObject,
+	type BotObject,
 	useSingleBotSuspenseQuery,
 	useVanityQuery,
 } from "@/lib/types/apollo";
@@ -153,13 +152,7 @@ export default function Page({ params }: { params: { id: string } }) {
 								</div>
 							}
 						>
-							<OverviewBotTab
-								description={bot.description}
-								owners={bot.owners as BotOwnerObject[]}
-								guildCount={bot.guildCount}
-								prefix={bot.prefix}
-								tags={bot.tags as BotTagObject[]}
-							/>
+							<OverviewBotTab {...(bot as BotObject)} />
 						</Tab>
 						<Tab
 							key="reviews"

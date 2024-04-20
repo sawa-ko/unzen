@@ -33,6 +33,9 @@ query SingleBot($input: GetBotInput!) {
     importedFrom
     inviteLink
     name
+    votes {
+      totalCount
+    }
     owners {
       username
       id

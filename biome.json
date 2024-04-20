@@ -19,7 +19,7 @@
 		}
 	},
 	"files": {
-		"ignore": ["src/lib/types/apollo.ts"],
+		"ignore": ["./src/lib/types/apollo.ts"],
 		"include": ["tailwind.config.ts", "src"],
 		"ignoreUnknown": true
 	},

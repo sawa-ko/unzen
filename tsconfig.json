@@ -20,6 +20,9 @@
     "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": false,
 
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+
     // Plugins?
     "plugins": [
       {

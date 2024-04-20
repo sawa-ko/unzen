@@ -1,15 +1,11 @@
 "use client";
 
 import LoadingScreen from "@/components/common/layout/loading-screen";
+import { type SubmitBotDTO, submitBotResolver } from "@/lib/dtos/submit-bot";
 import { useCreateBotMutation } from "@/lib/types/apollo";
-import {
-	type SubmitBotFormSchemaType,
-	submitBotFormSchema,
-} from "@/lib/types/zod/submit-bot.schema";
 import { handleError } from "@/lib/utils/common";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
-import { IconReload, IconSend, IconSparkles } from "@tabler/icons-react";
+import { IconReload, IconSend } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -21,8 +17,8 @@ export default function Page() {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm<SubmitBotFormSchemaType>({
-		resolver: zodResolver(submitBotFormSchema),
+	} = useForm<SubmitBotDTO>({
+		resolver: submitBotResolver,
 	});
 	const [create, { loading: creating }] = useCreateBotMutation({
 		onCompleted: (data) => {
@@ -32,7 +28,7 @@ export default function Page() {
 		onError: handleError,
 	});
 
-	const onSubmit: SubmitHandler<SubmitBotFormSchemaType> = (input) => {
+	const onSubmit: SubmitHandler<SubmitBotDTO> = (input) => {
 		create({
 			variables: {
 				input: {
@@ -93,19 +89,6 @@ export default function Page() {
 				/>
 			</div>
 			<Select
-				description={
-					<div className="flex w-full justify-end">
-						<Button
-							startContent={<IconSparkles className="w-4 h-4" />}
-							variant="bordered"
-							size="sm"
-							color="secondary"
-							className="justify-end flex"
-						>
-							Suggest tags
-						</Button>
-					</div>
-				}
 				errorMessage={errors.tags?.message}
 				{...register("tags")}
 				label="Select at least 1 tag"
