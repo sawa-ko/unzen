@@ -11,6 +11,7 @@ const nextConfig = {
 		],
 		unoptimized: true,
 	},
+	swcMinify: false
 };
 
 export default nextConfig;

@@ -1,7 +1,7 @@
 "use client";
 
-import type { AuthUserObject } from "@/lib/types/apollo";
-import { parseAvatar } from "@/lib/utils/common";
+import { type AuthUserObject, useLogoutMutation } from "@/lib/types/apollo";
+import { handleError, parseAvatar } from "@/lib/utils/common";
 import {
 	Avatar,
 	Dropdown,
@@ -16,6 +16,7 @@ import {
 	IconSettingsFilled,
 	IconUserFilled,
 } from "@tabler/icons-react";
+import Loader from "../../loader";
 import SubmitModal from "../../modals/submit";
 
 export default function HeaderAuthUser({
@@ -23,6 +24,10 @@ export default function HeaderAuthUser({
 	id,
 }: Partial<AuthUserObject>) {
 	const disclosureProps = useDisclosure();
+	const [logout, { loading }] = useLogoutMutation({
+		onCompleted: () => location.reload(),
+		onError: handleError,
+	});
 	return (
 		<>
 			<SubmitModal {...disclosureProps} />
@@ -53,7 +58,10 @@ export default function HeaderAuthUser({
 						Submit
 					</DropdownItem>
 					<DropdownItem
-						startContent={<IconLogout2 className="w-5 h-5" />}
+						onClick={() => logout()}
+						startContent={
+							loading ? <Loader /> : <IconLogout2 className="w-5 h-5" />
+						}
 						className="text-danger"
 						color="danger"
 					>

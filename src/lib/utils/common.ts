@@ -18,3 +18,13 @@ export function handleError(error: ApolloError) {
 		toast.error(`${e.message} ${e.extensions.face ?? ""}`),
 	);
 }
+
+export function formatDate(ms: number) {
+	let minutes = Math.floor((ms / (1000 * 60)) % 60);
+	let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+
+	hours = hours < 10 ? Number(`0${hours}`) : hours;
+	minutes = minutes < 10 ? Number(`0${minutes}`) : minutes;
+
+	return `${hours} hours and ${minutes} minutes`;
+}

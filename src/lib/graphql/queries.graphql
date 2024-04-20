@@ -1,21 +1,18 @@
-# query Bots($filters: GetBotFormInput) {
-#   bots(filters: $filters) {
-#     totalCount
-#   }
-# }
-
-#! This is a test file, Apollo implementation is still in progress
-
-query Bots {
-  bots {
-    totalCount
+query HomeBots($pagination: PaginationInput) {
+  bots(pagination: $pagination) {
     nodes {
       avatar
-      certified
-      guildCount
-      id
-      name
       shortDescription
+      name
+      tags {
+        displayName
+      }
+      id
+      guildCount
+      votes {
+        totalCount
+      }
+      certified
     }
   }
 }
@@ -52,10 +49,12 @@ query SingleBotVote($input: GetBotInput!) {
   getBot(input: $input) {
     avatar
     certified
-    website
-    guildCount
     id
     name
+    votes {
+      totalCount
+    }
+    guildCount
   }
 }
 
@@ -74,5 +73,22 @@ query Vanity($input: GetVanityInput!) {
     targetId
     type
     userId
+  }
+}
+
+query CanVote($input: BotVoteCreateInput!) {
+  canVote(input: $input) {
+    canVote
+    expires
+  }
+}
+
+query Webhook($input: GetWebhookInput!) {
+  getWebhook(input: $input) {
+    id
+    events
+    payloadFields
+    secret
+    url
   }
 }

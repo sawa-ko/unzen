@@ -1,5 +1,3 @@
-"use client";
-
 import type { BotObject } from "@/lib/types/apollo";
 import { Tab, Tabs } from "@nextui-org/react";
 import React from "react";

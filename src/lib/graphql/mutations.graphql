@@ -11,3 +11,34 @@ mutation DeleteBot($input: DeleteBotInput!) {
     name
   }
 }
+
+mutation CreateVote($input: BotVoteCreateInput!) {
+  createVote(input: $input) {
+    botId
+    expires
+  }
+}
+
+mutation CreateWebhook($input: CreateWebhookInput!) {
+  createWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}
+
+mutation UpdateWebhook($input: UpdateWebhookInput!) {
+  updateWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}
+
+mutation Logout {
+  logOut
+}

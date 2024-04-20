@@ -2,7 +2,6 @@
 
 import FallbackAvatar from "@/components/common/fallback-avatar";
 import LoadingScreen from "@/components/common/layout/loading-screen";
-import Policy from "@/components/common/policy";
 import SettingsBotTab from "@/components/modules/bot/tabs/manage";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
 import ReviewsBotTab from "@/components/modules/bot/tabs/reviews";
@@ -143,7 +142,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							cursor: "w-full bg-secondary",
 							tab: "max-w-fit px-0 h-12",
 							tabContent: "group-data-[selected=true]:text-secondary",
-							panel: "h-screen",
+							panel: "h-full",
 						}}
 					>
 						<Tab

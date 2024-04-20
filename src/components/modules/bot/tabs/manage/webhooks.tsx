@@ -1,4 +1,14 @@
-import type { BotObject } from "@/lib/types/apollo";
+import LoadingScreen from "@/components/common/layout/loading-screen";
+import {
+	type BotObject,
+	WebhookEvent,
+	WebhookPayloadField,
+	useCreateWebhookMutation,
+	useUpdateWebhookMutation,
+	useWebhookQuery,
+} from "@/lib/types/apollo";
+import type { WebhookFormSchemaType } from "@/lib/types/zod/webhooks";
+import { handleError } from "@/lib/utils/common";
 import {
 	Button,
 	Card,
@@ -7,10 +17,71 @@ import {
 	CardHeader,
 } from "@nextui-org/react";
 import { IconRefresh } from "@tabler/icons-react";
+import { toast } from "sonner";
+
+// todo: finish this once webhooks are finished (api)
 
 export default function ManageWebhooksBotTab({
 	name,
+	id,
 }: Pick<BotObject, "id" | "name">) {
+	const {
+		data: webhook,
+		loading: gettingWebhook,
+		refetch: refetchWebhook,
+	} = useWebhookQuery({
+		variables: {
+			input: {
+				id,
+			},
+		},
+		errorPolicy: "ignore",
+	});
+
+	const [updateWebhook, { loading: updating }] = useUpdateWebhookMutation({
+		onCompleted: () => {
+			toast.success("Updated webhook configuration ✨");
+			refetchWebhook();
+		},
+		onError: handleError,
+	});
+
+	const [createWebhook, { loading: creating }] = useCreateWebhookMutation({
+		onCompleted: () => {
+			toast.success("Created webhook configuration ✨");
+			refetchWebhook();
+		},
+		onError: handleError,
+	});
+
+	const onSubmit = (data: WebhookFormSchemaType) => {
+		if (webhook)
+			updateWebhook({
+				variables: {
+					input: {
+						id,
+						events: [WebhookEvent.AllEvents],
+						payloadFields: [WebhookPayloadField.User],
+						url: data.url!,
+						secret: data.secret!,
+					},
+				},
+			});
+		else
+			createWebhook({
+				variables: {
+					input: {
+						id,
+						events: [WebhookEvent.AllEvents],
+						payloadFields: [WebhookPayloadField.User],
+						url: data.url!,
+						secret: data.secret!,
+					},
+				},
+			});
+	};
+
+	if (gettingWebhook ?? updating ?? creating) return <LoadingScreen />;
 	return (
 		<div className="flex flex-col gap-3">
 			<Card classNames={{ base: "p-2" }}>
@@ -38,10 +109,14 @@ export default function ManageWebhooksBotTab({
 						Webhooks are used *commonly* to log/notify whenever someone votes
 						for {name}
 					</p>
+					<p>form here.</p>
 				</CardBody>
 				<CardFooter>
-					I can't put a {"<Input />"} field here because of Next.js errors, but
-					act like there is an input here :D
+					<div className="flex justify-end gap-2 w-full">
+						<Button type="button" variant="faded">
+							Test webhook
+						</Button>
+					</div>
 				</CardFooter>
 			</Card>
 		</div>

@@ -1,5 +1,5 @@
-import { modalMotionProps } from "@/lib/motion-styles";
 import type { CommonModalProps } from "@/lib/types/modals";
+import { modalMotionProps } from "@/lib/utils/motion-styles";
 import {
 	Card,
 	CardBody,

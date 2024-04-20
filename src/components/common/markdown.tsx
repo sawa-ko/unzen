@@ -16,7 +16,7 @@ export default function MarkdownRender({ content }: MarkdownRenderProps) {
 				overrides: {
 					article: {
 						props: {
-							className: "max-w-xl text-wrap h-full",
+							className: "w-full text-wrap h-full",
 						},
 					},
 					h1: {

@@ -14,7 +14,13 @@ import { IconArrowUp, IconServer } from "@tabler/icons-react";
 import Link from "next/link";
 import FallbackAvatar from "../fallback-avatar";
 
-interface BotCardProps extends Partial<BotObject> {}
+interface BotCardProps
+	extends Partial<
+		Pick<
+			BotObject,
+			"id" | "avatar" | "name" | "shortDescription" | "certified" | "guildCount"
+		>
+	> {}
 
 export default function BotCard({
 	id,
@@ -32,19 +38,13 @@ export default function BotCard({
 			key={id}
 			shadow="none"
 			radius="lg"
-			className="max-h-64 max-w-lg h-full"
+			className="max-h-64 max-w-lg h-full group"
 			classNames={{
 				header: "p-4",
 				body: "p-4",
 				footer: "p-6",
 			}}
 		>
-			<div
-				style={{
-					backgroundImage: `url('${parseAvatar(avatar, id as string)}')`,
-				}}
-				className="animate-in bg-no-repeat group-hover:scale-110 duration-150 bg-cover fade-in absolute w-full h-32 gradient-mask-b-0 opacity-[0.15]"
-			/>
 			<CardHeader>
 				<div className="flex justify-between items-center w-full">
 					<div className="flex flex-row gap-3 items-center">
@@ -54,11 +54,11 @@ export default function BotCard({
 							key={id}
 							src={parseAvatar(avatar, id as string)}
 							radius="md"
-							className="w-16 h-16"
+							className="w-20 h-20"
 						/>
 						<div className="flex flex-col">
 							<div className="flex items-center gap-1">
-								<h3 className="text-lg font-bold">{name ?? "Unknown"}</h3>
+								<h3 className="text-xl font-bold">{name ?? "Unknown"}</h3>
 								{certified && <CertifiedBotBadge />}
 							</div>
 							<p className="text-default-600 text-sm">Fun, Moderation, Etc.</p>
@@ -77,6 +77,13 @@ export default function BotCard({
 					<IconServer className="w-5 h-5" /> {guildCount}
 				</div>
 			</CardFooter>
+
+			<div
+				style={{
+					backgroundImage: `url('${parseAvatar(avatar, id as string)}')`,
+				}}
+				className="animate-in bg-no-repeat duration-300 bg-cover absolute w-full h-full bottom-0 gradient-mask-t-0 group-hover:gradient-mask-t-30 opacity-10"
+			/>
 		</Card>
 	);
 }

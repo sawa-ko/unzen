@@ -28,7 +28,7 @@ export default function ManageDangerBotTab({
 			deleteModal.onClose();
 			router.replace("/");
 		},
-		onError: (error) => handleError(error),
+		onError: handleError,
 		update: (cache) => removeFromCache(cache, { id, __typename: "BotObject" }),
 	});
 	return (

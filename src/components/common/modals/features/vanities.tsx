@@ -1,6 +1,6 @@
 "use client";
 
-import { modalMotionProps } from "@/lib/motion-styles";
+import { modalMotionProps } from "@/lib/utils/motion-styles";
 import {
 	Button,
 	Image,

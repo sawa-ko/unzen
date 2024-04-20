@@ -9,20 +9,18 @@ interface ErrorMessageProps {
 }
 
 export default function ErrorMessage({
-	icon,
+	icon = <IconMoodSadFilled className="w-6 h-6" />,
 	message,
 	isCentered,
 }: ErrorMessageProps) {
 	return (
 		<div
 			className={cn(
-				"font-bold text-danger",
-				isCentered ? "flex items-center justify-center h-32 w-full" : "",
+				"font-bold text-danger flex items-center",
+				isCentered ? "justify-center h-32 w-full" : "",
 			)}
 		>
-			<div className="mr-2">
-				{icon ?? <IconMoodSadFilled className="w-6 h-6" />}
-			</div>
+			{icon && <div className="mr-2">{icon}</div>}
 			<span>{message}</span>
 		</div>
 	);

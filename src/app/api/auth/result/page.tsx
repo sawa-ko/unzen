@@ -2,8 +2,10 @@
 
 import LoadingScreen from "@/components/common/layout/loading-screen";
 import { useSession } from "@/lib/hooks/session";
+import { Button } from "@nextui-org/react";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { useEffect } from "react";
 
 export default function Page() {
@@ -15,26 +17,26 @@ export default function Page() {
 			router.replace("/");
 		}, 5_000);
 	});
-	return loading ? (
-		<LoadingScreen />
-	) : auth ? (
+
+	if (loading) return <LoadingScreen />;
+	return (
 		<div className="flex flex-col justify-center items-center h-[50vh]">
 			<div className="flex flex-col gap-2 items-center">
-				<IconCheck className="w-12 h-12 text-success" />
-				<h2 className="text-2xl font-semibold">Success</h2>
+				{auth ? (
+					<React.Fragment>
+						<IconCheck className="w-12 h-12 text-success" />
+						<h2 className="text-2xl font-semibold">Success</h2>
+					</React.Fragment>
+				) : (
+					<React.Fragment>
+						<IconX className="w-12 h-12 text-success" />
+						<h2 className="text-2xl font-semibold">Something happened</h2>
+					</React.Fragment>
+				)}
 				<h2 className="text-xl font-normal">
 					You will be redirected automatically...
 				</h2>
-			</div>
-		</div>
-	) : (
-		<div className="flex flex-col justify-center items-center h-screen">
-			<div className="flex flex-col gap-2 items-center">
-				<IconX className="w-12 h-12 text-danger" />
-				<h2 className="text-2xl font-semibold">Something went wrong</h2>
-				<h2 className="text-xl font-normal">
-					You will be redirected automatically...
-				</h2>
+				<Button onClick={() => router.replace("/")}>Go now</Button>
 			</div>
 		</div>
 	);

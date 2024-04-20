@@ -2,9 +2,8 @@
 
 import TagButton from "@/components/common/buttons/tag-button";
 import BotCard from "@/components/common/cards/bot.normal";
-import Loader from "@/components/common/loader";
 import BotRow from "@/components/modules/bot/row";
-import { useBotsQuery } from "@/lib/types/apollo";
+import { useHomeBotsSuspenseQuery } from "@/lib/types/apollo";
 import { Input } from "@nextui-org/react";
 import {
 	IconDiamondFilled,
@@ -14,7 +13,9 @@ import {
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
-	const { data: bots, loading: gettingBots } = useBotsQuery(); // todo: make a single query that fetchs "tags" and "bots"
+	const {
+		data: { bots },
+	} = useHomeBotsSuspenseQuery(); // todo: make a single query that fetchs "tags" and "bots"
 	const { scrollY: progress } = useScroll();
 	const springProgress = useSpring(progress, {
 		stiffness: 150,
@@ -22,11 +23,9 @@ export default function Page() {
 		restDelta: 0.001,
 	});
 
-	const botRow = gettingBots ? (
-		<Loader />
-	) : bots?.bots.nodes?.length ? (
-		bots.bots.nodes.map((bot, key) => <BotCard key={key} {...bot} />)
-	) : undefined;
+	const botRow = bots.nodes?.length
+		? bots.nodes.map((bot, key) => <BotCard key={key} {...bot} />)
+		: undefined;
 
 	return (
 		<div className="flex flex-col gap-10">
@@ -68,7 +67,6 @@ export default function Page() {
 				</div>
 			</div>
 			<BotRow
-				loading={gettingBots}
 				title="Popular"
 				subtitle="This month most voted bots"
 				icon={<IconDiamondFilled className="w-6 h-6" />}
@@ -76,7 +74,6 @@ export default function Page() {
 				{botRow}
 			</BotRow>
 			<BotRow
-				loading={gettingBots}
 				title="Trending"
 				subtitle="This month most rated bots"
 				icon={<IconThumbUpFilled className="w-6 h-6" />}
