@@ -1,4 +1,5 @@
 import type { QueryHookOptions } from "@apollo/client";
+import useSessionStore from "../stores/session";
 import {
 	type SessionQuery,
 	type SessionQueryVariables,
@@ -10,5 +11,9 @@ export function useSession(
 ) {
 	return useSessionQuery({
 		...baseOptions,
+		onCompleted: (data) =>
+			useSessionStore.setState({
+				data,
+			}),
 	});
 }

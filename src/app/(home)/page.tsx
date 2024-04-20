@@ -3,7 +3,7 @@
 import TagButton from "@/components/common/buttons/tag-button";
 import BotCard from "@/components/common/cards/bot.normal";
 import BotRow from "@/components/modules/bot/row";
-import { useHomeBotsSuspenseQuery } from "@/lib/types/apollo";
+import { type BotObject, useHomeBotsSuspenseQuery } from "@/lib/types/apollo";
 import { Input } from "@nextui-org/react";
 import {
 	IconDiamondFilled,
@@ -14,7 +14,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
 	const {
-		data: { bots },
+		data: { latest, popular },
 	} = useHomeBotsSuspenseQuery(); // todo: make a single query that fetchs "tags" and "bots"
 	const { scrollY: progress } = useScroll();
 	const springProgress = useSpring(progress, {
@@ -23,8 +23,16 @@ export default function Page() {
 		restDelta: 0.001,
 	});
 
-	const botRow = bots.nodes?.length
-		? bots.nodes.map((bot, key) => <BotCard key={key} {...bot} />)
+	const latestBotsRow = latest.nodes?.length
+		? latest.nodes.map((bot, key) => (
+				<BotCard key={key} {...(bot as BotObject)} />
+			))
+		: undefined;
+
+	const popularBotsRow = popular.nodes?.length
+		? popular.nodes.map((bot, key) => (
+				<BotCard key={key} {...(bot as BotObject)} />
+			))
 		: undefined;
 
 	return (
@@ -71,14 +79,14 @@ export default function Page() {
 				subtitle="This month most voted bots"
 				icon={<IconDiamondFilled className="w-6 h-6" />}
 			>
-				{botRow}
+				{popularBotsRow}
 			</BotRow>
 			<BotRow
-				title="Trending"
-				subtitle="This month most rated bots"
+				title="Latest"
+				subtitle="Most recent bots"
 				icon={<IconThumbUpFilled className="w-6 h-6" />}
 			>
-				{botRow}
+				{latestBotsRow}
 			</BotRow>
 		</div>
 	);

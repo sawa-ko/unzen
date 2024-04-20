@@ -1014,7 +1014,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "botId",
+            "name": "id",
             "description": "The bot ID of the vote",
             "type": {
               "kind": "NON_NULL",

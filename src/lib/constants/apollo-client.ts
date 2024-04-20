@@ -5,9 +5,10 @@ import { parseCookies } from "nookies";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
 	if (graphQLErrors)
-		graphQLErrors.map(({ message, locations, path }) =>
+		graphQLErrors.map(({ message, locations, path, ...error }) =>
 			console.log(
 				`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+				error,
 			),
 		);
 	if (networkError) console.log(`[Network error]: ${networkError}`);

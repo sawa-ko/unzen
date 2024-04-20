@@ -18,7 +18,13 @@ interface BotCardProps
 	extends Partial<
 		Pick<
 			BotObject,
-			"id" | "avatar" | "name" | "shortDescription" | "certified" | "guildCount"
+			| "id"
+			| "avatar"
+			| "name"
+			| "shortDescription"
+			| "certified"
+			| "guildCount"
+			| "votes"
 		>
 	> {}
 
@@ -29,6 +35,7 @@ export default function BotCard({
 	shortDescription,
 	certified,
 	guildCount,
+	votes,
 }: BotCardProps) {
 	return (
 		<Card
@@ -71,7 +78,7 @@ export default function BotCard({
 			</CardBody>
 			<CardFooter className="flex justify-between w-full text-default-600 text-lg">
 				<div className="flex items-center gap-1">
-					<IconArrowUp className="w-5 h-5" /> 1
+					<IconArrowUp className="w-5 h-5" /> {votes?.totalCount}
 				</div>
 				<div className="flex items-center gap-1">
 					<IconServer className="w-5 h-5" /> {guildCount}

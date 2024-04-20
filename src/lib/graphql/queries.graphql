@@ -1,5 +1,21 @@
-query HomeBots($pagination: PaginationInput) {
-  latest: bots(pagination: $pagination) {
+query HomeBots {
+  latest: bots(pagination: { sortOrder: DESC, sortBy: "createdAt" }) {
+    nodes {
+      avatar
+      shortDescription
+      name
+      tags {
+        displayName
+      }
+      id
+      guildCount
+      votes {
+        totalCount
+      }
+      certified
+    }
+  }
+  popular: bots(pagination: { sortOrder: DESC, sortBy: "votes" }) {
     nodes {
       avatar
       shortDescription
@@ -48,16 +64,20 @@ query SingleBot($input: GetBotInput!) {
   }
 }
 
-query SingleBotVote($input: GetBotInput!) {
+query SingleBotVote($input: GetBotInput!, $canVoteInput: BotVoteCreateInput!) {
   getBot(input: $input) {
     avatar
-    certified
     id
     name
     votes {
       totalCount
     }
     guildCount
+    certified
+  }
+  canVote(input: $canVoteInput) {
+    canVote
+    expires
   }
 }
 
