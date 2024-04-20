@@ -11,9 +11,8 @@ import {
 	CardHeader,
 	useDisclosure,
 } from "@nextui-org/react";
-import { IconTrashFilled } from "@tabler/icons-react";
+import { IconTransfer, IconTrashFilled } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { toast } from "sonner";
 
 export default function ManageDangerBotTab({
@@ -32,7 +31,7 @@ export default function ManageDangerBotTab({
 		update: (cache) => removeFromCache(cache, { id, __typename: "BotObject" }),
 	});
 	return (
-		<React.Fragment>
+		<div className="flex flex-col gap-3">
 			<BotDeleteModal
 				id={id}
 				name={name}
@@ -60,6 +59,26 @@ export default function ManageDangerBotTab({
 					</Button>
 				</CardFooter>
 			</Card>
-		</React.Fragment>
+			<Card classNames={{ base: "p-2" }}>
+				<CardHeader className="text-2xl font-bold">
+					Transfer ownership
+				</CardHeader>
+				<CardBody>
+					<p>
+						Transfer definitive ownership, this will delete you as bot owner
+						(will not set you as co-owner)
+					</p>
+				</CardBody>
+				<CardFooter>
+					<Button
+						color="danger"
+						className="w-fit"
+						startContent={<IconTransfer className="w-5 h-5" />}
+					>
+						Trasnfer ownership
+					</Button>
+				</CardFooter>
+			</Card>
+		</div>
 	);
 }

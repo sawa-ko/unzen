@@ -3,6 +3,7 @@
 import ErrorMessage from "@/components/common/error-message";
 import LoadingScreen from "@/components/common/layout/loading-screen";
 import Loader from "@/components/common/loader";
+import { fadeInFromTopAndOutTop } from "@/lib/constants/motion/variants";
 import { useSession } from "@/lib/hooks/session";
 import {
 	useCanVoteQuery,
@@ -10,7 +11,6 @@ import {
 	useSingleBotVoteSuspenseQuery,
 } from "@/lib/types/apollo";
 import { formatDate, handleError, parseAvatar } from "@/lib/utils/common";
-import { fromTopToBottomSmooth } from "@/lib/utils/motion-styles";
 import { Avatar, Button } from "@nextui-org/react";
 import { IconArrowLeft, IconArrowUp, IconServer } from "@tabler/icons-react";
 import { motion } from "framer-motion";
@@ -62,7 +62,7 @@ export default function Page({ params }: { params: { id: string } }) {
 				<motion.div
 					initial="initial"
 					animate="enter"
-					variants={fromTopToBottomSmooth.variants}
+					variants={fadeInFromTopAndOutTop}
 					className="max-w-2xl w-full bg-content1 p-4 rounded-large flex flex-col"
 				>
 					<h1 className="text-xl font-bold">You did it! 🚀</h1>

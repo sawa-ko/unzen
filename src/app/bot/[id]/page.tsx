@@ -70,7 +70,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					draggable={false}
 				/>
 			</div>
-			<div className="flex flex-col gap-10 z-10">
+			<div className="flex flex-col gap-7 z-10">
 				<div className="flex lg:flex-row gap-3 flex-col justify-between w-full items-center">
 					<div className="flex lg:flex-row flex-col gap-4 items-center">
 						<Avatar

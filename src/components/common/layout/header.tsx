@@ -11,7 +11,6 @@ import {
 } from "@nextui-org/react";
 import BrandLogo from "@public/dbots-white_256x256.png";
 import Link from "next/link";
-import { useWindowScroll } from "react-use";
 import LoginButton from "../buttons/login-button";
 import Loader from "../loader";
 import Policy from "../policy";
@@ -20,14 +19,10 @@ import ColorThemeChanger from "./theme/theme-changer";
 
 export default function Header() {
 	const { data: session, loading: gettingSession } = useSession();
-	const { y } = useWindowScroll();
 	return (
 		<Navbar
 			isBlurred={false}
-			className={cn(
-				"mb-10 w-full duration-200",
-				y >= 20 ? "backdrop-blur bg-background/80" : "bg-transparent",
-			)}
+			className={cn("mb-10 w-full duration-200 backdrop-blur bg-background/50")}
 			maxWidth="xl"
 		>
 			<NavbarContent

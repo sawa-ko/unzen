@@ -20,10 +20,3 @@ export const modalMotionProps: HTMLMotionProps<"section"> = {
 		},
 	},
 };
-
-export const fromTopToBottomSmooth: HTMLMotionProps<"section"> = {
-	variants: {
-		initial: { y: -50, x: 0, opacity: 0 },
-		enter: { y: 0, opacity: 1 },
-	},
-};

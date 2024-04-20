@@ -1,10 +1,10 @@
+import { modalMotionProps } from "@/lib/constants/motion/props";
 import type {
 	DeleteBotInput,
 	DeleteBotMutation,
 	Exact,
 } from "@/lib/types/apollo";
 import type { CommonModalProps } from "@/lib/types/modals";
-import { modalMotionProps } from "@/lib/utils/motion-styles";
 import type { FetchResult, MutationFunctionOptions } from "@apollo/client";
 import {
 	Button,
