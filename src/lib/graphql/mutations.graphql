@@ -39,6 +39,10 @@ mutation UpdateWebhook($input: UpdateWebhookInput!) {
   }
 }
 
+mutation ResetApiKey($input: GetBotInput!) {
+  resetApiKey(input: $input)
+}
+
 mutation Logout {
   logOut
 }

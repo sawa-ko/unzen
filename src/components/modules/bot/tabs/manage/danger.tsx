@@ -71,6 +71,7 @@ export default function ManageDangerBotTab({
 				</CardBody>
 				<CardFooter>
 					<Button
+						isDisabled
 						color="danger"
 						className="w-fit"
 						startContent={<IconTransfer className="w-5 h-5" />}

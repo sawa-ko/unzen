@@ -20,7 +20,6 @@ import {
 	Select,
 	SelectItem,
 } from "@nextui-org/react";
-import { IconRefresh } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -109,27 +108,9 @@ export default function ManageWebhooksBotTab({
 		getValues("events");
 	});
 
-	if (gettingWebhook ?? updating ?? creating) return <LoadingScreen />;
+	if (gettingWebhook) return <LoadingScreen />;
 	return (
 		<div className="flex flex-col gap-3">
-			<Card classNames={{ base: "p-2" }}>
-				<CardHeader className="text-2xl font-bold">Reset API Key</CardHeader>
-				<CardBody>
-					<p>
-						API Key can only be viewed <strong>once</strong>, so you have to
-						reset it everytime you want to see it.
-					</p>
-				</CardBody>
-				<CardFooter>
-					<Button
-						variant="faded"
-						className="w-fit"
-						startContent={<IconRefresh className="w-5 h-5" />}
-					>
-						Reset API Key
-					</Button>
-				</CardFooter>
-			</Card>
 			<Card classNames={{ base: "p-2" }}>
 				<CardHeader className="text-2xl font-bold">Webhook</CardHeader>
 				<CardBody>
@@ -147,14 +128,15 @@ export default function ManageWebhooksBotTab({
 							isRequired
 						/>
 						<Input
-							errorMessage={errors.secret?.message}
+							errorMessage={errors.secret?.root?.message}
 							placeholder="Your webhook authentication secret"
 							label="Webhook secret"
 							{...register("secret")}
 							isRequired
 						/>
 						<Select
-							errorMessage={errors.events?.message}
+							placeholder="Select your preferred events"
+							errorMessage={errors.events?.root?.message}
 							isRequired
 							selectionMode="multiple"
 							label="Events"

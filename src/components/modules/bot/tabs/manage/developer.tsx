@@ -1,15 +1,59 @@
-import ErrorMessage from "@/components/common/error-message";
-import type { BotObject } from "@/lib/types/apollo";
-import React from "react";
+import Loader from "@/components/common/loader";
+import { type BotObject, useResetApiKeyMutation } from "@/lib/types/apollo";
+import { handleError } from "@/lib/utils/common";
+import {
+	Button,
+	Card,
+	CardBody,
+	CardFooter,
+	CardHeader,
+	Input,
+} from "@nextui-org/react";
+import { IconRefresh } from "@tabler/icons-react";
+import { toast } from "sonner";
 
-// biome-ignore lint/correctness/noEmptyPattern: todo
-export default function ManageDeveloperBotTab({}: Pick<
-	BotObject,
-	"id" | "name"
->) {
+export default function ManageDeveloperBotTab({ id }: Pick<BotObject, "id">) {
+	const [resetApiKey, { loading: resetting, data: apiKey }] =
+		useResetApiKeyMutation({
+			variables: {
+				input: {
+					id,
+				},
+			},
+			onCompleted: () => toast.success("Resetted Api Key 🎉"),
+			onError: handleError,
+		});
 	return (
-		<React.Fragment>
-			<ErrorMessage message="Work in progress, again." isCentered />
-		</React.Fragment>
+		<div>
+			<Card classNames={{ base: "p-2" }}>
+				<CardHeader className="text-2xl font-bold">Reset API Key</CardHeader>
+				<CardBody>
+					<p>
+						API Key can only be viewed <strong>once</strong>, so you have to
+						reset it everytime you want to see it.
+					</p>
+					{apiKey?.resetApiKey && (
+						<Input
+							color="success"
+							description="Your new Api Key"
+							isReadOnly
+							value={apiKey.resetApiKey}
+						/>
+					)}
+				</CardBody>
+				<CardFooter>
+					<Button
+						onClick={() => resetApiKey()}
+						variant="faded"
+						className="w-fit"
+						startContent={
+							resetting ? <Loader /> : <IconRefresh className="w-5 h-5" />
+						}
+					>
+						Reset API Key
+					</Button>
+				</CardFooter>
+			</Card>
+		</div>
 	);
 }

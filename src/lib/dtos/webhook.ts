@@ -2,7 +2,7 @@ import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import {
 	ArrayMinSize,
 	IsArray,
-	IsDefined,
+	IsNotEmpty,
 	IsOptional,
 	IsString,
 	IsUrl,
@@ -13,21 +13,23 @@ export class WebhookDTO {
 		host_blacklist: ["discord.com", "discordapp.com"],
 		protocols: ["https"],
 	})
-	@IsDefined({
+	@IsNotEmpty({
 		message: "Url is required",
 	})
-	url: string;
+	url!: string;
 
-	@IsString()
-	@IsDefined({
+	@IsString({
+		message: "Secret must be a valid string",
+	})
+	@IsNotEmpty({
 		message: "Secret is required",
 	})
-	secret: string;
+	secret!: string;
 
 	@IsOptional()
 	@IsArray()
 	@ArrayMinSize(1)
-	events: string[];
+	events!: string[];
 }
 
 export const webhookResolver = classValidatorResolver(WebhookDTO);

@@ -13,12 +13,16 @@ export default function ManageBotTab({
 		<React.Fragment>
 			<div className="flex flex-col">
 				<Tabs
+					classNames={{
+						panel: "w-full",
+					}}
+					isVertical
 					variant="light"
-					classNames={{ cursor: "bg-content2" }}
+					color="secondary"
 					aria-label="Tabs"
 				>
 					<Tab key="developer" title="Developer">
-						<ManageDeveloperBotTab id={id} name={name} />
+						<ManageDeveloperBotTab id={id} />
 					</Tab>
 					<Tab key="webhooks" title="Webhooks">
 						<ManageWebhooksBotTab id={id} name={name} />
