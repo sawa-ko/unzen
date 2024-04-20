@@ -1,14 +1,5 @@
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import {
-	ArrayMaxSize,
-	ArrayMinSize,
-	IsArray,
-	IsDefined,
-	IsOptional,
-	IsString,
-	Length,
-	ValidateIf,
-} from "class-validator";
+import { IsDefined, IsOptional, IsString, Length } from "class-validator";
 
 export class SubmitBotDTO {
 	@IsString()
@@ -45,13 +36,8 @@ export class SubmitBotDTO {
 	@IsOptional()
 	public readonly prefix: string;
 
-	@IsArray({
-		message: "Tags should be an array",
-	})
-	@ArrayMinSize(1)
-	@ArrayMaxSize(7)
-	@ValidateIf((t: string[]) => t.length >= 1)
-	public readonly tags: string[];
+	@IsString()
+	public readonly tags: string;
 }
 
 export const submitBotResolver = classValidatorResolver(SubmitBotDTO);

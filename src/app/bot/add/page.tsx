@@ -33,6 +33,7 @@ export default function Page() {
 			variables: {
 				input: {
 					...input,
+					tags: input.tags.split(","),
 					prefix: input.prefix?.length! >= 1 ? input.prefix : undefined,
 				},
 			},

@@ -1,5 +1,5 @@
 query HomeBots($pagination: PaginationInput) {
-  bots(pagination: $pagination) {
+  latest: bots(pagination: $pagination) {
     nodes {
       avatar
       shortDescription

@@ -1,4 +1,5 @@
 import LoadingScreen from "@/components/common/layout/loading-screen";
+import Loader from "@/components/common/loader";
 import { type WebhookDTO, webhookResolver } from "@/lib/dtos/webhook";
 import {
 	type BotObject,
@@ -178,6 +179,8 @@ export default function ManageWebhooksBotTab({
 							Test webhook
 						</Button>
 						<Button
+							spinner={<Loader />}
+							isLoading={gettingWebhook || creating || updating}
 							onClick={handleSubmit(onSubmit)}
 							type="submit"
 							color="secondary"
