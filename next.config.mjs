@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	// Image optimization
 	images: {
 		remotePatterns: [
 			{
@@ -11,7 +12,14 @@ const nextConfig = {
 		],
 		unoptimized: true,
 	},
-	swcMinify: false
+
+	// Hotfix
+	swcMinify: false,
+
+	// Next.js compiler stuff
+	compiler: {
+		removeConsole: process.env.NODE_ENV === "production"
+	}
 };
 
 export default nextConfig;
