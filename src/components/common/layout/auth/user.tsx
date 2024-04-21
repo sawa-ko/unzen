@@ -1,5 +1,6 @@
 "use client";
 
+import useSessionStore from "@/lib/stores/session";
 import { type AuthUserObject, useLogoutMutation } from "@/lib/types/apollo";
 import { handleError, parseAvatar } from "@/lib/utils/common";
 import {
@@ -16,6 +17,7 @@ import {
 	IconSettingsFilled,
 	IconUserFilled,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 import Loader from "../../loader";
 import SubmitModal from "../../modals/submit";
 
@@ -24,8 +26,12 @@ export default function HeaderAuthUser({
 	id,
 }: Partial<AuthUserObject>) {
 	const disclosureProps = useDisclosure();
+	const router = useRouter();
 	const [logout, { loading }] = useLogoutMutation({
-		onCompleted: () => location.reload(),
+		onCompleted: () => {
+			useSessionStore.setState({ data: undefined });
+			router.replace("/");
+		},
 		onError: handleError,
 	});
 	return (
