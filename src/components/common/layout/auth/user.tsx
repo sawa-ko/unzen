@@ -34,6 +34,7 @@ export default function HeaderAuthUser({
 		},
 		onError: handleError,
 	});
+
 	return (
 		<>
 			<SubmitModal {...disclosureProps} />

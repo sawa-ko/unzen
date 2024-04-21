@@ -1,7 +1,13 @@
 import type { ReactNode } from "react";
 
-export interface CommonProps {
+export interface DefaultProps {
 	children: ReactNode;
+}
+
+export interface DefaultModalProps {
+	isOpen: boolean;
+	onOpen: () => void;
+	onOpenChange: () => void;
 }
 
 export interface ApiErrorResponse {

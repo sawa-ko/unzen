@@ -4,7 +4,7 @@ import type {
 	DeleteBotMutation,
 	Exact,
 } from "@/lib/types/apollo";
-import type { CommonModalProps } from "@/lib/types/modals";
+import type { DefaultModalProps } from "@/lib/types/common";
 import type { FetchResult, MutationFunctionOptions } from "@apollo/client";
 import {
 	Button,
@@ -15,7 +15,7 @@ import {
 	ModalHeader,
 } from "@nextui-org/react";
 
-interface BotDeleteModalProps extends CommonModalProps {
+interface BotDeleteModalProps extends DefaultModalProps {
 	id: string;
 	name: string;
 	deleteFn: (

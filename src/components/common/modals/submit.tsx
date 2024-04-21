@@ -1,5 +1,5 @@
 import { modalMotionProps } from "@/lib/constants/motion/props";
-import type { CommonModalProps } from "@/lib/types/modals";
+import type { DefaultModalProps } from "@/lib/types/common";
 import {
 	Card,
 	CardBody,
@@ -12,7 +12,7 @@ import {
 import { IconAppsFilled, IconArchiveFilled } from "@tabler/icons-react";
 import Link from "next/link";
 
-export default function SubmitModal({ ...props }: CommonModalProps) {
+export default function SubmitModal({ ...props }: DefaultModalProps) {
 	return (
 		<Modal motionProps={modalMotionProps} backdrop="blur" {...props}>
 			<ModalContent>
