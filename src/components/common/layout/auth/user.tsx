@@ -29,7 +29,7 @@ export default function HeaderAuthUser({
 	const router = useRouter();
 	const [logout, { loading }] = useLogoutMutation({
 		onCompleted: () => {
-			useSessionStore.setState({ data: undefined });
+			useSessionStore.setState({ data: undefined, loading: false });
 			router.replace("/");
 		},
 		onError: handleError,
