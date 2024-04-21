@@ -1,1 +1,25 @@
 # TODO (API): Make user queries/mutations
+
+# Query to get a user
+query GetBotOwner($input: GetBotOwnerInput!) {
+  getOwner(input: $input) {
+    avatar
+    bio
+    id
+    bots {
+      avatar
+      shortDescription
+      name
+      tags {
+        displayName
+      }
+      id
+      guildCount
+      votes {
+        totalCount
+      }
+      certified
+    }
+    username
+  }
+}
