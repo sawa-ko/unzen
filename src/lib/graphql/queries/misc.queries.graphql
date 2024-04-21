@@ -1,0 +1,19 @@
+# Query to get session
+query Session {
+  me {
+    id
+    username
+    permissions
+    avatar
+  }
+}
+
+# Query to get a vanity
+query Vanity($input: GetVanityInput!) {
+  getVanity(input: $input) {
+    id
+    targetId
+    type
+    userId
+  }
+}

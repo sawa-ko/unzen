@@ -1,0 +1,19 @@
+mutation CreateWebhook($input: CreateWebhookInput!) {
+  createWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}
+
+mutation UpdateWebhook($input: UpdateWebhookInput!) {
+  updateWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}

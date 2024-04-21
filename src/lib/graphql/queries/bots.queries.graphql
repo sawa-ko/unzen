@@ -1,3 +1,4 @@
+# Query for / page
 query HomeBots {
   latest: bots(pagination: { sortOrder: DESC, sortBy: "createdAt" }) {
     nodes {
@@ -33,6 +34,7 @@ query HomeBots {
   }
 }
 
+# Query for a single bot
 query SingleBot($input: GetBotInput!) {
   getBot(input: $input) {
     avatar
@@ -64,6 +66,7 @@ query SingleBot($input: GetBotInput!) {
   }
 }
 
+# Query for a single bot vote information
 query SingleBotVote($input: GetBotInput!, $canVoteInput: BotVoteCreateInput!) {
   getBot(input: $input) {
     avatar
@@ -81,24 +84,7 @@ query SingleBotVote($input: GetBotInput!, $canVoteInput: BotVoteCreateInput!) {
   }
 }
 
-query Session {
-  me {
-    id
-    username
-    permissions
-    avatar
-  }
-}
-
-query Vanity($input: GetVanityInput!) {
-  getVanity(input: $input) {
-    id
-    targetId
-    type
-    userId
-  }
-}
-
+# Query to check if user can vote a bot
 query CanVote($input: BotVoteCreateInput!) {
   canVote(input: $input) {
     canVote
@@ -106,6 +92,7 @@ query CanVote($input: BotVoteCreateInput!) {
   }
 }
 
+# Query to get bot webhook
 query Webhook($input: GetWebhookInput!) {
   getWebhook(input: $input) {
     id
