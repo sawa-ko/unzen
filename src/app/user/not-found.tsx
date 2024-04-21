@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
-import { IconLinkOff } from "@tabler/icons-react";
+import { IconUserOff } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 
 export default function UserNotFound() {
@@ -11,7 +11,7 @@ export default function UserNotFound() {
 		<div className="flex items-center min-h-[80vh] px-6 mx-auto">
 			<div className="flex flex-col items-center max-w-sm mx-auto text-center">
 				<div className="p-3 text-sm font-medium text-accent-foreground bg-secondary text-secondary-foreground rounded-full">
-					<IconLinkOff className="w-7 h-7" />
+					<IconUserOff className="w-7 h-7" />
 				</div>
 				<h1 className="mt-3 text-2xl font-semibold md:text-3xl">
 					User not found
