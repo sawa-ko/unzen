@@ -9,35 +9,35 @@
     "start": "next start",
     "lint": "pnpm biome check --apply-unsafe src",
     "codegen": "gql-gen --config codegen.yml",
-		"postinstall": "pnpm lefthook install"
+    "postinstall": "pnpm lefthook install"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.10",
+    "@apollo/client": "^3.10.1",
     "@hookform/resolvers": "^3.3.4",
-    "@nextui-org/react": "^2.2.10",
-    "@tabler/icons-react": "^3.1.0",
+    "@nextui-org/react": "^2.3.6",
+    "@tabler/icons-react": "^3.2.0",
     "@ts-react/form": "^1.8.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie": "^0.6.0",
-    "framer-motion": "^11.0.25",
+    "framer-motion": "^11.1.7",
     "graphql": "^16.8.1",
-    "markdown-to-jsx": "^7.4.6",
-    "next": "14.2.1",
+    "markdown-to-jsx": "^7.4.7",
+    "next": "14.2.3",
     "nookies": "^2.5.2",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-hook-form": "^7.51.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.3",
     "react-use": "^17.5.0",
     "sonner": "^1.4.41",
     "tailwind-gradient-mask-image": "^1.2.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.4",
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
-    "@commitlint/format": "^19.0.3",
+    "@biomejs/biome": "1.7.1",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/format": "^19.3.0",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/introspection": "^4.0.3",
     "@graphql-codegen/typescript": "^4.0.6",
@@ -45,21 +45,19 @@
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@graphql-codegen/typescript-resolvers": "^4.0.6",
     "@types/cookie": "^0.6.0",
-    "@types/node": "^20.12.5",
-    "@types/react": "^18.2.76",
-    "@types/react-dom": "^18.2.25",
-    "autoprefixer": "^10.0.1",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
     "lefthook": "^1.6.10",
-		"lint-staged": "^15.2.2",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5.4.4"
+    "lint-staged": "^15.2.2",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
   },
-  
-	"lint-staged": {
-		"*.{mjs,js,ts,json}": [
-			"biome check --apply-unsafe",
-			"biome format --write"
-		]
-	}
+  "lint-staged": {
+    "*.{mjs,js,ts,json}": [
+      "biome check --apply-unsafe src "
+    ]
+  }
 }
