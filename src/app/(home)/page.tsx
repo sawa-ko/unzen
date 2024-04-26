@@ -57,9 +57,7 @@ export default function Page() {
 					</div>
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
-					<div
-						className="grid grid-cols-5 gap-3 opacity-60"
-					>
+					<div className="grid grid-cols-5 gap-3 opacity-60">
 						{[...Array(15)].map((_, index) => (
 							<div key={index} className="w-20 h-20 rounded-xl bg-secondary" />
 						))}
