@@ -1,0 +1,11 @@
+pre-commit:
+  commands:
+    "lint staged files":
+      run: pnpm lint-staged
+
+commit-msg:
+  scripts:
+    "commitlint.sh":
+      runner: bash
+
+# Thx chiko for the config, xoxo

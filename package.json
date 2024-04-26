@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "pnpm biome check --apply-unsafe src",
-    "prepare": "husky",
-    "codegen": "gql-gen --config codegen.yml"
+    "codegen": "gql-gen --config codegen.yml",
+		"postinstall": "pnpm lefthook install"
   },
   "dependencies": {
     "@apollo/client": "^3.9.10",
@@ -49,9 +49,17 @@
     "@types/react": "^18.2.76",
     "@types/react-dom": "^18.2.25",
     "autoprefixer": "^10.0.1",
-    "husky": "^9.0.11",
+    "lefthook": "^1.6.10",
+		"lint-staged": "^15.2.2",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.4.4"
-  }
+  },
+  
+	"lint-staged": {
+		"*.{mjs,js,ts,json}": [
+			"biome check --apply-unsafe",
+			"biome format --write"
+		]
+	}
 }
