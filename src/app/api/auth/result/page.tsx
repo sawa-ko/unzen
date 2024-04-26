@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingScreen from "@/components/common/layout/loading-screen";
 import useSessionStore from "@/lib/stores/session";
 import { Button } from "@nextui-org/react";
 import { IconCheck, IconX } from "@tabler/icons-react";
@@ -8,7 +9,7 @@ import React from "react";
 import { useEffect } from "react";
 
 export default function Page() {
-	const { data: auth } = useSessionStore();
+	const { data: auth, loading } = useSessionStore();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -17,6 +18,7 @@ export default function Page() {
 		}, 5_000);
 	});
 
+	if (loading) return <LoadingScreen />
 	return (
 		<div className="flex flex-col justify-center items-center h-[50vh]">
 			<div className="flex flex-col gap-2 items-center">

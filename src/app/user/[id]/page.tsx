@@ -1,7 +1,8 @@
 "use client";
 
 import ErrorMessage from "@/components/common/error-message";
-import { useGetBotOwnerSuspenseQuery } from "@/lib/types/apollo";
+import LoadingScreen from "@/components/common/layout/loading-screen";
+import { useGetBotOwnerQuery } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
 import { Avatar, Image, Tab, Tabs, Tooltip } from "@nextui-org/react";
 import { IconAppsFilled, IconArchiveFilled } from "@tabler/icons-react";
@@ -9,24 +10,27 @@ import { notFound } from "next/navigation";
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
 	const {
-		data: { getOwner: user },
-	} = useGetBotOwnerSuspenseQuery({
+		data,
+		loading: gettingUser
+	} = useGetBotOwnerQuery({
 		variables: {
 			input: {
 				id,
 			},
-		},
+		}
 	});
 
 	const mockedUserBadges = [
 		{
 			id: "assembly",
-			label: "Developer",
+			label: "Website Developer",
 		},
 	];
 
-	if (!user) return notFound();
-
+	if (gettingUser) return <LoadingScreen />
+	if (!data && !gettingUser) return notFound();
+	
+	const user = data?.getOwner!
 	return (
 		<div className="flex flex-col gap-5">
 			<div className="h-full rounded-large p-3 flex flex-col gap-3">
@@ -34,7 +38,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 					<Avatar
 						isBordered
 						color="secondary"
-						src={parseAvatar(user.avatar, user.id)}
+						src={parseAvatar(user.avatar, user.id!)}
 						className="w-32 h-32"
 					/>
 					<div className="flex flex-col">
@@ -52,7 +56,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 								))}
 							</div>
 						</div>
-						<p>{user.bio ?? "No bio"}</p>
+						<p className="text-default-600">{user.bio ?? "No bio"}</p>
 					</div>
 				</div>
 				<Tabs

@@ -15,11 +15,6 @@ const nextConfig = {
 
 	// Hotfix
 	swcMinify: false,
-
-	// Next.js compiler stuff
-	compiler: {
-		removeConsole: process.env.NODE_ENV === "production"
-	}
 };
 
 export default nextConfig;
