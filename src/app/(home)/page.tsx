@@ -10,18 +10,11 @@ import {
 	IconSearch,
 	IconThumbUpFilled,
 } from "@tabler/icons-react";
-import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function Page() {
 	const {
 		data: { latest, popular },
 	} = useHomeBotsSuspenseQuery(); // todo: make a single query that fetchs "tags" and "bots"
-	const { scrollY: progress } = useScroll();
-	const springProgress = useSpring(progress, {
-		stiffness: 150,
-		damping: 30,
-		restDelta: 0.001,
-	});
 
 	const latestBotsRow = latest.nodes?.length
 		? latest.nodes.map((bot, key) => (
@@ -64,14 +57,13 @@ export default function Page() {
 					</div>
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
-					<motion.div
-						style={{ translateY: springProgress }}
+					<div
 						className="grid grid-cols-5 gap-3 opacity-60"
 					>
 						{[...Array(15)].map((_, index) => (
 							<div key={index} className="w-20 h-20 rounded-xl bg-secondary" />
 						))}
-					</motion.div>
+					</div>
 				</div>
 			</div>
 			<BotRow
