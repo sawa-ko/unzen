@@ -18,7 +18,7 @@ export default function Page() {
 		}, 5_000);
 	});
 
-	if (loading) return <LoadingScreen />
+	if (loading) return <LoadingScreen />;
 	return (
 		<div className="flex flex-col justify-center items-center h-[50vh]">
 			<div className="flex flex-col gap-2 items-center">

@@ -9,15 +9,12 @@ import { IconAppsFilled, IconArchiveFilled } from "@tabler/icons-react";
 import { notFound } from "next/navigation";
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
-	const {
-		data,
-		loading: gettingUser
-	} = useGetBotOwnerQuery({
+	const { data, loading: gettingUser } = useGetBotOwnerQuery({
 		variables: {
 			input: {
 				id,
 			},
-		}
+		},
 	});
 
 	const mockedUserBadges = [
@@ -27,10 +24,10 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 		},
 	];
 
-	if (gettingUser) return <LoadingScreen />
+	if (gettingUser) return <LoadingScreen />;
 	if (!data && !gettingUser) return notFound();
-	
-	const user = data?.getOwner!
+
+	const user = data?.getOwner!;
 	return (
 		<div className="flex flex-col gap-5">
 			<div className="h-full rounded-large p-3 flex flex-col gap-3">
