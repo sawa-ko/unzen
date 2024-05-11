@@ -22,6 +22,18 @@ const visibleColors = [
 		name: "Pine",
 		value: "pine",
 	},
+	{
+		name: "Peach",
+		value: "peach",
+	},
+	{
+		name: "Cyan",
+		value: "cyan",
+	},
+	{
+		name: "Purple",
+		value: "purple",
+	},
 ];
 
 export default function ColorThemeChanger() {
