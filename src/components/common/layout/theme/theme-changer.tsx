@@ -31,9 +31,10 @@ export default function ColorThemeChanger() {
 	);
 
 	useEffect(() => {
-		document
-			.getElementsByName("html")[0]
-			?.setAttribute("class", activeColor ?? visibleColors[0].value);
+		document.documentElement.setAttribute(
+			"class",
+			activeColor ?? visibleColors[0].value,
+		);
 	}, [activeColor]);
 	return (
 		<Dropdown
