@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 export default function ManageVanityBotTab({ id }: Pick<BotObject, "id">) {
 	// todo: do a form
-	const [vanity, setVanity] = useState<string | null>(null);
+	const [vanity, setVanity] = useState<string | undefined>();
 	useGetVanityQuery({
 		variables: { input: { id } },
 		onCompleted: (data) => setVanity(data.getVanity.id),
@@ -26,6 +26,7 @@ export default function ManageVanityBotTab({ id }: Pick<BotObject, "id">) {
 		variables: { input: { targetId: id, id: vanity!, type: VanityType.Bot } },
 		onCompleted: () => toast.success("Vanity updated 👌"),
 		onError: handleError,
+		refetchQueries: ["GetVanity"],
 	});
 	return (
 		<div>
@@ -33,7 +34,7 @@ export default function ManageVanityBotTab({ id }: Pick<BotObject, "id">) {
 				<CardHeader className="text-2xl font-bold">Bot vanity</CardHeader>
 				<CardBody>
 					<Input
-						value={vanity!}
+						value={vanity}
 						onChange={(e) => setVanity(e.target.value)}
 						label="Vanity"
 						labelPlacement="outside"

@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { id: string } }) {
 		<div className="flex flex-col gap-3 items-center justify-center h-[70vh]">
 			<BotVoteSuccess name={data?.getBot.name} canVote={canVote} />
 			<div className="lg:max-w-2xl w-full bg-content1 p-4 rounded-large flex flex-col lg:flex-row justify-between gap-2 lg:items-center">
-				<div className="flex items-center gap-4 w-full">
+				<div className="flex items-center gap-4 lg:w-min w-full">
 					<Avatar
 						src={parseAvatar(data?.getBot.avatar, data?.getBot.id!)}
 						radius="lg"
