@@ -1,6 +1,6 @@
 "use client";
 
-import FallbackAvatar from "@/components/common/fallback-avatar";
+import FallbackAvatar from "@/components/common/feedback/fallback-avatar";
 import LoadingScreen from "@/components/common/layout/loading-screen";
 import SettingsBotTab from "@/components/modules/bot/tabs/manage";
 import OverviewBotTab from "@/components/modules/bot/tabs/overview";
@@ -12,16 +12,15 @@ import {
 	useVanityQuery,
 } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
+import { Avatar } from "@nextui-org/avatar";
+import { Button } from "@nextui-org/button";
 import {
-	Avatar,
-	Button,
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
 	DropdownTrigger,
-	Tab,
-	Tabs,
-} from "@nextui-org/react";
+} from "@nextui-org/dropdown";
+import { Tab, Tabs } from "@nextui-org/tabs";
 import {
 	IconArrowUp,
 	IconCopyPlusFilled,
@@ -66,7 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					width={1000}
 					height={1000}
 					alt="bot banner background"
-					className="object-cover object-[center_top] top-0 right-0 bottom-0 left-0 w-screen h-[90vh] max-h-[90vh] opacity-10 gradient-mask-b-0"
+					className="object-cover blur-md object-[center_top] top-0 right-0 bottom-0 left-0 w-screen h-[90vh] max-h-[90vh] opacity-10 gradient-mask-b-0"
 					draggable={false}
 				/>
 			</div>

@@ -1,4 +1,6 @@
-import { Button, type ButtonProps } from "@nextui-org/react";
+"use client";
+
+import { Button, type ButtonProps } from "@nextui-org/button";
 import { IconHash } from "@tabler/icons-react";
 
 export default function TagButton({ children, ...props }: ButtonProps) {

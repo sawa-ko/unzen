@@ -1,33 +1,12 @@
-"use client";
-
 import TagButton from "@/components/common/buttons/tag-button";
-import BotCard from "@/components/common/cards/bot.normal";
-import BotRow from "@/components/modules/bot/row";
-import { type BotObject, useHomeBotsSuspenseQuery } from "@/lib/types/apollo";
-import { Input } from "@nextui-org/react";
-import {
-	IconDiamondFilled,
-	IconSearch,
-	IconThumbUpFilled,
-} from "@tabler/icons-react";
+import Motion from "@/components/common/motion";
+import HomeBotsRows from "@/components/modules/home/rows";
+import HomeSearchInput from "@/components/modules/home/search";
+import HomeSuspenseFallback from "@/components/modules/home/suspense";
+import { smoothFadeInFromBottomAndOutBottom } from "@/lib/constants/motion/variants";
+import { Suspense } from "react";
 
 export default function Page() {
-	const {
-		data: { latest, popular },
-	} = useHomeBotsSuspenseQuery(); // todo: make a single query that fetchs "tags" and "bots"
-
-	const latestBotsRow = latest.nodes?.length
-		? latest.nodes.map((bot, key) => (
-				<BotCard key={key} {...(bot as BotObject)} />
-			))
-		: undefined;
-
-	const popularBotsRow = popular.nodes?.length
-		? popular.nodes.map((bot, key) => (
-				<BotCard key={key} {...(bot as BotObject)} />
-			))
-		: undefined;
-
 	return (
 		<div className="flex flex-col gap-10">
 			<div className="flex justify-between w-full max-h-72 ">
@@ -41,14 +20,7 @@ export default function Page() {
 							magni nam omnis! Voluptas cumque neque sunt? Itaque tempore cum
 							incidunt alias, ipsa unde autem qui magni et hic cumque quae.
 						</p>
-						<Input
-							isClearable
-							startContent={<IconSearch className="w-5 h-5" />}
-							variant="bordered"
-							color="secondary"
-							className="w-full"
-							placeholder={"Search through 100 bots"}
-						/>
+						<HomeSearchInput />
 						<div className="flex flex-wrap gap-1">
 							<TagButton>Gaming</TagButton>
 							<TagButton>Music</TagButton>
@@ -57,27 +29,21 @@ export default function Page() {
 					</div>
 				</div>
 				<div className="z-[2] gradient-mask-b-0 xl:flex hidden">
-					<div className="grid grid-cols-5 gap-3 opacity-60">
-						{[...Array(15)].map((_, index) => (
-							<div key={index} className="w-20 h-20 rounded-xl bg-secondary" />
-						))}
-					</div>
+					<Motion variants={smoothFadeInFromBottomAndOutBottom}>
+						<div className="grid grid-cols-5 gap-3 opacity-60">
+							{[...Array(15)].map((_, index) => (
+								<div
+									key={index}
+									className="w-20 h-20 rounded-xl bg-secondary"
+								/>
+							))}
+						</div>
+					</Motion>
 				</div>
 			</div>
-			<BotRow
-				title="Popular"
-				subtitle="This month most voted bots"
-				icon={<IconDiamondFilled className="w-6 h-6" />}
-			>
-				{popularBotsRow}
-			</BotRow>
-			<BotRow
-				title="Latest"
-				subtitle="Most recent bots"
-				icon={<IconThumbUpFilled className="w-6 h-6" />}
-			>
-				{latestBotsRow}
-			</BotRow>
+			<Suspense fallback={<HomeSuspenseFallback />}>
+				<HomeBotsRows />
+			</Suspense>
 		</div>
 	);
 }

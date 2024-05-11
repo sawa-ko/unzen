@@ -1,32 +1,13 @@
-"use client";
-
 import CertifiedBotBadge from "@/components/modules/bot/badges/certified-badge";
 import type { BotObject } from "@/lib/types/apollo";
 import { parseAvatar } from "@/lib/utils/common";
-import {
-	Avatar,
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-} from "@nextui-org/react";
+import { Avatar } from "@nextui-org/avatar";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { IconArrowUp, IconServer } from "@tabler/icons-react";
 import Link from "next/link";
-import FallbackAvatar from "../fallback-avatar";
+import FallbackAvatar from "../feedback/fallback-avatar";
 
-interface BotCardProps
-	extends Partial<
-		Pick<
-			BotObject,
-			| "id"
-			| "avatar"
-			| "name"
-			| "shortDescription"
-			| "certified"
-			| "guildCount"
-			| "votes"
-		>
-	> {}
+interface BotCardProps extends Partial<BotObject> {}
 
 export default function BotCard({
 	id,
@@ -89,8 +70,9 @@ export default function BotCard({
 				style={{
 					backgroundImage: `url('${parseAvatar(avatar, id as string)}')`,
 				}}
-				className="animate-in bg-no-repeat duration-300 bg-cover absolute w-full h-full bottom-0 gradient-mask-t-0 group-hover:gradient-mask-t-30 opacity-10"
+				className="bg-no-repeat duration-300 bg-cover absolute w-full h-full bottom-0 gradient-mask-t-0 opacity-10 hover:opacity-15"
 			/>
+			<div className="bg-secondary bg-no-repeat duration-300 bg-cover absolute w-full h-full bottom-0 gradient-mask-t-0 opacity-10 hover:opacity-15" />
 		</Card>
 	);
 }

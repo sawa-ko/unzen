@@ -1,16 +1,11 @@
-import Loader from "@/components/common/loader";
+import Loader from "@/components/common/feedback/loader";
 import BotDeleteModal from "@/components/common/modals/delete";
 import { type BotObject, useDeleteBotMutation } from "@/lib/types/apollo";
 import { removeFromCache } from "@/lib/utils/cache";
 import { handleError } from "@/lib/utils/common";
-import {
-	Button,
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-	useDisclosure,
-} from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { useDisclosure } from "@nextui-org/use-disclosure";
 import { IconTransfer, IconTrashFilled } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -76,7 +71,7 @@ export default function ManageDangerBotTab({
 						className="w-fit"
 						startContent={<IconTransfer className="w-5 h-5" />}
 					>
-						Trasnfer ownership
+						Transfer ownership
 					</Button>
 				</CardFooter>
 			</Card>

@@ -1,16 +1,16 @@
 "use client";
 
 import { modalMotionProps } from "@/lib/constants/motion/props";
+import { Button } from "@nextui-org/button";
+import { Image } from "@nextui-org/image";
 import {
-	Button,
-	Image,
 	Modal,
 	ModalBody,
 	ModalContent,
 	ModalFooter,
 	ModalHeader,
-	useDisclosure,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
+import { useDisclosure } from "@nextui-org/use-disclosure";
 import { useLocalStorage } from "react-use";
 
 /// FID: 1

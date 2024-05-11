@@ -1,4 +1,5 @@
 import type { ApolloError } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import { toast } from "sonner";
 import { defaultImage } from "../constants/website";
 import type { AvatarSizes } from "../types/discord";
@@ -14,11 +15,11 @@ export function parseAvatar(
 }
 
 export function handleError(error: ApolloError) {
-	return error.graphQLErrors.map((e) =>
-		toast.error(e.message, {
-			icon: (e.extensions.face as string) ?? ":(",
-		}),
-	);
+	const errorMessage = (error: GraphQLError) =>
+		(error.extensions.originalError as { message?: string }).message ??
+		error.message;
+
+	return error.graphQLErrors.map((e) => toast.error(errorMessage(e)));
 }
 
 export function formatDate(ms: number) {
@@ -29,4 +30,11 @@ export function formatDate(ms: number) {
 	minutes = minutes < 10 ? Number(`0${minutes}`) : minutes;
 
 	return `${hours} hours and ${minutes} minutes`;
+}
+
+export function hasPermissionFor(
+	userPermissions: number,
+	requiredPermissions: number,
+) {
+	return userPermissions >= requiredPermissions;
 }

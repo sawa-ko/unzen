@@ -1,4 +1,6 @@
-import { Button, type ButtonProps } from "@nextui-org/react";
+"use client";
+
+import { Button, type ButtonProps } from "@nextui-org/button";
 import Link from "next/link";
 import DiscordIcon from "../icons/discord";
 
