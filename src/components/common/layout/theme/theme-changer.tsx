@@ -32,7 +32,7 @@ export default function ColorThemeChanger() {
 
 	useEffect(() => {
 		document
-			.getElementById("main_element")
+			.getElementsByName("html")[0]
 			?.setAttribute("class", activeColor ?? visibleColors[0].value);
 	}, [activeColor]);
 	return (
