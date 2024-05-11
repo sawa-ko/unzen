@@ -24,7 +24,6 @@ const visibleColors = [
 	},
 ];
 
-// Color theme changer (WIP)
 export default function ColorThemeChanger() {
 	const [activeColor, setActiveColor] = useLocalStorage(
 		"color",
