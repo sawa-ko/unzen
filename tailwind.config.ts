@@ -1,6 +1,6 @@
 import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
-import { defaultColors, generateColors } from "./tailwind.colors";
+import { themeColors } from "./tailwind.colors";
 
 const config: Config = {
 	content: [
@@ -24,12 +24,7 @@ const config: Config = {
 				},
 			},
 			themes: {
-				dark: {
-					colors: generateColors(defaultColors.main),
-				},
-				pine: {
-					colors: generateColors(defaultColors.pine),
-				},
+				...themeColors,
 			},
 		}),
 		require("tailwind-gradient-mask-image"),
