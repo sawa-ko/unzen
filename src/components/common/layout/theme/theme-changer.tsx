@@ -15,36 +15,12 @@ import { useLocalStorage } from "react-use";
 
 const visibleColors = [
 	{
-		name: "Cyan",
-		value: "cyan",
+		name: "Blurple",
+		value: "dark",
 	},
 	{
-		name: "Pink",
-		value: "pink",
-	},
-	{
-		name: "Green",
-		value: "green",
-	},
-	{
-		name: "Rose",
-		value: "rose",
-	},
-	{
-		name: "Purple",
-		value: "purple",
-	},
-	{
-		name: "Orange",
-		value: "orange",
-	},
-	{
-		name: "Rosé Pine",
-		value: "rose-pine",
-	},
-	{
-		name: "Rosé Pine (Moon)",
-		value: "rose-pine-moon",
+		name: "Pine",
+		value: "pine",
 	},
 ];
 
