@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { SessionQuery } from "../types/apollo";
 
-interface SessionStore {
+export interface SessionStore {
 	data?: SessionQuery;
 	loading?: boolean;
 }

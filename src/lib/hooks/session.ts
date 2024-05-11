@@ -9,10 +9,6 @@ import {
 export function useSession(
 	baseOptions?: QueryHookOptions<SessionQuery, SessionQueryVariables>,
 ) {
-	useSessionStore.setState({
-		data: undefined,
-		loading: true,
-	});
 	return useSessionQuery({
 		...baseOptions,
 		onCompleted: (data) =>

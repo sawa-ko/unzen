@@ -126,6 +126,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						className="w-full"
 						variant="underlined"
 						aria-label="Bot tabs"
+						size="lg"
 						classNames={{
 							tabList:
 								"gap-6 w-full relative rounded-none p-0 border-b border-divider",
@@ -139,7 +140,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							key="overview"
 							title={
 								<div className="flex items-center gap-2">
-									<IconInfoCircleFilled className="w-4 h-4" /> Overview
+									<IconInfoCircleFilled className="w-5 h-5" /> Overview
 								</div>
 							}
 						>
@@ -149,7 +150,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							key="reviews"
 							title={
 								<div className="flex items-center gap-2">
-									<IconMessageCircle2Filled className="w-4 h-4" /> Reviews
+									<IconMessageCircle2Filled className="w-5 h-5" /> Reviews
 								</div>
 							}
 						>
@@ -160,7 +161,7 @@ export default function Page({ params }: { params: { id: string } }) {
 								key="settings"
 								title={
 									<div className="flex items-center gap-2">
-										<IconSettingsFilled className="w-4 h-4" /> Settings
+										<IconSettingsFilled className="w-5 h-5" /> Settings
 									</div>
 								}
 							>
