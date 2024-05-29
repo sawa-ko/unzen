@@ -49,8 +49,6 @@
     "@nextui-org/user": "^2.0.29",
     "@tabler/icons-react": "^3.5.0",
     "@ts-react/form": "^1.8.3",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
     "cookie": "^0.6.0",
     "framer-motion": "^11.2.9",
     "graphql": "^16.8.1",
@@ -64,6 +62,7 @@
     "sonner": "^1.4.41",
     "tailwind-gradient-mask-image": "^1.2.0",
     "theme-colors": "^0.1.0",
+    "zod": "^3.23.8",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
