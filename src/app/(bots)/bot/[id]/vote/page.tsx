@@ -1,5 +1,7 @@
 "use client";
 
+import ErrorMessage from "@/components/common/feedback/error-message";
+import LoadingScreen from "@/components/common/layout/loading-screen";
 import BotVoteButton from "@/components/modules/bot/vote/button";
 import BotVoteSuccess from "@/components/modules/bot/vote/success";
 import useSessionStore from "@/lib/stores/session";
@@ -27,7 +29,15 @@ export default function Page({ params }: { params: { id: string } }) {
 
 	const canVote = (auth && data?.canVote?.canVote) ?? false;
 
-	if (!data?.getBot && !loading) return notFound();
+	if (loading ?? loadingSession) return <LoadingScreen />;
+	if (!auth)
+		return (
+			<ErrorMessage
+				message="You must be logged in to view this page"
+				isCentered
+			/>
+		);
+	if (!data?.getBot) return notFound();
 	return (
 		<div className="flex flex-col gap-3 items-center justify-center h-[70vh]">
 			<BotVoteSuccess name={data?.getBot.name} canVote={canVote} />

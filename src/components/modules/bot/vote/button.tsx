@@ -31,7 +31,6 @@ export default function BotVoteButton({
 		<Button
 			onClick={() => createVote({ variables: { input: { id } } })}
 			isLoading={voting}
-			spinner={<Loader />}
 			color="secondary"
 		>
 			Vote now
