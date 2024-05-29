@@ -4,7 +4,7 @@ import { useSession } from "@/lib/hooks/session";
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
 import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
-import { cn } from "@nextui-org/system";
+import { cn } from "@nextui-org/theme";
 import BrandLogo from "@public/dbots-white_256x256.png";
 import Link from "next/link";
 import LoginButton from "../buttons/login-button";

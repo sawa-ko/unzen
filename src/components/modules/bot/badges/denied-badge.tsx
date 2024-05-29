@@ -1,4 +1,4 @@
-import { cn } from "@nextui-org/system";
+import { cn } from "@nextui-org/theme";
 import { Tooltip } from "@nextui-org/tooltip";
 import { type IconProps, IconX } from "@tabler/icons-react";
 

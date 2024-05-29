@@ -1,6 +1,6 @@
 import ErrorMessage from "@/components/common/feedback/error-message";
 import LoadingScreen from "@/components/common/layout/loading-screen";
-import { cn } from "@nextui-org/system";
+import { cn } from "@nextui-org/theme";
 import { type ReactNode, Suspense } from "react";
 
 interface BotRowProps {

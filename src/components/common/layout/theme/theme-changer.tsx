@@ -8,7 +8,7 @@ import {
 	DropdownSection,
 	DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { cn } from "@nextui-org/system";
+import { cn } from "@nextui-org/theme";
 import { IconCircleFilled, IconPaintFilled } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { useLocalStorage } from "react-use";
