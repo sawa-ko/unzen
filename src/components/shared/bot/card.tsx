@@ -6,7 +6,7 @@ import type { FrontBotsQuery } from "@/lib/graphql/apollo";
 import { getAvatar } from "@/lib/utils/discord";
 import { css } from "@/styled-system/css";
 import { Box, Flex } from "@/styled-system/jsx";
-import { IconCaretUpFilled } from "@tabler/icons-react";
+import { ChevronUpIcon } from "@heroicons/react/16/solid";
 
 type BotCardProps = NonNullable<FrontBotsQuery["bots"]["nodes"]>[number];
 
@@ -17,8 +17,11 @@ export default function BotCard({ id, name, avatar }: BotCardProps) {
 			maxH={64}
 			maxW={"lg"}
 			bg={{
-				_hover: "gray.800",
+				// _hover: "gray.800",
 				base: "gray.900",
+			}}
+			_hover={{
+				scale: 1.03,
 			}}
 			transitionDuration={"fast"}
 			borderRadius={"xl"}
@@ -40,7 +43,7 @@ export default function BotCard({ id, name, avatar }: BotCardProps) {
 						<Heading>{name}</Heading>
 					</Flex>
 					<Badge variant="solid">
-						1k <IconCaretUpFilled />
+						1k <ChevronUpIcon />
 					</Badge>
 				</Flex>
 				<Text maxH={20} lineClamp={4} fontSize={"small"} color={"gray.300"}>

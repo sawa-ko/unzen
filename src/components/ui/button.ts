@@ -1,13 +1,22 @@
-import { type RecipeVariantProps, cva, css } from "@/styled-system/css";
+import { type RecipeVariantProps, cva, css, cx } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
 import Link from "next/link";
 import { Button as HeadlessButton } from "@headlessui/react";
 
-export const buttonIcon = (pos: "left" | "right") =>
+export const icon = (size = 5) =>
 	css({
-		ml: pos === "right" ? 2 : 0,
-		mr: pos === "left" ? 2 : 0,
+		w: size,
+		h: size,
 	});
+
+export const buttonIcon = (pos: "left" | "right", size = 5) =>
+	cx(
+		css({
+			ml: pos === "right" ? 2 : 0,
+			mr: pos === "left" ? 2 : 0,
+		}),
+		icon(size),
+	);
 
 export const button = cva({
 	base: {

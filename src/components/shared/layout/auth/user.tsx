@@ -2,11 +2,7 @@
 
 import { useAuth } from "@/lib/hooks/use-auth";
 import Spinner from "../../spinner";
-import { LinkButton, buttonIcon } from "@/components/ui/button";
-import {
-	IconBrandDiscordFilled,
-	IconSettingsFilled,
-} from "@tabler/icons-react";
+import { LinkButton, buttonIcon, icon } from "@/components/ui/button";
 import { Flex } from "@/styled-system/jsx";
 import Image from "@/components/ui/image";
 import { getAvatar } from "@/lib/utils/discord";
@@ -16,6 +12,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { menuAnimation } from "@/lib/constants/animations";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
+import {
+	ArrowLeftEndOnRectangleIcon,
+	Cog6ToothIcon,
+} from "@heroicons/react/24/solid";
 
 export default function AuthUser() {
 	const { data: auth, loading } = useAuth();
@@ -52,7 +52,7 @@ export default function AuthUser() {
 								>
 									<MenuItem as={"div"} className={menuItem}>
 										<Text>Profile</Text>
-										<IconSettingsFilled size={18} />
+										<Cog6ToothIcon className={icon()} />
 									</MenuItem>
 								</MenuItems>
 							)}
@@ -63,7 +63,7 @@ export default function AuthUser() {
 		</Flex>
 	) : (
 		<LinkButton href="/api/auth/login" size="sm">
-			<IconBrandDiscordFilled size={18} className={buttonIcon("left")} />
+			<ArrowLeftEndOnRectangleIcon className={buttonIcon("left", 5)} />
 			Login
 		</LinkButton>
 	);
