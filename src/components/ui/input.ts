@@ -1,3 +1,5 @@
+"use client";
+
 import { type RecipeVariantProps, cva } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
 import { Input as HeadlessInput } from "@headlessui/react";

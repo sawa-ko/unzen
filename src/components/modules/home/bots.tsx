@@ -7,6 +7,7 @@ import { Grid, GridItem } from "@/styled-system/jsx";
 export default function HomeBots() {
 	const { data: frontBots, error: frontBotsError } =
 		useFrontBotsSuspenseQuery();
+
 	return (
 		<Grid my={5} gridTemplateColumns={"4"}>
 			{frontBots.bots.nodes?.map((bot) => (

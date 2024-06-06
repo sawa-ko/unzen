@@ -10,7 +10,7 @@ import { ChevronUpIcon } from "@heroicons/react/16/solid";
 
 type BotCardProps = NonNullable<FrontBotsQuery["bots"]["nodes"]>[number];
 
-export default function BotCard({ id, name, avatar }: BotCardProps) {
+export default function BotCard({ id, name, avatar, votes }: BotCardProps) {
 	return (
 		<Box
 			p={4}
@@ -43,7 +43,7 @@ export default function BotCard({ id, name, avatar }: BotCardProps) {
 						<Heading>{name}</Heading>
 					</Flex>
 					<Badge variant="solid">
-						1k <ChevronUpIcon />
+						{votes.totalCount} <ChevronUpIcon />
 					</Badge>
 				</Flex>
 				<Text maxH={20} lineClamp={4} fontSize={"small"} color={"gray.300"}>
