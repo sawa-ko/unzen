@@ -3,28 +3,35 @@ import { css } from "@/styled-system/css";
 export const menuItems = css({
 	display: "flex",
 	flexDirection: "column",
-	bg: "gray.800",
+	bg: "background.800",
 	borderWidth: 1,
-	borderColor: "gray.700",
+	borderColor: "background.700",
 	borderRadius: "lg",
-	p: 1.5,
+	p: 0.5,
 	minWidth: "200px",
 	mt: 1,
 	shadow: "md",
+	zIndex: 100,
+	transformOrigin: "top right",
 });
 
 export const menuItem = css({
 	display: "flex",
 	alignItems: "center",
-	justifyContent: "space-between",
 	px: 3,
 	py: 2,
 	borderRadius: "lg",
 	fontSize: "sm",
-	color: "gray.300",
+	color: "background.300",
 	cursor: "pointer",
 	_hover: {
-		bg: "gray.700",
+		bg: "background.700",
 		color: "white",
+	},
+
+	"& svg": {
+		w: 4,
+		h: 4,
+		mr: 2,
 	},
 });

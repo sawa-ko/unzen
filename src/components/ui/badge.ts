@@ -18,20 +18,20 @@ export const badge = cva({
 		variant: {
 			solid: {
 				background: "white",
-				color: "gray.950",
+				color: "background.950",
 			},
 			subtle: {
-				background: "gray.800",
-				borderColor: "gray.700",
+				background: "background.800",
+				borderColor: "background.700",
 				borderWidth: "1px",
 				color: "white",
 				"& svg": {
-					color: "gray.300",
+					color: "background.300",
 				},
 			},
 			outline: {
 				borderWidth: "2px",
-				borderColor: "gray.800",
+				borderColor: "background.800",
 			},
 		},
 		size: {

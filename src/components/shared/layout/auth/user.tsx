@@ -14,13 +14,15 @@ import { menuAnimation } from "@/lib/constants/animations";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
 import {
 	ArrowLeftEndOnRectangleIcon,
+	ArrowRightStartOnRectangleIcon,
 	Cog6ToothIcon,
 } from "@heroicons/react/24/solid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AuthUser() {
 	const { data: auth, loading } = useAuth();
 	return loading ? (
-		<Spinner />
+		<Skeleton borderRadius={"full"} w={10} h={10} />
 	) : auth ? (
 		<Flex alignItems={"center"} gap={2}>
 			<Menu>
@@ -35,6 +37,8 @@ export default function AuthUser() {
 								className={css({
 									borderRadius: "full",
 									cursor: "pointer",
+									w: 10,
+									h: 10,
 								})}
 							/>
 						</MenuButton>
@@ -51,8 +55,12 @@ export default function AuthUser() {
 									className={menuItems}
 								>
 									<MenuItem as={"div"} className={menuItem}>
+										<Cog6ToothIcon />
 										<Text>Profile</Text>
-										<Cog6ToothIcon className={icon()} />
+									</MenuItem>
+									<MenuItem as={"div"} className={menuItem}>
+										<ArrowRightStartOnRectangleIcon />
+										<Text>Logout</Text>
 									</MenuItem>
 								</MenuItems>
 							)}

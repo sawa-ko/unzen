@@ -12,16 +12,16 @@ export const input = cva({
 		py: 2,
 		borderRadius: "lg",
 		bg: {
-			base: "gray.900",
-			_hover: "gray.800",
+			base: "background.900",
+			_hover: "background.800",
 		},
 		borderWidth: 1,
 		borderColor: {
-			base: "gray.800",
-			_hover: "gray.700",
+			base: "background.800",
+			_hover: "background.700",
 		},
 		_placeholder: {
-			color: "gray.400",
+			color: "background.400",
 		},
 	},
 });

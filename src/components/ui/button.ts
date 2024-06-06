@@ -27,8 +27,8 @@ export const button = cva({
 		whiteSpace: "nowrap",
 		borderRadius: "lg",
 		cursor: "pointer",
-		transitionDuration: "slow",
-		fontWeight: 600,
+		transitionDuration: "fast",
+		fontWeight: 500,
 		w: "fit",
 		_disabled: {
 			opacity: 0.5,
@@ -49,11 +49,11 @@ export const button = cva({
 			},
 			gray: {
 				bg: {
-					base: "gray.900",
-					_hover: "gray.800",
-					_active: "gray.700",
+					base: "background.800",
+					_hover: "background.700",
+					_active: "background.600",
 				},
-				color: "white",
+				color: "background.200",
 			},
 		},
 		size: {
@@ -68,9 +68,11 @@ export const button = cva({
 				py: 2,
 			},
 			lg: {
-				h: 11,
-				px: 6,
-				py: 4,
+				h: 12,
+				px: 7,
+				py: 5,
+				borderRadius: "xl",
+				fontSize: "lg",
 			},
 		},
 	},

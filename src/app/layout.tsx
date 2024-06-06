@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter as Font } from "next/font/google";
-
-import "@/styles/globals.css";
 import Providers from "@/components/providers";
 import { Container } from "@/styled-system/jsx";
 import Header from "@/components/shared/layout/header";
+import Loader from "nextjs-toploader";
+
+import "@/styles/globals.css";
 
 const font = Font({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={font.className}>
+				<Loader color="var(--colors-brand-500)" showSpinner={false} />
 				<Providers>
 					<Header />
 					<Container py={11}>{children}</Container>

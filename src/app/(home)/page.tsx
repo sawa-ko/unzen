@@ -1,6 +1,5 @@
 import HomeBots from "@/components/modules/home/bots";
 import HomeSearch from "@/components/modules/home/search";
-
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Flex } from "@/styled-system/jsx";
