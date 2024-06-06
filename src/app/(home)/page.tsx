@@ -1,11 +1,9 @@
-"use client";
-
-import BotCard from "@/components/shared/bot/card";
+import HomeBots from "@/components/modules/home/bots";
+import HomeSearch from "@/components/modules/home/search";
 import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useFrontBotsSuspenseQuery } from "@/lib/graphql/apollo";
-import { Flex, Grid, GridItem } from "@/styled-system/jsx";
+import { Flex } from "@/styled-system/jsx";
 import React from "react";
 
 export const dynamic = "force-dynamic";
@@ -24,15 +22,9 @@ export default function Page() {
 					nostrum fugit culpa quo sint ducimus autem ab fuga, dolorem
 					necessitatibus molestiae suscipit.
 				</Text>
-				<Input placeholder={"Search bots..."} />
+				<HomeSearch />
 			</Flex>
-			<Grid my={5} gridTemplateColumns={"4"}>
-				{frontBots.bots.nodes?.map((bot) => (
-					<GridItem key={bot.id}>
-						<BotCard {...bot} />
-					</GridItem>
-				))}
-			</Grid>
+			<HomeBots />
 		</React.Fragment>
 	);
 }

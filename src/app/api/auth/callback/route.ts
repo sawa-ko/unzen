@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
 		path: "/",
 	});
 
-	const finalResponse = quickRedirect("/api/auth/result", req.url);
+	const finalResponse = quickRedirect("/", req.url);
 	finalResponse.headers.append("Set-Cookie", cookie);
 
 	return finalResponse;
