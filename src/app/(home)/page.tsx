@@ -2,16 +2,12 @@ import HomeBots from "@/components/modules/home/bots";
 import HomeSearch from "@/components/modules/home/search";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
-import { useFrontBotsSuspenseQuery } from "@/lib/graphql/apollo";
 import { Flex } from "@/styled-system/jsx";
 import React from "react";
 
 export const dynamic = "force-dynamic";
 
 export default function Page() {
-	const { data: frontBots, error: frontBotsError } =
-		useFrontBotsSuspenseQuery();
-
 	return (
 		<React.Fragment>
 			<Flex flexDir={"column"} gap={3}>
