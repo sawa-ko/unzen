@@ -1,4 +1,4 @@
-# API Code of Conduct
+# Unzen Code of Conduct
 
 Welcome to Unzen! We are excited to have you as a contributor and user of our open-source project. To ensure a positive and inclusive community experience, we ask that all contributors and users adhere to the following guidelines:
 
