@@ -1,0 +1,18 @@
+query FrontBots($pagination: PaginationInput) {
+  bots(pagination: $pagination) {
+    nodes {
+      avatar
+      certified
+      guildCount
+      shortDescription
+      name
+      id
+      tags {
+        displayName
+      }
+      votes {
+        totalCount
+      }
+    }
+  }
+}
