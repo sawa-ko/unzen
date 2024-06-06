@@ -13,11 +13,16 @@
 	"dependencies": {
 		"@apollo/client": "^3.10.4",
 		"@apollo/experimental-nextjs-app-support": "^0.11.0",
+		"@headlessui/react": "^2.0.4",
 		"@tabler/icons-react": "^3.5.0",
+		"cookie": "^0.6.0",
+		"framer-motion": "^11.2.10",
 		"next": "14.2.3",
+		"nookies": "^2.5.2",
 		"react": "^18",
 		"react-dom": "^18",
-		"theme-colors": "^0.1.0"
+		"theme-colors": "^0.1.0",
+		"zustand": "^4.5.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.0",
@@ -25,7 +30,9 @@
 		"@graphql-codegen/introspection": "^4.0.3",
 		"@graphql-codegen/typescript-react-apollo": "^4.3.0",
 		"@pandacss/dev": "^0.40.1",
+		"@pandacss/preset-base": "^0.40.1",
 		"@parcel/watcher": "^2.4.1",
+		"@types/cookie": "^0.6.0",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",

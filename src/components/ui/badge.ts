@@ -3,46 +3,69 @@ import { styled } from "@/styled-system/jsx";
 
 export const badge = cva({
 	base: {
-		fontWeight: "400",
+		alignItems: "center",
 		borderRadius: "full",
 		display: "inline-flex",
-		alignItems: "center",
-		gap: 2,
+		fontWeight: "medium",
+		userSelect: "none",
+		whiteSpace: "nowrap",
+	},
+	defaultVariants: {
+		variant: "subtle",
+		size: "sm",
 	},
 	variants: {
-		color: {
-			primary: {
-				color: "ButtonText",
-				bg: "brand.500",
+		variant: {
+			solid: {
+				background: "white",
+				color: "gray.950",
 			},
-			gray: {
-				color: "gray.50",
-				bg: "gray.800",
-				borderWidth: 1,
+			subtle: {
+				background: "gray.800",
 				borderColor: "gray.700",
+				borderWidth: "1px",
+				color: "white",
+				"& svg": {
+					color: "gray.300",
+				},
+			},
+			outline: {
+				borderWidth: "2px",
+				borderColor: "gray.800",
 			},
 		},
 		size: {
-			lg: {
-				fontSize: "lg",
-				px: 5,
-				py: 2,
+			sm: {
+				textStyle: "xs",
+				px: "2",
+				h: "5",
+				gap: "1",
+				"& svg": {
+					width: "3",
+					height: "3",
+				},
 			},
 			md: {
-				fontSize: "md",
-				px: 3,
-				py: 1,
+				textStyle: "xs",
+				px: "2.5",
+				h: "6",
+				gap: "1.5",
+				"& svg": {
+					width: "4",
+					height: "4",
+				},
 			},
-			sm: {
-				fontSize: "sm",
-				px: 3,
-				py: 1,
+			lg: {
+				textStyle: "sm",
+				px: "3",
+				h: "7",
+				gap: "1.5",
+				"& svg": {
+					width: "4",
+					height: "4",
+				},
 			},
 		},
-	},
-	defaultVariants: {
-		size: "sm",
-		color: "primary",
 	},
 });
 

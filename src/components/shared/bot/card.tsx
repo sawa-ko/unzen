@@ -39,8 +39,8 @@ export default function BotCard({ id, name, avatar }: BotCardProps) {
 						/>
 						<Heading>{name}</Heading>
 					</Flex>
-					<Badge color="gray">
-						1k <IconCaretUpFilled size={12} />
+					<Badge variant="solid">
+						1k <IconCaretUpFilled />
 					</Badge>
 				</Flex>
 				<Text maxH={20} lineClamp={4} fontSize={"small"} color={"gray.300"}>

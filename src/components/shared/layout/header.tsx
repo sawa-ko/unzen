@@ -1,8 +1,8 @@
 import { css } from "@/styled-system/css";
 import { Container, Flex } from "@/styled-system/jsx";
 import { Heading } from "@/components/ui/heading";
-import { Button, buttonIcon } from "@/components/ui/button";
-import { IconBrandDiscordFilled } from "@tabler/icons-react";
+import AuthUser from "./auth/user";
+import Link from "next/link";
 
 export default function Header() {
 	return (
@@ -19,11 +19,10 @@ export default function Header() {
 		>
 			<Container w={"full"}>
 				<Flex justifyContent={"space-between"} alignItems={"center"}>
-					<Heading>dbots.fun</Heading>
-					<Button size="sm">
-						<IconBrandDiscordFilled size={18} className={buttonIcon("left")} />
-						Login
-					</Button>
+					<Link href="/">
+						<Heading>dbots.fun</Heading>
+					</Link>
+					<AuthUser />
 				</Flex>
 			</Container>
 		</header>

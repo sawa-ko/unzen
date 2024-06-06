@@ -1,5 +1,7 @@
 import { type RecipeVariantProps, cva, css } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
+import Link from "next/link";
+import { Button as HeadlessButton } from "@headlessui/react";
 
 export const buttonIcon = (pos: "left" | "right") =>
 	css({
@@ -71,4 +73,5 @@ export const button = cva({
 
 export type ButtonVariants = RecipeVariantProps<typeof button>;
 
-export const Button = styled("button", button);
+export const Button = styled(HeadlessButton, button);
+export const LinkButton = styled(Link, button);

@@ -733,6 +733,8 @@ export enum WebhookPayloadField {
   User = 'USER'
 }
 
+export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
+
 export type FrontBotsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationInput>;
 }>;
@@ -740,27 +742,108 @@ export type FrontBotsQueryVariables = Exact<{
 
 export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
 
+export type SingleBotQueryVariables = Exact<{
+  input: GetBotInput;
+}>;
 
+
+export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, name: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
+
+export type SingleBotVoteQueryVariables = Exact<{
+  input: GetBotInput;
+  canVoteInput: BotVoteCreateInput;
+}>;
+
+
+export type SingleBotVoteQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, id: string, name: string, guildCount: number, certified: boolean, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }, canVote: { __typename?: 'BotCanVoteObject', canVote: boolean, expires?: number | null } };
+
+export type CanVoteQueryVariables = Exact<{
+  input: BotVoteCreateInput;
+}>;
+
+
+export type CanVoteQuery = { __typename?: 'Query', canVote: { __typename?: 'BotCanVoteObject', canVote: boolean, expires?: number | null } };
+
+export type WebhookQueryVariables = Exact<{
+  input: GetWebhookInput;
+}>;
+
+
+export type WebhookQuery = { __typename?: 'Query', getWebhook: { __typename?: 'WebhookObject', id: string, events: Array<WebhookEvent>, payloadFields?: Array<WebhookPayloadField> | null, secret: string, url: string } };
+
+export type PanelBotsQueryVariables = Exact<{
+  input?: InputMaybe<FiltersBotInput>;
+}>;
+
+
+export type PanelBotsQuery = { __typename?: 'Query', panelBots: { __typename?: 'BotsConnection', totalCount: number, nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, id: string, name: string, status: BotStatus, owners: Array<{ __typename?: 'BotOwnerObject', avatar?: string | null, id: string, username: string }> }> | null } };
+
+export type GetUserQueryVariables = Exact<{
+  input: GetUserInput;
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'BotOwnerObject', avatar?: string | null, bio?: string | null, id: string, username: string, banner?: string | null, bots: Array<{ __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> } };
+
+export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTagsQuery = { __typename?: 'Query', tags: { __typename?: 'BotTagsConnection', nodes?: Array<{ __typename?: 'BotTagObject', displayName: string, id: string, bots: { __typename?: 'BotsConnection', totalCount: number } }> | null } };
+
+export type SessionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SessionQuery = { __typename?: 'Query', me: { __typename?: 'AuthUserObject', id: string, username: string, permissions: number, avatar?: string | null } };
+
+export type GetVanityQueryVariables = Exact<{
+  input: GetVanityInput;
+}>;
+
+
+export type GetVanityQuery = { __typename?: 'Query', getVanity: { __typename?: 'VanityObject', id: string, targetId: string, type: VanityType, userId: string } };
+
+export type GetPanelStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPanelStatsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', totalCount: number }, tags: { __typename?: 'BotTagsConnection', totalCount: number } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
+
+export type CreateSessionMutationVariables = Exact<{
+  input: CreateSessionInput;
+}>;
+
+
+export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'AuthSessionObject', access_token: string, expires_in: number, refresh_token: string } };
+
+export const BotCardFragmentDoc = gql`
+    fragment BotCard on BotObject {
+  avatar
+  certified
+  guildCount
+  shortDescription
+  name
+  id
+  tags {
+    displayName
+  }
+  votes {
+    totalCount
+  }
+}
+    `;
 export const FrontBotsDocument = gql`
     query FrontBots($pagination: PaginationInput) {
   bots(pagination: $pagination) {
     nodes {
-      avatar
-      certified
-      guildCount
-      shortDescription
-      name
-      id
-      tags {
-        displayName
-      }
-      votes {
-        totalCount
-      }
+      ...BotCard
     }
   }
 }
-    `;
+    ${BotCardFragmentDoc}`;
 
 /**
  * __useFrontBotsQuery__
@@ -794,3 +877,540 @@ export type FrontBotsQueryHookResult = ReturnType<typeof useFrontBotsQuery>;
 export type FrontBotsLazyQueryHookResult = ReturnType<typeof useFrontBotsLazyQuery>;
 export type FrontBotsSuspenseQueryHookResult = ReturnType<typeof useFrontBotsSuspenseQuery>;
 export type FrontBotsQueryResult = Apollo.QueryResult<FrontBotsQuery, FrontBotsQueryVariables>;
+export const SingleBotDocument = gql`
+    query SingleBot($input: GetBotInput!) {
+  getBot(input: $input) {
+    avatar
+    certified
+    description
+    website
+    supportServer
+    status
+    shortDescription
+    prefix
+    github
+    guildCount
+    id
+    importedFrom
+    inviteLink
+    name
+    votes {
+      totalCount
+    }
+    owners {
+      username
+      id
+      avatar
+    }
+    tags {
+      displayName
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useSingleBotQuery__
+ *
+ * To run a query within a React component, call `useSingleBotQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleBotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleBotQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSingleBotQuery(baseOptions: Apollo.QueryHookOptions<SingleBotQuery, SingleBotQueryVariables> & ({ variables: SingleBotQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleBotQuery, SingleBotQueryVariables>(SingleBotDocument, options);
+      }
+export function useSingleBotLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleBotQuery, SingleBotQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleBotQuery, SingleBotQueryVariables>(SingleBotDocument, options);
+        }
+export function useSingleBotSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SingleBotQuery, SingleBotQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SingleBotQuery, SingleBotQueryVariables>(SingleBotDocument, options);
+        }
+export type SingleBotQueryHookResult = ReturnType<typeof useSingleBotQuery>;
+export type SingleBotLazyQueryHookResult = ReturnType<typeof useSingleBotLazyQuery>;
+export type SingleBotSuspenseQueryHookResult = ReturnType<typeof useSingleBotSuspenseQuery>;
+export type SingleBotQueryResult = Apollo.QueryResult<SingleBotQuery, SingleBotQueryVariables>;
+export const SingleBotVoteDocument = gql`
+    query SingleBotVote($input: GetBotInput!, $canVoteInput: BotVoteCreateInput!) {
+  getBot(input: $input) {
+    avatar
+    id
+    name
+    votes {
+      totalCount
+    }
+    guildCount
+    certified
+  }
+  canVote(input: $canVoteInput) {
+    canVote
+    expires
+  }
+}
+    `;
+
+/**
+ * __useSingleBotVoteQuery__
+ *
+ * To run a query within a React component, call `useSingleBotVoteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleBotVoteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleBotVoteQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *      canVoteInput: // value for 'canVoteInput'
+ *   },
+ * });
+ */
+export function useSingleBotVoteQuery(baseOptions: Apollo.QueryHookOptions<SingleBotVoteQuery, SingleBotVoteQueryVariables> & ({ variables: SingleBotVoteQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleBotVoteQuery, SingleBotVoteQueryVariables>(SingleBotVoteDocument, options);
+      }
+export function useSingleBotVoteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleBotVoteQuery, SingleBotVoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleBotVoteQuery, SingleBotVoteQueryVariables>(SingleBotVoteDocument, options);
+        }
+export function useSingleBotVoteSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SingleBotVoteQuery, SingleBotVoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SingleBotVoteQuery, SingleBotVoteQueryVariables>(SingleBotVoteDocument, options);
+        }
+export type SingleBotVoteQueryHookResult = ReturnType<typeof useSingleBotVoteQuery>;
+export type SingleBotVoteLazyQueryHookResult = ReturnType<typeof useSingleBotVoteLazyQuery>;
+export type SingleBotVoteSuspenseQueryHookResult = ReturnType<typeof useSingleBotVoteSuspenseQuery>;
+export type SingleBotVoteQueryResult = Apollo.QueryResult<SingleBotVoteQuery, SingleBotVoteQueryVariables>;
+export const CanVoteDocument = gql`
+    query CanVote($input: BotVoteCreateInput!) {
+  canVote(input: $input) {
+    canVote
+    expires
+  }
+}
+    `;
+
+/**
+ * __useCanVoteQuery__
+ *
+ * To run a query within a React component, call `useCanVoteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCanVoteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCanVoteQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCanVoteQuery(baseOptions: Apollo.QueryHookOptions<CanVoteQuery, CanVoteQueryVariables> & ({ variables: CanVoteQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CanVoteQuery, CanVoteQueryVariables>(CanVoteDocument, options);
+      }
+export function useCanVoteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CanVoteQuery, CanVoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CanVoteQuery, CanVoteQueryVariables>(CanVoteDocument, options);
+        }
+export function useCanVoteSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<CanVoteQuery, CanVoteQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CanVoteQuery, CanVoteQueryVariables>(CanVoteDocument, options);
+        }
+export type CanVoteQueryHookResult = ReturnType<typeof useCanVoteQuery>;
+export type CanVoteLazyQueryHookResult = ReturnType<typeof useCanVoteLazyQuery>;
+export type CanVoteSuspenseQueryHookResult = ReturnType<typeof useCanVoteSuspenseQuery>;
+export type CanVoteQueryResult = Apollo.QueryResult<CanVoteQuery, CanVoteQueryVariables>;
+export const WebhookDocument = gql`
+    query Webhook($input: GetWebhookInput!) {
+  getWebhook(input: $input) {
+    id
+    events
+    payloadFields
+    secret
+    url
+  }
+}
+    `;
+
+/**
+ * __useWebhookQuery__
+ *
+ * To run a query within a React component, call `useWebhookQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWebhookQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWebhookQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useWebhookQuery(baseOptions: Apollo.QueryHookOptions<WebhookQuery, WebhookQueryVariables> & ({ variables: WebhookQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<WebhookQuery, WebhookQueryVariables>(WebhookDocument, options);
+      }
+export function useWebhookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WebhookQuery, WebhookQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<WebhookQuery, WebhookQueryVariables>(WebhookDocument, options);
+        }
+export function useWebhookSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<WebhookQuery, WebhookQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<WebhookQuery, WebhookQueryVariables>(WebhookDocument, options);
+        }
+export type WebhookQueryHookResult = ReturnType<typeof useWebhookQuery>;
+export type WebhookLazyQueryHookResult = ReturnType<typeof useWebhookLazyQuery>;
+export type WebhookSuspenseQueryHookResult = ReturnType<typeof useWebhookSuspenseQuery>;
+export type WebhookQueryResult = Apollo.QueryResult<WebhookQuery, WebhookQueryVariables>;
+export const PanelBotsDocument = gql`
+    query PanelBots($input: FiltersBotInput) {
+  panelBots(input: $input) {
+    totalCount
+    nodes {
+      avatar
+      owners {
+        avatar
+        id
+        username
+      }
+      id
+      name
+      status
+    }
+  }
+}
+    `;
+
+/**
+ * __usePanelBotsQuery__
+ *
+ * To run a query within a React component, call `usePanelBotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePanelBotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePanelBotsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePanelBotsQuery(baseOptions?: Apollo.QueryHookOptions<PanelBotsQuery, PanelBotsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PanelBotsQuery, PanelBotsQueryVariables>(PanelBotsDocument, options);
+      }
+export function usePanelBotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PanelBotsQuery, PanelBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PanelBotsQuery, PanelBotsQueryVariables>(PanelBotsDocument, options);
+        }
+export function usePanelBotsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PanelBotsQuery, PanelBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PanelBotsQuery, PanelBotsQueryVariables>(PanelBotsDocument, options);
+        }
+export type PanelBotsQueryHookResult = ReturnType<typeof usePanelBotsQuery>;
+export type PanelBotsLazyQueryHookResult = ReturnType<typeof usePanelBotsLazyQuery>;
+export type PanelBotsSuspenseQueryHookResult = ReturnType<typeof usePanelBotsSuspenseQuery>;
+export type PanelBotsQueryResult = Apollo.QueryResult<PanelBotsQuery, PanelBotsQueryVariables>;
+export const GetUserDocument = gql`
+    query GetUser($input: GetUserInput!) {
+  getUser(input: $input) {
+    avatar
+    bio
+    id
+    username
+    banner
+    bots {
+      ...BotCard
+    }
+  }
+}
+    ${BotCardFragmentDoc}`;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables> & ({ variables: GetUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export function useGetUserSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserSuspenseQueryHookResult = ReturnType<typeof useGetUserSuspenseQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const GetTagsDocument = gql`
+    query GetTags {
+  tags {
+    nodes {
+      bots {
+        totalCount
+      }
+      displayName
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTagsQuery__
+ *
+ * To run a query within a React component, call `useGetTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetTagsQuery, GetTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTagsQuery, GetTagsQueryVariables>(GetTagsDocument, options);
+      }
+export function useGetTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTagsQuery, GetTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTagsQuery, GetTagsQueryVariables>(GetTagsDocument, options);
+        }
+export function useGetTagsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTagsQuery, GetTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTagsQuery, GetTagsQueryVariables>(GetTagsDocument, options);
+        }
+export type GetTagsQueryHookResult = ReturnType<typeof useGetTagsQuery>;
+export type GetTagsLazyQueryHookResult = ReturnType<typeof useGetTagsLazyQuery>;
+export type GetTagsSuspenseQueryHookResult = ReturnType<typeof useGetTagsSuspenseQuery>;
+export type GetTagsQueryResult = Apollo.QueryResult<GetTagsQuery, GetTagsQueryVariables>;
+export const SessionDocument = gql`
+    query Session {
+  me {
+    id
+    username
+    permissions
+    avatar
+  }
+}
+    `;
+
+/**
+ * __useSessionQuery__
+ *
+ * To run a query within a React component, call `useSessionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSessionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSessionQuery(baseOptions?: Apollo.QueryHookOptions<SessionQuery, SessionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SessionQuery, SessionQueryVariables>(SessionDocument, options);
+      }
+export function useSessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SessionQuery, SessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SessionQuery, SessionQueryVariables>(SessionDocument, options);
+        }
+export function useSessionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SessionQuery, SessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SessionQuery, SessionQueryVariables>(SessionDocument, options);
+        }
+export type SessionQueryHookResult = ReturnType<typeof useSessionQuery>;
+export type SessionLazyQueryHookResult = ReturnType<typeof useSessionLazyQuery>;
+export type SessionSuspenseQueryHookResult = ReturnType<typeof useSessionSuspenseQuery>;
+export type SessionQueryResult = Apollo.QueryResult<SessionQuery, SessionQueryVariables>;
+export const GetVanityDocument = gql`
+    query GetVanity($input: GetVanityInput!) {
+  getVanity(input: $input) {
+    id
+    targetId
+    type
+    userId
+  }
+}
+    `;
+
+/**
+ * __useGetVanityQuery__
+ *
+ * To run a query within a React component, call `useGetVanityQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetVanityQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetVanityQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetVanityQuery(baseOptions: Apollo.QueryHookOptions<GetVanityQuery, GetVanityQueryVariables> & ({ variables: GetVanityQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetVanityQuery, GetVanityQueryVariables>(GetVanityDocument, options);
+      }
+export function useGetVanityLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetVanityQuery, GetVanityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetVanityQuery, GetVanityQueryVariables>(GetVanityDocument, options);
+        }
+export function useGetVanitySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetVanityQuery, GetVanityQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetVanityQuery, GetVanityQueryVariables>(GetVanityDocument, options);
+        }
+export type GetVanityQueryHookResult = ReturnType<typeof useGetVanityQuery>;
+export type GetVanityLazyQueryHookResult = ReturnType<typeof useGetVanityLazyQuery>;
+export type GetVanitySuspenseQueryHookResult = ReturnType<typeof useGetVanitySuspenseQuery>;
+export type GetVanityQueryResult = Apollo.QueryResult<GetVanityQuery, GetVanityQueryVariables>;
+export const GetPanelStatsDocument = gql`
+    query GetPanelStats {
+  bots {
+    totalCount
+  }
+  tags {
+    totalCount
+  }
+}
+    `;
+
+/**
+ * __useGetPanelStatsQuery__
+ *
+ * To run a query within a React component, call `useGetPanelStatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPanelStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPanelStatsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPanelStatsQuery(baseOptions?: Apollo.QueryHookOptions<GetPanelStatsQuery, GetPanelStatsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPanelStatsQuery, GetPanelStatsQueryVariables>(GetPanelStatsDocument, options);
+      }
+export function useGetPanelStatsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPanelStatsQuery, GetPanelStatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPanelStatsQuery, GetPanelStatsQueryVariables>(GetPanelStatsDocument, options);
+        }
+export function useGetPanelStatsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPanelStatsQuery, GetPanelStatsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPanelStatsQuery, GetPanelStatsQueryVariables>(GetPanelStatsDocument, options);
+        }
+export type GetPanelStatsQueryHookResult = ReturnType<typeof useGetPanelStatsQuery>;
+export type GetPanelStatsLazyQueryHookResult = ReturnType<typeof useGetPanelStatsLazyQuery>;
+export type GetPanelStatsSuspenseQueryHookResult = ReturnType<typeof useGetPanelStatsSuspenseQuery>;
+export type GetPanelStatsQueryResult = Apollo.QueryResult<GetPanelStatsQuery, GetPanelStatsQueryVariables>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logOut
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const CreateSessionDocument = gql`
+    mutation CreateSession($input: CreateSessionInput!) {
+  createSession(input: $input) {
+    access_token
+    expires_in
+    refresh_token
+  }
+}
+    `;
+export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
+
+/**
+ * __useCreateSessionMutation__
+ *
+ * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
+      }
+export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
+export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
+export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;
