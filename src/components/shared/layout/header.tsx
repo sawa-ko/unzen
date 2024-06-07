@@ -4,6 +4,9 @@ import { Heading } from "@/components/ui/heading";
 import AuthUser from "./auth/user";
 import Link from "next/link";
 import HomeSearch from "@/components/modules/home/search";
+import Image from "@/components/ui/image";
+
+import CleanLogo from "@public/logos/clean.png";
 
 export default function Header() {
 	return (
@@ -23,11 +26,17 @@ export default function Header() {
 		>
 			<Container w={"full"}>
 				<Flex justifyContent={"space-between"} alignItems={"center"}>
-					<Flex alignItems={"center"}>
-						<Link href="/">
+					<Link href="/">
+						<Flex alignItems={"center"} gap={2}>
+							<Image
+								src={CleanLogo}
+								alt={"dbots.fun logo"}
+								width={53}
+								height={53}
+							/>
 							<Heading>dbots.fun</Heading>
-						</Link>
-					</Flex>
+						</Flex>
+					</Link>
 					<Flex alignItems={"center"} gap={3}>
 						<HomeSearch />
 						<AuthUser />

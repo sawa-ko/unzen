@@ -10,7 +10,7 @@ export const menuItems = css({
 	p: 0.5,
 	minWidth: "200px",
 	mt: 1,
-	shadow: "md",
+	shadow: "xl",
 	zIndex: 100,
 	transformOrigin: "top right",
 });

@@ -6,17 +6,25 @@ import { tab, tabGroup, tabList } from "@/components/ui/styles/tab";
 import BotTabReviews from "./reviews";
 import {
 	ChatBubbleBottomCenterIcon,
+	Cog6ToothIcon,
 	InformationCircleIcon,
-} from "@heroicons/react/16/solid";
+} from "@heroicons/react/24/solid";
 import type { SingleBotQuery } from "@/lib/graphql/apollo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import BotTabManage from "./manage";
 
-type BotTabsMainProps = Pick<SingleBotQuery["getBot"], "description" | "id">;
+type BotTabsMainProps = Pick<SingleBotQuery["getBot"], "description" | "id"> & {
+	userCanManage?: boolean;
+};
 
 const tabs = ["overview", "reviews"];
 
-export default function BotTabsMain({ description, id }: BotTabsMainProps) {
+export default function BotTabsMain({
+	description,
+	id,
+	userCanManage,
+}: BotTabsMainProps) {
 	const router = useRouter();
 	const [activeTab, setActiveTab] = useState(
 		useSearchParams().get("activeTab") ?? tabs[0],
@@ -42,10 +50,17 @@ export default function BotTabsMain({ description, id }: BotTabsMainProps) {
 					<ChatBubbleBottomCenterIcon />
 					Reviews
 				</Tab>
+				{userCanManage && (
+					<Tab className={tab}>
+						<Cog6ToothIcon />
+						Manage
+					</Tab>
+				)}
 			</TabList>
 			<TabPanels>
 				<BotTabOverview description={description} />
 				<BotTabReviews />
+				{userCanManage && <BotTabManage />}
 			</TabPanels>
 		</TabGroup>
 	);
