@@ -20,7 +20,7 @@ export default function Image(props: ImageWithFallbackProps) {
 				setImgSrc(fallbackSrc ?? DefaultAvatar.src);
 			}}
 			blurDataURL={DefaultAvatar.blurDataURL}
-			placeholder="blur"
+			placeholder={rest.placeholder ?? "blur"}
 		/>
 	);
 }

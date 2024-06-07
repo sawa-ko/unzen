@@ -1,16 +1,10 @@
 "use client";
 
 import { makeClient } from "@/lib/constants/apollo-client";
-import type { CommonProps } from "@/lib/types/common";
-import { HttpLink } from "@apollo/client";
-import {
-	ApolloNextAppProvider,
-	ApolloClient,
-	InMemoryCache,
-} from "@apollo/experimental-nextjs-app-support";
+import { ApolloNextAppProvider } from "@apollo/experimental-nextjs-app-support";
+import type React from "react";
 
-// you need to create a component to wrap your app in
-export function ApolloWrapper({ children }: CommonProps) {
+export function ApolloWrapper({ children }: React.PropsWithChildren) {
 	return (
 		<ApolloNextAppProvider makeClient={makeClient}>
 			{children}

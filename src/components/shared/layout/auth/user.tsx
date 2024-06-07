@@ -30,6 +30,7 @@ export default function AuthUser() {
 					<>
 						<MenuButton>
 							<Image
+								placeholder="empty"
 								alt="user avatar"
 								src={getAvatar(auth.me.id, auth.me.avatar)}
 								width={36}

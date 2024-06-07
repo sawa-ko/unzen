@@ -11,6 +11,7 @@ export const tabList = css({
 });
 
 export const tab = css({
+	transitionDuration: "fast",
 	px: 4,
 	py: 1,
 	display: "inline-flex",
@@ -27,10 +28,10 @@ export const tab = css({
 	},
 
 	"&[data-selected]": {
-		bg: "background.700",
+		bg: "background.800",
 	},
 
 	"&[data-hover]": {
-		bg: "background.800",
+		bg: "background.700",
 	},
 });

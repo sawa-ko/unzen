@@ -12,7 +12,12 @@ import { formatDateSince } from "@/lib/utils/format";
 import { css } from "@/styled-system/css";
 import { Box, Divider, Flex } from "@/styled-system/jsx";
 import { CalendarIcon } from "@heroicons/react/16/solid";
-import { ArrowUpCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid";
+import {
+	ArrowUpCircleIcon,
+	PlusCircleIcon,
+	ChartBarIcon,
+	ChevronUpIcon,
+} from "@heroicons/react/24/solid";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -58,9 +63,29 @@ export default function Page({ params }: { params: { id: string } }) {
 					</Button>
 				</Flex>
 			</Flex>
-			<Flex mt={5} color={"background.400"}>
-				<CalendarIcon className={buttonIcon("left", 5)} />
-				<Text>Submitted {formatDateSince(getBot.createdAt)}</Text>
+			<Flex mt={5} h="full" gap={3} color={"background.400"}>
+				<Flex alignItems={"center"}>
+					<CalendarIcon className={buttonIcon("left", 5)} />
+					<Text>Submitted {formatDateSince(getBot.createdAt)}</Text>
+				</Flex>
+				<Divider
+					h="auto"
+					borderColor={"background.500"}
+					orientation={"vertical"}
+				/>
+				<Flex alignItems={"center"}>
+					<ChartBarIcon className={buttonIcon("left", 5)} />
+					<Text>{getBot.guildCount} guilds</Text>
+				</Flex>
+				<Divider
+					h="auto"
+					borderColor={"background.500"}
+					orientation={"vertical"}
+				/>
+				<Flex alignItems={"center"}>
+					<ChevronUpIcon className={buttonIcon("left", 5)} />
+					<Text>{getBot.votes.totalCount} votes</Text>
+				</Flex>
 			</Flex>
 			<Divider borderColor={"background.700"} my={5} />
 			<Flex w={"full"} gap={5}>
