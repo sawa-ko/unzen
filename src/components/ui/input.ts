@@ -2,7 +2,10 @@
 
 import { type RecipeVariantProps, cva } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
-import { Input as HeadlessInput } from "@headlessui/react";
+import {
+	Input as HeadlessInput,
+	Textarea as HeadlessTextarea,
+} from "@headlessui/react";
 
 export const input = cva({
 	base: {
@@ -29,3 +32,4 @@ export const input = cva({
 export type InputVariants = RecipeVariantProps<typeof input>;
 
 export const Input = styled(HeadlessInput, input);
+export const Textarea = styled(HeadlessTextarea, input);
