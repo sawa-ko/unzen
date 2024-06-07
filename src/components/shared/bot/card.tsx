@@ -18,6 +18,7 @@ export default function BotCard({
 	votes,
 	shortDescription,
 	tags,
+	guildCount,
 }: BotCardProps) {
 	return (
 		<Link href={`/bot/${id}`}>
@@ -61,7 +62,7 @@ export default function BotCard({
 								{votes.totalCount} <ChevronUpIcon />
 							</Badge>
 							<Badge variant="subtle">
-								{votes.totalCount} <ChartBarIcon />
+								{guildCount} <ChartBarIcon />
 							</Badge>
 						</Flex>
 					</Flex>
