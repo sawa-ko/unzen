@@ -3,7 +3,6 @@ import { Container, Flex } from "@/styled-system/jsx";
 import { Heading } from "@/components/ui/heading";
 import AuthUser from "./auth/user";
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
 import HomeSearch from "@/components/modules/home/search";
 
 export default function Header() {

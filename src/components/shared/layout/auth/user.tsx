@@ -1,8 +1,7 @@
 "use client";
 
 import { useAuth } from "@/lib/hooks/use-auth";
-import Spinner from "../../spinner";
-import { LinkButton, buttonIcon, icon } from "@/components/ui/button";
+import { LinkButton, buttonIcon } from "@/components/ui/button";
 import { Flex } from "@/styled-system/jsx";
 import Image from "@/components/ui/image";
 import { getAvatar } from "@/lib/utils/discord";

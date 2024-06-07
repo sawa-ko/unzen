@@ -2,7 +2,7 @@
 
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
-import { Button, buttonIcon, icon } from "@/components/ui/button";
+import { Button, buttonIcon } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";

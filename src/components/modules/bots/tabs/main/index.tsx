@@ -1,6 +1,6 @@
 "use client";
 
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
+import { TabGroup, TabList, Tab, TabPanels } from "@headlessui/react";
 import BotTabOverview from "./overview";
 import { tab, tabGroup, tabList } from "@/components/ui/styles/tab";
 import BotTabReviews from "./reviews";
