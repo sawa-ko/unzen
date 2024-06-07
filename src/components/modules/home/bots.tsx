@@ -17,7 +17,7 @@ export default function HomeBots() {
 		);
 
 	return (
-		<Grid my={5} gridTemplateColumns={"4"}>
+		<Grid my={5} gridTemplateColumns={{ lg: 4, sm: 2, xl: 4, md: 3 }}>
 			{frontBots.bots.nodes?.map((bot) => (
 				<GridItem key={bot.id}>
 					<BotCard {...bot} />
