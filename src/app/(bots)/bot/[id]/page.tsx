@@ -2,7 +2,9 @@
 
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
-import { Button, buttonIcon } from "@/components/ui/button";
+import LineTitle from "@/components/shared/feedback/line-title";
+import { Badge } from "@/components/ui/badge";
+import { Button, LinkButton, buttonIcon } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
@@ -18,6 +20,7 @@ import {
 	ChartBarIcon,
 	ChevronUpIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -57,10 +60,10 @@ export default function Page({ params }: { params: { id: string } }) {
 						Invite
 						<PlusCircleIcon className={buttonIcon("right")} />
 					</Button>
-					<Button size="lg">
+					<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
 						Vote
 						<ArrowUpCircleIcon className={buttonIcon("right")} />
-					</Button>
+					</LinkButton>
 				</Flex>
 			</Flex>
 			<Flex mt={5} h="full" gap={3} color={"background.400"}>
@@ -88,7 +91,8 @@ export default function Page({ params }: { params: { id: string } }) {
 				</Flex>
 			</Flex>
 			<Divider borderColor={"background.700"} my={5} />
-			<Flex w={"full"} gap={5}>
+			<Text>{getBot.shortDescription}</Text>
+			<Flex w={"full"} gap={5} mt={5}>
 				<BotTabsMain {...getBot} />
 				<Box
 					w={"2/6"}
@@ -97,13 +101,38 @@ export default function Page({ params }: { params: { id: string } }) {
 					p={5}
 					borderRadius={"xl"}
 				>
-					<Text
-						textTransform={"uppercase"}
-						fontWeight={800}
-						color={"background.300"}
-					>
-						About
-					</Text>
+					<Flex flexDir={"column"} gap={5}>
+						<Flex flexDir={"column"} gap={2}>
+							<LineTitle>About</LineTitle>
+							<Flex justifyContent={"space-between"} alignItems={"center"}>
+								<Text fontWeight={500}>Prefix</Text>
+								<Badge size="md">{getBot.prefix ?? "Slash commands"}</Badge>
+							</Flex>
+							<Flex justifyContent={"space-between"} alignItems={"center"}>
+								<Text fontWeight={500}>Guilds</Text>
+								<Badge size="md">{getBot.guildCount ?? 0}</Badge>
+							</Flex>
+							<Flex justifyContent={"space-between"} alignItems={"center"}>
+								<Text fontWeight={500}>Votes</Text>
+								<Badge size="md">{getBot.votes.totalCount ?? 0}</Badge>
+							</Flex>
+							<LineTitle>Owners</LineTitle>
+							<Flex flexDir={"column"} gap={2}>
+								{getBot.owners.map((owner) => (
+									<Flex
+										key={owner.id}
+										justifyContent={"space-between"}
+										alignItems={"center"}
+									>
+										<Link href={`/user/${owner.id}`}>
+											<Text fontWeight={500}>{owner.username}</Text>
+										</Link>
+										<Badge size="md">{owner.id}</Badge>
+									</Flex>
+								))}
+							</Flex>
+						</Flex>
+					</Flex>
 				</Box>
 			</Flex>
 		</Flex>
