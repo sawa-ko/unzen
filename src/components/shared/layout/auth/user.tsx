@@ -1,6 +1,5 @@
 "use client";
 
-import { LinkButton, buttonIcon } from "@/components/ui/button";
 import Image from "@/components/ui/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
@@ -12,13 +11,13 @@ import { css } from "@/styled-system/css";
 import { Flex } from "@/styled-system/jsx";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
-	ArrowLeftEndOnRectangleIcon,
 	ArrowRightStartOnRectangleIcon,
 	Cog6ToothIcon,
 	PlusCircleIcon,
 } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import Login from "../../feedback/login";
 
 export default function AuthUser() {
 	const { data: auth, loading } = useAuth();
@@ -76,9 +75,6 @@ export default function AuthUser() {
 			</Menu>
 		</Flex>
 	) : (
-		<LinkButton href="/api/auth/login" size="sm">
-			<ArrowLeftEndOnRectangleIcon className={buttonIcon("left", 5)} />
-			Login
-		</LinkButton>
+		<Login size="sm">Login</Login>
 	);
 }

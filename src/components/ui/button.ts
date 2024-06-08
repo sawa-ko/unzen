@@ -66,6 +66,7 @@ export const button = cva({
 		},
 		size: {
 			sm: {
+				fontSize: "smallest",
 				h: 9,
 				px: 4,
 				py: 2,

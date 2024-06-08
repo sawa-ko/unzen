@@ -1,13 +1,21 @@
 "use client";
 
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
+import Login from "@/components/shared/feedback/login";
 import Spinner from "@/components/shared/feedback/spinner";
-import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import {
+	Alert,
+	AlertContent,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
+} from "@/components/ui/alert";
+import { Button, LinkButton, buttonIcon } from "@/components/ui/button";
 import { ErrorText } from "@/components/ui/error-text";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { box } from "@/components/ui/styles/box";
+import { popUpAnimation } from "@/lib/constants/animations";
 import {
 	useCanVoteLazyQuery,
 	useCreateVoteMutation,
@@ -18,7 +26,12 @@ import { getAvatar } from "@/lib/utils/discord";
 import { handleError } from "@/lib/utils/format";
 import { css } from "@/styled-system/css";
 import { Box, Center, Flex } from "@/styled-system/jsx";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import {
+	ArrowLeftIcon,
+	CheckIcon,
+	InformationCircleIcon,
+} from "@heroicons/react/24/solid";
+import { AnimatePresence, motion } from "framer-motion";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -39,6 +52,7 @@ export default function Page({ params }: { params: { id: string } }) {
 		},
 		errorPolicy: "ignore",
 	});
+
 	const [
 		executeCanVoteQuery,
 		{ data: canVote, loading: canVoteLoading, refetch: refetchCanVote },
@@ -57,6 +71,8 @@ export default function Page({ params }: { params: { id: string } }) {
 
 	if (error) return notFound();
 
+	const hasVoted = canVote?.canVote.expires;
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: no
 	useEffect(() => {
 		if (auth) executeCanVoteQuery({ variables: { input: { id: params.id } } });
@@ -71,6 +87,28 @@ export default function Page({ params }: { params: { id: string } }) {
 					</AlertIcon>
 					<AlertTitle>This page is work-in-progress</AlertTitle>
 				</Alert>
+				<AnimatePresence>
+					{hasVoted && (
+						<motion.div
+							variants={popUpAnimation}
+							animate="enter"
+							initial="initial"
+							exit="exit"
+						>
+							<Alert>
+								<AlertIcon>
+									<CheckIcon />
+								</AlertIcon>
+								<AlertContent>
+									<AlertTitle>You voted {getBot.name} successfully!</AlertTitle>
+									<AlertDescription>
+										You will be able to vote again tomorrow!
+									</AlertDescription>
+								</AlertContent>
+							</Alert>
+						</motion.div>
+					)}
+				</AnimatePresence>
 				<Box className={box}>
 					<Flex alignItems={"center"} justifyContent={"space-between"}>
 						<Flex alignItems={"center"} gap={3}>
@@ -88,7 +126,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						</Flex>
 						{canVoteLoading || gettingAuth ? (
 							<Spinner />
-						) : canVote?.canVote.canVote ? (
+						) : !hasVoted ? (
 							<Button
 								disabled={votingBot}
 								onClick={() =>
@@ -97,13 +135,17 @@ export default function Page({ params }: { params: { id: string } }) {
 							>
 								Vote
 							</Button>
-						) : canVote?.canVote.expires ? (
+						) : hasVoted ? (
 							<ErrorText>Hold up buddy</ErrorText>
 						) : (
-							<Button>Login</Button>
+							<Login />
 						)}
 					</Flex>
 				</Box>
+				<LinkButton href={`/bot/${getBot.id}`} mx="auto" size="sm" color="gray">
+					<ArrowLeftIcon className={buttonIcon("left", 5)} />
+					Return to {getBot.name}
+				</LinkButton>
 			</Flex>
 		</Center>
 	);
