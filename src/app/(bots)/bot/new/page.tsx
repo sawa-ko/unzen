@@ -18,6 +18,7 @@ import {
 	useGetTagsSuspenseQuery,
 } from "@/lib/graphql/apollo";
 import { type NewBotSchema, newBotSchema } from "@/lib/schemas/new-bot";
+import useAuthStore from "@/lib/stores/auth";
 import { handleError } from "@/lib/utils/format";
 import { css, cx } from "@/styled-system/css";
 import { Box, Center, Flex } from "@/styled-system/jsx";
@@ -35,7 +36,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -45,6 +46,7 @@ export default function Page() {
 	const [tags, setTags] = useState<string[]>([]);
 	const [query, setQuery] = useState("");
 
+	const { data: auth, loading: gettingAuth } = useAuthStore();
 	const {
 		register,
 		handleSubmit,
@@ -81,6 +83,9 @@ export default function Page() {
 						return tag.id.toLowerCase().includes(query.toLowerCase());
 					})
 					.map((t) => t.displayName);
+
+	if (!gettingAuth && !auth) return notFound();
+
 	return (
 		<Center>
 			<Box
@@ -147,7 +152,7 @@ export default function Page() {
 								name="description"
 								w={"full"}
 								rows={9}
-								placeholder={"Describe your bot in 300 words or more."}
+								placeholder={"Describe your bot in 100 words or more."}
 							/>
 							{errors.description?.message && (
 								<ErrorText size="sm">{errors.description.message}</ErrorText>

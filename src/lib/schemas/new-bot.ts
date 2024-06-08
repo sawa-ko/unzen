@@ -11,8 +11,12 @@ export const newBotSchema = z.object({
 		.max(19, { message: "Id must be at most 19 characters length" }),
 	shortDescription: z
 		.string()
-		.min(25, { message: "Invalid short description" }),
-	description: z.string().min(300, { message: "Invalid description" }),
+		.min(25, { message: "Invalid short description" })
+		.max(100, { message: "Invalid short description" }),
+	description: z
+		.string()
+		.min(100, { message: "Invalid description" })
+		.max(5_000, { message: "Invalid description" }),
 });
 
 export type NewBotSchema = z.infer<typeof newBotSchema>;
