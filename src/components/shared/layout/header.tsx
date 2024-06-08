@@ -27,7 +27,13 @@ export default function Header() {
 				<Flex justifyContent={"space-between"} alignItems={"center"}>
 					<Link href="/">
 						<Flex alignItems={"center"} gap={2}>
-							<Image src={Logo} alt={"dbots.fun logo"} width={35} height={35} />
+							<Image
+								placeholder={"empty"}
+								src={Logo}
+								alt={"dbots.fun logo"}
+								width={35}
+								height={35}
+							/>
 						</Flex>
 					</Link>
 					<Flex alignItems={"center"} gap={3}>
