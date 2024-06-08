@@ -1,11 +1,30 @@
+"use client";
+
 import HomeBots from "@/components/modules/home/bots";
 import HomeSearch from "@/components/modules/home/search";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Flex } from "@/styled-system/jsx";
-import React from "react";
+import { setCookie } from "cookies-next";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 
 export default function Page() {
+	const query = useSearchParams();
+	const cookie = query.get("cookie");
+	const expires = Number(query.get("expires"));
+
+	useEffect(() => {
+		if (cookie && expires) {
+			setCookie("session", cookie, {
+				path: "/",
+				secure: false,
+				httpOnly: false,
+				expires: new Date(Date.now() + expires),
+			});
+		}
+	}, [cookie, expires]);
+
 	return (
 		<React.Fragment>
 			<Flex flexDir={"column"} gap={3}>
