@@ -1,5 +1,5 @@
 import { Text } from "@/components/ui/text";
-import { Flex, Divider } from "@/styled-system/jsx";
+import { Divider, Flex } from "@/styled-system/jsx";
 import type React from "react";
 
 export default function LineTitle({ children }: React.PropsWithChildren) {

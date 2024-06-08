@@ -1,8 +1,8 @@
+import Providers from "@/components/providers";
+import Header from "@/components/shared/layout/header";
+import { Container } from "@/styled-system/jsx";
 import type { Metadata } from "next";
 import { Inter as Font } from "next/font/google";
-import Providers from "@/components/providers";
-import { Container } from "@/styled-system/jsx";
-import Header from "@/components/shared/layout/header";
 import Loader from "nextjs-toploader";
 
 import "@/styles/globals.css";

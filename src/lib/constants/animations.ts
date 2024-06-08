@@ -1,4 +1,4 @@
-import { spring, type Variants } from "framer-motion";
+import { type Variants, spring } from "framer-motion";
 
 export const menuAnimation: Variants = {
 	initial: {

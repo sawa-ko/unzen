@@ -1,5 +1,5 @@
-import type React from "react";
 import MarkdownParser, { type MarkdownToJSX } from "markdown-to-jsx";
+import type React from "react";
 import { heading } from "./heading";
 import { text } from "./text";
 

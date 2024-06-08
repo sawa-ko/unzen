@@ -12,9 +12,9 @@ import { Button, buttonIcon } from "@/components/ui/button";
 import { ErrorText } from "@/components/ui/error-text";
 import { Input, Textarea, input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCreateBotMutation } from "@/lib/graphql/apollo";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
-import { newBotSchema, type NewBotSchema } from "@/lib/schemas/new-bot";
+import { useCreateBotMutation } from "@/lib/graphql/apollo";
+import { type NewBotSchema, newBotSchema } from "@/lib/schemas/new-bot";
 import { handleError } from "@/lib/utils/format";
 import { css, cx } from "@/styled-system/css";
 import { Box, Center, Flex } from "@/styled-system/jsx";
@@ -30,8 +30,8 @@ import {
 	InformationCircleIcon,
 	PaperAirplaneIcon,
 } from "@heroicons/react/24/solid";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 

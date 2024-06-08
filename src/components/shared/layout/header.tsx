@@ -1,9 +1,9 @@
-import { css } from "@/styled-system/css";
-import { Container, Flex } from "@/styled-system/jsx";
-import AuthUser from "./auth/user";
-import Link from "next/link";
 import HomeSearch from "@/components/modules/home/search";
 import Image from "@/components/ui/image";
+import { css } from "@/styled-system/css";
+import { Container, Flex } from "@/styled-system/jsx";
+import Link from "next/link";
+import AuthUser from "./auth/user";
 
 import Logo from "@public/logos/dbots.png";
 

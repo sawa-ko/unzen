@@ -1,9 +1,9 @@
 import { HttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import {
 	ApolloClient,
 	InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
-import { setContext } from "@apollo/client/link/context";
 import { getCookie } from "cookies-next";
 
 export function makeClient() {

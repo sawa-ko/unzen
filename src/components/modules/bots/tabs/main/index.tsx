@@ -1,19 +1,19 @@
 "use client";
 
-import { TabGroup, TabList, Tab, TabPanels } from "@headlessui/react";
-import BotTabOverview from "./overview";
 import { tab, tabGroup, tabList } from "@/components/ui/styles/tab";
-import BotTabReviews from "./reviews";
+import type { SingleBotQuery } from "@/lib/graphql/apollo";
+import { Divider } from "@/styled-system/jsx";
+import { Tab, TabGroup, TabList, TabPanels } from "@headlessui/react";
 import {
 	ChatBubbleBottomCenterIcon,
 	Cog6ToothIcon,
 	InformationCircleIcon,
 } from "@heroicons/react/24/solid";
-import type { SingleBotQuery } from "@/lib/graphql/apollo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BotTabManage from "./manage";
-import { Divider } from "@/styled-system/jsx";
+import BotTabOverview from "./overview";
+import BotTabReviews from "./reviews";
 
 type BotTabsMainProps = Pick<SingleBotQuery["getBot"], "description" | "id"> & {
 	userCanManage?: boolean;

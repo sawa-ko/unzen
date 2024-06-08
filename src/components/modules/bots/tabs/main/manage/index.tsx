@@ -1,13 +1,13 @@
+import { tab, tabGroup, tabList } from "@/components/ui/styles/tab";
 import type { SingleBotQuery } from "@/lib/graphql/apollo";
+import { css, cx } from "@/styled-system/css";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import {
 	Cog6ToothIcon,
 	ExclamationTriangleIcon,
 } from "@heroicons/react/24/solid";
-import BotTabManageSettings from "./settings";
-import { tabGroup, tabList, tab } from "@/components/ui/styles/tab";
-import { css, cx } from "@/styled-system/css";
 import BotTabManageDanger from "./danger";
+import BotTabManageSettings from "./settings";
 
 export default function BotTabManage({
 	id,

@@ -1,7 +1,7 @@
-import { type RecipeVariantProps, cva, css, cx } from "@/styled-system/css";
+import { type RecipeVariantProps, css, cva, cx } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
-import Link from "next/link";
 import { Button as HeadlessButton } from "@headlessui/react";
+import Link from "next/link";
 
 export const icon = (size = 5) =>
 	css({
