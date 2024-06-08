@@ -17,6 +17,7 @@ fragment BotCard on BotObject {
     totalCount
   }
   certified
+  inviteLink
 }
 
 ######################################

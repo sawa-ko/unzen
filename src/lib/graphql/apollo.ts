@@ -417,6 +417,7 @@ export type Mutation = {
   createVote: BotVoteObject;
   /** Create a webhook for the bot */
   createWebhook: WebhookObject;
+  /** Deletes an existing bot. */
   deleteBot: BotObject;
   /** Delete a vanity URL. */
   deleteVanity: VanityObject;
@@ -424,6 +425,8 @@ export type Mutation = {
   deleteWebhook: WebhookObject;
   /** Logs out the user session. */
   logOut: Scalars['Boolean']['output'];
+  /** Deletes a bot. */
+  panelDeleteBot: BotObject;
   /** Refreshes a user session. */
   refreshSession: AuthSessionObject;
   /** Reset and return a new API key */
@@ -487,6 +490,11 @@ export type MutationDeleteVanityArgs = {
 
 export type MutationDeleteWebhookArgs = {
   input: GetWebhookInput;
+};
+
+
+export type MutationPanelDeleteBotArgs = {
+  input: DeleteBotInput;
 };
 
 
@@ -810,14 +818,14 @@ export type CreateVanityMutationVariables = Exact<{
 
 export type CreateVanityMutation = { __typename?: 'Mutation', createVanity: { __typename?: 'VanityObject', id: string, targetId: string, type: VanityType, userId: string } };
 
-export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
+export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
 
 export type FrontBotsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationInput>;
 }>;
 
 
-export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
+export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
 
 export type SingleBotQueryVariables = Exact<{
   input: GetBotInput;
@@ -859,7 +867,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'BotOwnerObject', avatar?: string | null, bio?: string | null, id: string, username: string, banner?: string | null, bots: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> } };
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'BotOwnerObject', avatar?: string | null, bio?: string | null, id: string, username: string, banner?: string | null, bots: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> } };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1194,6 +1202,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteVanity?: Resolver<ResolversTypes['VanityObject'], ParentType, ContextType, RequireFields<MutationDeleteVanityArgs, 'input'>>;
   deleteWebhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType, RequireFields<MutationDeleteWebhookArgs, 'input'>>;
   logOut?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  panelDeleteBot?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationPanelDeleteBotArgs, 'input'>>;
   refreshSession?: Resolver<ResolversTypes['AuthSessionObject'], ParentType, ContextType>;
   resetApiKey?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationResetApiKeyArgs, 'input'>>;
   syncBotInformation?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationSyncBotInformationArgs, 'input'>>;
@@ -1278,6 +1287,7 @@ export const BotCardFragmentDoc = gql`
     totalCount
   }
   certified
+  inviteLink
 }
     `;
 export const CreateBotDocument = gql`

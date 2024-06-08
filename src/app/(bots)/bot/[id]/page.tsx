@@ -4,13 +4,13 @@ import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import LineTitle from "@/components/shared/feedback/line-title";
 import { Badge } from "@/components/ui/badge";
-import { Button, LinkButton, buttonIcon } from "@/components/ui/button";
+import { LinkButton, buttonIcon } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import { useSingleBotSuspenseQuery } from "@/lib/graphql/apollo";
 import useAuthStore from "@/lib/stores/auth";
-import { getAvatar } from "@/lib/utils/discord";
+import { getAvatar, getDefaultInvite } from "@/lib/utils/discord";
 import { formatDateSince } from "@/lib/utils/format";
 import { css } from "@/styled-system/css";
 import { Box, Divider, Flex } from "@/styled-system/jsx";
@@ -59,10 +59,16 @@ export default function Page({ params }: { params: { id: string } }) {
 					</Flex>
 				</Flex>
 				<Flex gap={2}>
-					<Button size="lg" color={"gray"}>
+					<LinkButton
+						referrerPolicy="no-referrer"
+						target="_blank"
+						href={getBot.inviteLink ?? getDefaultInvite(getBot.id)}
+						size="lg"
+						color={"gray"}
+					>
 						Invite
 						<PlusIcon className={buttonIcon("right")} />
-					</Button>
+					</LinkButton>
 					<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
 						Vote
 						<ChevronUpIcon className={buttonIcon("right")} />
@@ -95,9 +101,14 @@ export default function Page({ params }: { params: { id: string } }) {
 			</Flex>
 			<Divider borderColor={"background.700"} my={5} />
 			<Text>{getBot.shortDescription}</Text>
-			<Flex w={"full"} gap={5} mt={5}>
+			<Flex w={"full"} flexDir={{ lg: "row", base: "column" }} gap={5} mt={5}>
 				<BotTabsMain userCanManage={userIsOwner} {...getBot} />
-				<Box w={"2/6"} bg={"background.900"} p={5} borderRadius={"xl"}>
+				<Box
+					w={{ lg: "2/6", base: "full" }}
+					bg={"background.900"}
+					p={5}
+					borderRadius={"xl"}
+				>
 					<Flex flexDir={"column"} gap={5}>
 						<Flex flexDir={"column"} gap={2}>
 							<LineTitle>About</LineTitle>

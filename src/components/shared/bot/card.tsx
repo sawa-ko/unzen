@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
-import { Button, LinkButton } from "@/components/ui/button";
+import { LinkButton } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import type { FrontBotsQuery } from "@/lib/graphql/apollo";
-import { getAvatar } from "@/lib/utils/discord";
+import { getAvatar, getDefaultInvite } from "@/lib/utils/discord";
 import { css } from "@/styled-system/css";
 import { Box, Flex } from "@/styled-system/jsx";
 import { ChartBarIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
@@ -19,6 +19,7 @@ export default function BotCard({
 	shortDescription,
 	tags,
 	guildCount,
+	inviteLink,
 }: BotCardProps) {
 	return (
 		<Box
@@ -75,9 +76,15 @@ export default function BotCard({
 					{shortDescription}
 				</Text>
 				<Flex gap={2} justifyContent={"space-between"} alignItems={"center"}>
-					<Button w={"full"} color="gray">
+					<LinkButton
+						referrerPolicy="no-referrer"
+						target="_blank"
+						href={inviteLink ?? getDefaultInvite(id)}
+						w={"full"}
+						color="gray"
+					>
 						Invite
-					</Button>
+					</LinkButton>
 					<LinkButton href={`/bot/${id}`} w={"full"}>
 						View
 					</LinkButton>
