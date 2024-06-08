@@ -10,9 +10,7 @@ export function formatDateSince(stringDate: string) {
 }
 
 export function handleError(error: ApolloError) {
-	const errorMessage = (error: GraphQLError) =>
-		(error.extensions.originalError as { message?: string }).message ??
-		error.message;
+	const errorMessage = (e: GraphQLError) => e.message;
 
 	return error.graphQLErrors.map((e) => toast.error(errorMessage(e)));
 }
