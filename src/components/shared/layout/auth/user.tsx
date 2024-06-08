@@ -15,8 +15,10 @@ import {
 	ArrowLeftEndOnRectangleIcon,
 	ArrowRightStartOnRectangleIcon,
 	Cog6ToothIcon,
+	PlusCircleIcon,
 } from "@heroicons/react/24/solid";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 export default function AuthUser() {
 	const { data: auth, loading } = useAuth();
@@ -57,6 +59,10 @@ export default function AuthUser() {
 									<MenuItem as={"div"} className={menuItem}>
 										<Cog6ToothIcon />
 										<Text>Profile</Text>
+									</MenuItem>
+									<MenuItem as={Link} href="/bot/new" className={menuItem}>
+										<PlusCircleIcon />
+										<Text>New bot</Text>
 									</MenuItem>
 									<MenuItem as={"div"} className={menuItem}>
 										<ArrowRightStartOnRectangleIcon />

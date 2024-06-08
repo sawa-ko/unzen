@@ -1,3 +1,4 @@
+import { GraphQLResolveInfo } from 'graphql';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
@@ -7,6 +8,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -426,6 +428,8 @@ export type Mutation = {
   refreshSession: AuthSessionObject;
   /** Reset and return a new API key */
   resetApiKey: Scalars['String']['output'];
+  /** Syncs the information of a bot. */
+  syncBotInformation: BotObject;
   /** Updates an existing bot. */
   updateBot: BotObject;
   /** Updates the status of a bot. */
@@ -487,6 +491,11 @@ export type MutationDeleteWebhookArgs = {
 
 
 export type MutationResetApiKeyArgs = {
+  input: GetBotInput;
+};
+
+
+export type MutationSyncBotInformationArgs = {
   input: GetBotInput;
 };
 
@@ -733,29 +742,96 @@ export enum WebhookPayloadField {
   User = 'USER'
 }
 
-export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
+export type CreateBotMutationVariables = Exact<{
+  input: CreateBotInput;
+}>;
+
+
+export type CreateBotMutation = { __typename?: 'Mutation', createBot: { __typename?: 'BotObject', id: string, name: string } };
+
+export type DeleteBotMutationVariables = Exact<{
+  input: DeleteBotInput;
+}>;
+
+
+export type DeleteBotMutation = { __typename?: 'Mutation', deleteBot: { __typename?: 'BotObject', id: string, name: string } };
+
+export type ResetApiKeyMutationVariables = Exact<{
+  input: GetBotInput;
+}>;
+
+
+export type ResetApiKeyMutation = { __typename?: 'Mutation', resetApiKey: string };
+
+export type CreateVoteMutationVariables = Exact<{
+  input: BotVoteCreateInput;
+}>;
+
+
+export type CreateVoteMutation = { __typename?: 'Mutation', createVote: { __typename?: 'BotVoteObject', botId: string, expires: number } };
+
+export type CreateWebhookMutationVariables = Exact<{
+  input: CreateWebhookInput;
+}>;
+
+
+export type CreateWebhookMutation = { __typename?: 'Mutation', createWebhook: { __typename?: 'WebhookObject', events: Array<WebhookEvent>, payloadFields?: Array<WebhookPayloadField> | null, id: string, secret: string, url: string } };
+
+export type UpdateWebhookMutationVariables = Exact<{
+  input: UpdateWebhookInput;
+}>;
+
+
+export type UpdateWebhookMutation = { __typename?: 'Mutation', updateWebhook: { __typename?: 'WebhookObject', events: Array<WebhookEvent>, payloadFields?: Array<WebhookPayloadField> | null, id: string, secret: string, url: string } };
+
+export type SyncBotInformationMutationVariables = Exact<{
+  input: GetBotInput;
+}>;
+
+
+export type SyncBotInformationMutation = { __typename?: 'Mutation', syncBotInformation: { __typename?: 'BotObject', name: string } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
+
+export type CreateSessionMutationVariables = Exact<{
+  input: CreateSessionInput;
+}>;
+
+
+export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'AuthSessionObject', access_token: string, expires_in: number, refresh_token: string } };
+
+export type CreateVanityMutationVariables = Exact<{
+  input: CreateVanityInput;
+}>;
+
+
+export type CreateVanityMutation = { __typename?: 'Mutation', createVanity: { __typename?: 'VanityObject', id: string, targetId: string, type: VanityType, userId: string } };
+
+export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
 
 export type FrontBotsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationInput>;
 }>;
 
 
-export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
+export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
 
 export type SingleBotQueryVariables = Exact<{
   input: GetBotInput;
 }>;
 
 
-export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, name: string, createdAt: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
+export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, createdAt: string, name: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
 
 export type SingleBotVoteQueryVariables = Exact<{
   input: GetBotInput;
-  canVoteInput: BotVoteCreateInput;
 }>;
 
 
-export type SingleBotVoteQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, id: string, name: string, guildCount: number, certified: boolean, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }, canVote: { __typename?: 'BotCanVoteObject', canVote: boolean, expires?: number | null } };
+export type SingleBotVoteQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, id: string, name: string, guildCount: number, certified: boolean, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } } };
 
 export type CanVoteQueryVariables = Exact<{
   input: BotVoteCreateInput;
@@ -783,7 +859,7 @@ export type GetUserQueryVariables = Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'BotOwnerObject', avatar?: string | null, bio?: string | null, id: string, username: string, banner?: string | null, bots: Array<{ __typename?: 'BotObject', avatar?: string | null, certified: boolean, guildCount: number, shortDescription: string, name: string, id: string, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> } };
+export type GetUserQuery = { __typename?: 'Query', getUser: { __typename?: 'BotOwnerObject', avatar?: string | null, bio?: string | null, id: string, username: string, banner?: string | null, bots: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> } };
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -807,34 +883,744 @@ export type GetPanelStatsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPanelStatsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', totalCount: number }, tags: { __typename?: 'BotTagsConnection', totalCount: number } };
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogoutMutation = { __typename?: 'Mutation', logOut: boolean };
-
-export type CreateSessionMutationVariables = Exact<{
-  input: CreateSessionInput;
-}>;
+export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
-export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'AuthSessionObject', access_token: string, expires_in: number, refresh_token: string } };
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  AdminBotChangeStatusInput: AdminBotChangeStatusInput;
+  AdminUserPermissionsInput: AdminUserPermissionsInput;
+  AuthSessionObject: ResolverTypeWrapper<AuthSessionObject>;
+  AuthUserObject: ResolverTypeWrapper<AuthUserObject>;
+  AuthUserSessionObject: ResolverTypeWrapper<AuthUserSessionObject>;
+  AuthUserUpdateInput: AuthUserUpdateInput;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  BotCanVoteObject: ResolverTypeWrapper<BotCanVoteObject>;
+  BotObject: ResolverTypeWrapper<BotObject>;
+  BotOwnerBadgeObject: ResolverTypeWrapper<BotOwnerBadgeObject>;
+  BotOwnerObject: ResolverTypeWrapper<BotOwnerObject>;
+  BotOwnerPermissionsObject: ResolverTypeWrapper<BotOwnerPermissionsObject>;
+  BotStatus: BotStatus;
+  BotTagObject: ResolverTypeWrapper<BotTagObject>;
+  BotTagsConnection: ResolverTypeWrapper<BotTagsConnection>;
+  BotVoteCreateInput: BotVoteCreateInput;
+  BotVoteObject: ResolverTypeWrapper<BotVoteObject>;
+  BotVoteObjectConnection: ResolverTypeWrapper<BotVoteObjectConnection>;
+  BotsConnection: ResolverTypeWrapper<BotsConnection>;
+  CreateBotInput: CreateBotInput;
+  CreateBotTagInput: CreateBotTagInput;
+  CreateSessionInput: CreateSessionInput;
+  CreateVanityInput: CreateVanityInput;
+  CreateWebhookInput: CreateWebhookInput;
+  DeleteBotInput: DeleteBotInput;
+  FiltersBotInput: FiltersBotInput;
+  FiltersBotTagInput: FiltersBotTagInput;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  GetBotInput: GetBotInput;
+  GetBotOwnerInput: GetBotOwnerInput;
+  GetBotTagInput: GetBotTagInput;
+  GetUserInput: GetUserInput;
+  GetVanityInput: GetVanityInput;
+  GetWebhookInput: GetWebhookInput;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
+  PaginationInput: PaginationInput;
+  Query: ResolverTypeWrapper<{}>;
+  SafeFiltersInput: SafeFiltersInput;
+  SortOrder: SortOrder;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateBotOwnerPermisisionsInput: UpdateBotOwnerPermisisionsInput;
+  UpdateWebhookInput: UpdateWebhookInput;
+  UserPermissionsFlags: UserPermissionsFlags;
+  VanityObject: ResolverTypeWrapper<VanityObject>;
+  VanityType: VanityType;
+  WebhookEvent: WebhookEvent;
+  WebhookObject: ResolverTypeWrapper<WebhookObject>;
+  WebhookPayloadField: WebhookPayloadField;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  AdminBotChangeStatusInput: AdminBotChangeStatusInput;
+  AdminUserPermissionsInput: AdminUserPermissionsInput;
+  AuthSessionObject: AuthSessionObject;
+  AuthUserObject: AuthUserObject;
+  AuthUserSessionObject: AuthUserSessionObject;
+  AuthUserUpdateInput: AuthUserUpdateInput;
+  Boolean: Scalars['Boolean']['output'];
+  BotCanVoteObject: BotCanVoteObject;
+  BotObject: BotObject;
+  BotOwnerBadgeObject: BotOwnerBadgeObject;
+  BotOwnerObject: BotOwnerObject;
+  BotOwnerPermissionsObject: BotOwnerPermissionsObject;
+  BotTagObject: BotTagObject;
+  BotTagsConnection: BotTagsConnection;
+  BotVoteCreateInput: BotVoteCreateInput;
+  BotVoteObject: BotVoteObject;
+  BotVoteObjectConnection: BotVoteObjectConnection;
+  BotsConnection: BotsConnection;
+  CreateBotInput: CreateBotInput;
+  CreateBotTagInput: CreateBotTagInput;
+  CreateSessionInput: CreateSessionInput;
+  CreateVanityInput: CreateVanityInput;
+  CreateWebhookInput: CreateWebhookInput;
+  DeleteBotInput: DeleteBotInput;
+  FiltersBotInput: FiltersBotInput;
+  FiltersBotTagInput: FiltersBotTagInput;
+  Float: Scalars['Float']['output'];
+  GetBotInput: GetBotInput;
+  GetBotOwnerInput: GetBotOwnerInput;
+  GetBotTagInput: GetBotTagInput;
+  GetUserInput: GetUserInput;
+  GetVanityInput: GetVanityInput;
+  GetWebhookInput: GetWebhookInput;
+  ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
+  Mutation: {};
+  PageInfo: PageInfo;
+  PaginationInput: PaginationInput;
+  Query: {};
+  SafeFiltersInput: SafeFiltersInput;
+  String: Scalars['String']['output'];
+  UpdateBotOwnerPermisisionsInput: UpdateBotOwnerPermisisionsInput;
+  UpdateWebhookInput: UpdateWebhookInput;
+  VanityObject: VanityObject;
+  WebhookObject: WebhookObject;
+};
+
+export type AuthSessionObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthSessionObject'] = ResolversParentTypes['AuthSessionObject']> = {
+  access_token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  expires_in?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  refresh_token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AuthUserObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthUserObject'] = ResolversParentTypes['AuthUserObject']> = {
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  banner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  permissions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  sessions?: Resolver<Array<ResolversTypes['AuthUserSessionObject']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AuthUserSessionObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthUserSessionObject'] = ResolversParentTypes['AuthUserSessionObject']> = {
+  accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  refreshToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotCanVoteObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotCanVoteObject'] = ResolversParentTypes['BotCanVoteObject']> = {
+  canVote?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  expires?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotObject'] = ResolversParentTypes['BotObject']> = {
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  banner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  certified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  github?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guildCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  importedFrom?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  inviteLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ownerPermissions?: Resolver<Array<ResolversTypes['BotOwnerPermissionsObject']>, ParentType, ContextType>;
+  owners?: Resolver<Array<ResolversTypes['BotOwnerObject']>, ParentType, ContextType>;
+  prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  shortDescription?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['BotStatus'], ParentType, ContextType>;
+  supportServer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tags?: Resolver<Array<ResolversTypes['BotTagObject']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  votes?: Resolver<ResolversTypes['BotVoteObjectConnection'], ParentType, ContextType, Partial<BotObjectVotesArgs>>;
+  webhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotOwnerBadgeObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotOwnerBadgeObject'] = ResolversParentTypes['BotOwnerBadgeObject']> = {
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  icon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotOwnerObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotOwnerObject'] = ResolversParentTypes['BotOwnerObject']> = {
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  badges?: Resolver<Array<ResolversTypes['BotOwnerBadgeObject']>, ParentType, ContextType>;
+  banner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bots?: Resolver<Array<ResolversTypes['BotObject']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotOwnerPermissionsObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotOwnerPermissionsObject'] = ResolversParentTypes['BotOwnerPermissionsObject']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  permissions?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotTagObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotTagObject'] = ResolversParentTypes['BotTagObject']> = {
+  bots?: Resolver<ResolversTypes['BotsConnection'], ParentType, ContextType, Partial<BotTagObjectBotsArgs>>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotTagsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotTagsConnection'] = ResolversParentTypes['BotTagsConnection']> = {
+  nodes?: Resolver<Maybe<Array<ResolversTypes['BotTagObject']>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotVoteObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotVoteObject'] = ResolversParentTypes['BotVoteObject']> = {
+  botId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  expires?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotVoteObjectConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotVoteObjectConnection'] = ResolversParentTypes['BotVoteObjectConnection']> = {
+  nodes?: Resolver<Maybe<Array<ResolversTypes['BotVoteObject']>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BotsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['BotsConnection'] = ResolversParentTypes['BotsConnection']> = {
+  nodes?: Resolver<Maybe<Array<ResolversTypes['BotObject']>>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createBot?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationCreateBotArgs, 'input'>>;
+  createSession?: Resolver<ResolversTypes['AuthSessionObject'], ParentType, ContextType, RequireFields<MutationCreateSessionArgs, 'input'>>;
+  createTag?: Resolver<ResolversTypes['BotTagObject'], ParentType, ContextType, RequireFields<MutationCreateTagArgs, 'input'>>;
+  createVanity?: Resolver<ResolversTypes['VanityObject'], ParentType, ContextType, RequireFields<MutationCreateVanityArgs, 'input'>>;
+  createVote?: Resolver<ResolversTypes['BotVoteObject'], ParentType, ContextType, RequireFields<MutationCreateVoteArgs, 'input'>>;
+  createWebhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType, RequireFields<MutationCreateWebhookArgs, 'input'>>;
+  deleteBot?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationDeleteBotArgs, 'input'>>;
+  deleteVanity?: Resolver<ResolversTypes['VanityObject'], ParentType, ContextType, RequireFields<MutationDeleteVanityArgs, 'input'>>;
+  deleteWebhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType, RequireFields<MutationDeleteWebhookArgs, 'input'>>;
+  logOut?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  refreshSession?: Resolver<ResolversTypes['AuthSessionObject'], ParentType, ContextType>;
+  resetApiKey?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationResetApiKeyArgs, 'input'>>;
+  syncBotInformation?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationSyncBotInformationArgs, 'input'>>;
+  updateBot?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationUpdateBotArgs, 'input'>>;
+  updateBotStatus?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<MutationUpdateBotStatusArgs, 'input'>>;
+  updateOwnerPermissions?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateOwnerPermissionsArgs, 'input'>>;
+  updateUser?: Resolver<ResolversTypes['AuthUserObject'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>;
+  updateUserPermissions?: Resolver<ResolversTypes['AuthUserObject'], ParentType, ContextType, RequireFields<MutationUpdateUserPermissionsArgs, 'input'>>;
+  updateWebhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType, RequireFields<MutationUpdateWebhookArgs, 'input'>>;
+};
+
+export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  bots?: Resolver<ResolversTypes['BotsConnection'], ParentType, ContextType, Partial<QueryBotsArgs>>;
+  canVote?: Resolver<ResolversTypes['BotCanVoteObject'], ParentType, ContextType, RequireFields<QueryCanVoteArgs, 'input'>>;
+  getBot?: Resolver<ResolversTypes['BotObject'], ParentType, ContextType, RequireFields<QueryGetBotArgs, 'input'>>;
+  getOwner?: Resolver<ResolversTypes['BotOwnerObject'], ParentType, ContextType, RequireFields<QueryGetOwnerArgs, 'input'>>;
+  getTag?: Resolver<ResolversTypes['BotTagObject'], ParentType, ContextType, RequireFields<QueryGetTagArgs, 'input'>>;
+  getUser?: Resolver<ResolversTypes['BotOwnerObject'], ParentType, ContextType, RequireFields<QueryGetUserArgs, 'input'>>;
+  getVanity?: Resolver<ResolversTypes['VanityObject'], ParentType, ContextType, RequireFields<QueryGetVanityArgs, 'input'>>;
+  getWebhook?: Resolver<ResolversTypes['WebhookObject'], ParentType, ContextType, RequireFields<QueryGetWebhookArgs, 'input'>>;
+  me?: Resolver<ResolversTypes['AuthUserObject'], ParentType, ContextType>;
+  panelBots?: Resolver<ResolversTypes['BotsConnection'], ParentType, ContextType, Partial<QueryPanelBotsArgs>>;
+  tags?: Resolver<ResolversTypes['BotTagsConnection'], ParentType, ContextType, Partial<QueryTagsArgs>>;
+};
+
+export type VanityObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['VanityObject'] = ResolversParentTypes['VanityObject']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['VanityType'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type WebhookObjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['WebhookObject'] = ResolversParentTypes['WebhookObject']> = {
+  events?: Resolver<Array<ResolversTypes['WebhookEvent']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  payloadFields?: Resolver<Maybe<Array<ResolversTypes['WebhookPayloadField']>>, ParentType, ContextType>;
+  secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resolvers<ContextType = any> = {
+  AuthSessionObject?: AuthSessionObjectResolvers<ContextType>;
+  AuthUserObject?: AuthUserObjectResolvers<ContextType>;
+  AuthUserSessionObject?: AuthUserSessionObjectResolvers<ContextType>;
+  BotCanVoteObject?: BotCanVoteObjectResolvers<ContextType>;
+  BotObject?: BotObjectResolvers<ContextType>;
+  BotOwnerBadgeObject?: BotOwnerBadgeObjectResolvers<ContextType>;
+  BotOwnerObject?: BotOwnerObjectResolvers<ContextType>;
+  BotOwnerPermissionsObject?: BotOwnerPermissionsObjectResolvers<ContextType>;
+  BotTagObject?: BotTagObjectResolvers<ContextType>;
+  BotTagsConnection?: BotTagsConnectionResolvers<ContextType>;
+  BotVoteObject?: BotVoteObjectResolvers<ContextType>;
+  BotVoteObjectConnection?: BotVoteObjectConnectionResolvers<ContextType>;
+  BotsConnection?: BotsConnectionResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  VanityObject?: VanityObjectResolvers<ContextType>;
+  WebhookObject?: WebhookObjectResolvers<ContextType>;
+};
+
 
 export const BotCardFragmentDoc = gql`
     fragment BotCard on BotObject {
   avatar
-  certified
-  guildCount
   shortDescription
   name
-  id
   tags {
     displayName
   }
+  id
+  guildCount
   votes {
     totalCount
   }
+  certified
 }
     `;
+export const CreateBotDocument = gql`
+    mutation CreateBot($input: CreateBotInput!) {
+  createBot(input: $input) {
+    id
+    name
+  }
+}
+    `;
+export type CreateBotMutationFn = Apollo.MutationFunction<CreateBotMutation, CreateBotMutationVariables>;
+
+/**
+ * __useCreateBotMutation__
+ *
+ * To run a mutation, you first call `useCreateBotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBotMutation, { data, loading, error }] = useCreateBotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBotMutation(baseOptions?: Apollo.MutationHookOptions<CreateBotMutation, CreateBotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBotMutation, CreateBotMutationVariables>(CreateBotDocument, options);
+      }
+export type CreateBotMutationHookResult = ReturnType<typeof useCreateBotMutation>;
+export type CreateBotMutationResult = Apollo.MutationResult<CreateBotMutation>;
+export type CreateBotMutationOptions = Apollo.BaseMutationOptions<CreateBotMutation, CreateBotMutationVariables>;
+export const DeleteBotDocument = gql`
+    mutation DeleteBot($input: DeleteBotInput!) {
+  deleteBot(input: $input) {
+    id
+    name
+  }
+}
+    `;
+export type DeleteBotMutationFn = Apollo.MutationFunction<DeleteBotMutation, DeleteBotMutationVariables>;
+
+/**
+ * __useDeleteBotMutation__
+ *
+ * To run a mutation, you first call `useDeleteBotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBotMutation, { data, loading, error }] = useDeleteBotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteBotMutation(baseOptions?: Apollo.MutationHookOptions<DeleteBotMutation, DeleteBotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteBotMutation, DeleteBotMutationVariables>(DeleteBotDocument, options);
+      }
+export type DeleteBotMutationHookResult = ReturnType<typeof useDeleteBotMutation>;
+export type DeleteBotMutationResult = Apollo.MutationResult<DeleteBotMutation>;
+export type DeleteBotMutationOptions = Apollo.BaseMutationOptions<DeleteBotMutation, DeleteBotMutationVariables>;
+export const ResetApiKeyDocument = gql`
+    mutation ResetApiKey($input: GetBotInput!) {
+  resetApiKey(input: $input)
+}
+    `;
+export type ResetApiKeyMutationFn = Apollo.MutationFunction<ResetApiKeyMutation, ResetApiKeyMutationVariables>;
+
+/**
+ * __useResetApiKeyMutation__
+ *
+ * To run a mutation, you first call `useResetApiKeyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetApiKeyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetApiKeyMutation, { data, loading, error }] = useResetApiKeyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useResetApiKeyMutation(baseOptions?: Apollo.MutationHookOptions<ResetApiKeyMutation, ResetApiKeyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetApiKeyMutation, ResetApiKeyMutationVariables>(ResetApiKeyDocument, options);
+      }
+export type ResetApiKeyMutationHookResult = ReturnType<typeof useResetApiKeyMutation>;
+export type ResetApiKeyMutationResult = Apollo.MutationResult<ResetApiKeyMutation>;
+export type ResetApiKeyMutationOptions = Apollo.BaseMutationOptions<ResetApiKeyMutation, ResetApiKeyMutationVariables>;
+export const CreateVoteDocument = gql`
+    mutation CreateVote($input: BotVoteCreateInput!) {
+  createVote(input: $input) {
+    botId
+    expires
+  }
+}
+    `;
+export type CreateVoteMutationFn = Apollo.MutationFunction<CreateVoteMutation, CreateVoteMutationVariables>;
+
+/**
+ * __useCreateVoteMutation__
+ *
+ * To run a mutation, you first call `useCreateVoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVoteMutation, { data, loading, error }] = useCreateVoteMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateVoteMutation(baseOptions?: Apollo.MutationHookOptions<CreateVoteMutation, CreateVoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVoteMutation, CreateVoteMutationVariables>(CreateVoteDocument, options);
+      }
+export type CreateVoteMutationHookResult = ReturnType<typeof useCreateVoteMutation>;
+export type CreateVoteMutationResult = Apollo.MutationResult<CreateVoteMutation>;
+export type CreateVoteMutationOptions = Apollo.BaseMutationOptions<CreateVoteMutation, CreateVoteMutationVariables>;
+export const CreateWebhookDocument = gql`
+    mutation CreateWebhook($input: CreateWebhookInput!) {
+  createWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}
+    `;
+export type CreateWebhookMutationFn = Apollo.MutationFunction<CreateWebhookMutation, CreateWebhookMutationVariables>;
+
+/**
+ * __useCreateWebhookMutation__
+ *
+ * To run a mutation, you first call `useCreateWebhookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateWebhookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createWebhookMutation, { data, loading, error }] = useCreateWebhookMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateWebhookMutation(baseOptions?: Apollo.MutationHookOptions<CreateWebhookMutation, CreateWebhookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateWebhookMutation, CreateWebhookMutationVariables>(CreateWebhookDocument, options);
+      }
+export type CreateWebhookMutationHookResult = ReturnType<typeof useCreateWebhookMutation>;
+export type CreateWebhookMutationResult = Apollo.MutationResult<CreateWebhookMutation>;
+export type CreateWebhookMutationOptions = Apollo.BaseMutationOptions<CreateWebhookMutation, CreateWebhookMutationVariables>;
+export const UpdateWebhookDocument = gql`
+    mutation UpdateWebhook($input: UpdateWebhookInput!) {
+  updateWebhook(input: $input) {
+    events
+    payloadFields
+    id
+    secret
+    url
+  }
+}
+    `;
+export type UpdateWebhookMutationFn = Apollo.MutationFunction<UpdateWebhookMutation, UpdateWebhookMutationVariables>;
+
+/**
+ * __useUpdateWebhookMutation__
+ *
+ * To run a mutation, you first call `useUpdateWebhookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateWebhookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateWebhookMutation, { data, loading, error }] = useUpdateWebhookMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateWebhookMutation(baseOptions?: Apollo.MutationHookOptions<UpdateWebhookMutation, UpdateWebhookMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateWebhookMutation, UpdateWebhookMutationVariables>(UpdateWebhookDocument, options);
+      }
+export type UpdateWebhookMutationHookResult = ReturnType<typeof useUpdateWebhookMutation>;
+export type UpdateWebhookMutationResult = Apollo.MutationResult<UpdateWebhookMutation>;
+export type UpdateWebhookMutationOptions = Apollo.BaseMutationOptions<UpdateWebhookMutation, UpdateWebhookMutationVariables>;
+export const SyncBotInformationDocument = gql`
+    mutation SyncBotInformation($input: GetBotInput!) {
+  syncBotInformation(input: $input) {
+    name
+  }
+}
+    `;
+export type SyncBotInformationMutationFn = Apollo.MutationFunction<SyncBotInformationMutation, SyncBotInformationMutationVariables>;
+
+/**
+ * __useSyncBotInformationMutation__
+ *
+ * To run a mutation, you first call `useSyncBotInformationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSyncBotInformationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [syncBotInformationMutation, { data, loading, error }] = useSyncBotInformationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSyncBotInformationMutation(baseOptions?: Apollo.MutationHookOptions<SyncBotInformationMutation, SyncBotInformationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SyncBotInformationMutation, SyncBotInformationMutationVariables>(SyncBotInformationDocument, options);
+      }
+export type SyncBotInformationMutationHookResult = ReturnType<typeof useSyncBotInformationMutation>;
+export type SyncBotInformationMutationResult = Apollo.MutationResult<SyncBotInformationMutation>;
+export type SyncBotInformationMutationOptions = Apollo.BaseMutationOptions<SyncBotInformationMutation, SyncBotInformationMutationVariables>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logOut
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const CreateSessionDocument = gql`
+    mutation CreateSession($input: CreateSessionInput!) {
+  createSession(input: $input) {
+    access_token
+    expires_in
+    refresh_token
+  }
+}
+    `;
+export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
+
+/**
+ * __useCreateSessionMutation__
+ *
+ * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
+      }
+export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
+export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
+export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;
+export const CreateVanityDocument = gql`
+    mutation CreateVanity($input: CreateVanityInput!) {
+  createVanity(input: $input) {
+    id
+    targetId
+    type
+    userId
+  }
+}
+    `;
+export type CreateVanityMutationFn = Apollo.MutationFunction<CreateVanityMutation, CreateVanityMutationVariables>;
+
+/**
+ * __useCreateVanityMutation__
+ *
+ * To run a mutation, you first call `useCreateVanityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVanityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVanityMutation, { data, loading, error }] = useCreateVanityMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateVanityMutation(baseOptions?: Apollo.MutationHookOptions<CreateVanityMutation, CreateVanityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVanityMutation, CreateVanityMutationVariables>(CreateVanityDocument, options);
+      }
+export type CreateVanityMutationHookResult = ReturnType<typeof useCreateVanityMutation>;
+export type CreateVanityMutationResult = Apollo.MutationResult<CreateVanityMutation>;
+export type CreateVanityMutationOptions = Apollo.BaseMutationOptions<CreateVanityMutation, CreateVanityMutationVariables>;
 export const FrontBotsDocument = gql`
     query FrontBots($pagination: PaginationInput) {
   bots(pagination: $pagination) {
@@ -893,6 +1679,7 @@ export const SingleBotDocument = gql`
     id
     importedFrom
     inviteLink
+    createdAt
     name
     votes {
       totalCount
@@ -906,7 +1693,6 @@ export const SingleBotDocument = gql`
       displayName
       id
     }
-    createdAt
   }
 }
     `;
@@ -944,7 +1730,7 @@ export type SingleBotLazyQueryHookResult = ReturnType<typeof useSingleBotLazyQue
 export type SingleBotSuspenseQueryHookResult = ReturnType<typeof useSingleBotSuspenseQuery>;
 export type SingleBotQueryResult = Apollo.QueryResult<SingleBotQuery, SingleBotQueryVariables>;
 export const SingleBotVoteDocument = gql`
-    query SingleBotVote($input: GetBotInput!, $canVoteInput: BotVoteCreateInput!) {
+    query SingleBotVote($input: GetBotInput!) {
   getBot(input: $input) {
     avatar
     id
@@ -954,10 +1740,6 @@ export const SingleBotVoteDocument = gql`
     }
     guildCount
     certified
-  }
-  canVote(input: $canVoteInput) {
-    canVote
-    expires
   }
 }
     `;
@@ -975,7 +1757,6 @@ export const SingleBotVoteDocument = gql`
  * const { data, loading, error } = useSingleBotVoteQuery({
  *   variables: {
  *      input: // value for 'input'
- *      canVoteInput: // value for 'canVoteInput'
  *   },
  * });
  */
@@ -1350,68 +2131,3 @@ export type GetPanelStatsQueryHookResult = ReturnType<typeof useGetPanelStatsQue
 export type GetPanelStatsLazyQueryHookResult = ReturnType<typeof useGetPanelStatsLazyQuery>;
 export type GetPanelStatsSuspenseQueryHookResult = ReturnType<typeof useGetPanelStatsSuspenseQuery>;
 export type GetPanelStatsQueryResult = Apollo.QueryResult<GetPanelStatsQuery, GetPanelStatsQueryVariables>;
-export const LogoutDocument = gql`
-    mutation Logout {
-  logOut
-}
-    `;
-export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
-
-/**
- * __useLogoutMutation__
- *
- * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLogoutMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
- *   variables: {
- *   },
- * });
- */
-export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
-      }
-export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
-export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
-export const CreateSessionDocument = gql`
-    mutation CreateSession($input: CreateSessionInput!) {
-  createSession(input: $input) {
-    access_token
-    expires_in
-    refresh_token
-  }
-}
-    `;
-export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
-
-/**
- * __useCreateSessionMutation__
- *
- * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
-      }
-export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
-export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
-export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;

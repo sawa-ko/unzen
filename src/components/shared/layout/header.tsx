@@ -1,12 +1,11 @@
 import { css } from "@/styled-system/css";
 import { Container, Flex } from "@/styled-system/jsx";
-import { Heading } from "@/components/ui/heading";
 import AuthUser from "./auth/user";
 import Link from "next/link";
 import HomeSearch from "@/components/modules/home/search";
 import Image from "@/components/ui/image";
 
-import CleanLogo from "@public/logos/clean.png";
+import Logo from "@public/logos/dbots.png";
 
 export default function Header() {
 	return (
@@ -28,13 +27,7 @@ export default function Header() {
 				<Flex justifyContent={"space-between"} alignItems={"center"}>
 					<Link href="/">
 						<Flex alignItems={"center"} gap={2}>
-							<Image
-								src={CleanLogo}
-								alt={"dbots.fun logo"}
-								width={53}
-								height={53}
-							/>
-							<Heading>dbots.fun</Heading>
+							<Image src={Logo} alt={"dbots.fun logo"} width={35} height={35} />
 						</Flex>
 					</Link>
 					<Flex alignItems={"center"} gap={3}>

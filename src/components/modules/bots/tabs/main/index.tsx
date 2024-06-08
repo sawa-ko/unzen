@@ -13,12 +13,13 @@ import type { SingleBotQuery } from "@/lib/graphql/apollo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BotTabManage from "./manage";
+import { Divider } from "@/styled-system/jsx";
 
 type BotTabsMainProps = Pick<SingleBotQuery["getBot"], "description" | "id"> & {
 	userCanManage?: boolean;
 };
 
-const tabs = ["overview", "reviews"];
+const tabs = ["overview", "reviews", "manage"];
 
 export default function BotTabsMain({
 	description,
@@ -57,10 +58,11 @@ export default function BotTabsMain({
 					</Tab>
 				)}
 			</TabList>
+			<Divider my={3} borderColor={"background.700"} />
 			<TabPanels>
 				<BotTabOverview description={description} />
 				<BotTabReviews />
-				{userCanManage && <BotTabManage />}
+				{userCanManage && <BotTabManage id={id} />}
 			</TabPanels>
 		</TabGroup>
 	);

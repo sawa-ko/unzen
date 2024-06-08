@@ -7,7 +7,6 @@ export const tabGroup = css({
 export const tabList = css({
 	display: "flex",
 	gap: 2,
-	mb: 2,
 });
 
 export const tab = css({
@@ -28,7 +27,7 @@ export const tab = css({
 	},
 
 	"&[data-selected]": {
-		bg: "background.800",
+		bg: "background.700",
 	},
 
 	"&[data-hover]": {

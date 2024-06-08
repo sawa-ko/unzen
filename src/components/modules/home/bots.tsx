@@ -11,10 +11,11 @@ export default function HomeBots() {
 
 	if (frontBotsError)
 		return (
-			<ErrorMessage>
-				HomeBots: An error occurred while trying to get frontBots
-			</ErrorMessage>
+			<ErrorMessage>An error occurred while trying to get bots</ErrorMessage>
 		);
+
+	if (frontBots.bots.nodes?.length === 0)
+		return <ErrorMessage>No bots found</ErrorMessage>;
 
 	return (
 		<Grid my={5} gridTemplateColumns={{ lg: 4, sm: 2, xl: 4, md: 3 }}>

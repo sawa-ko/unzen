@@ -4,7 +4,7 @@ import {
 	InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
 import { setContext } from "@apollo/client/link/context";
-import { parseCookies } from "nookies";
+import { getCookie } from "cookies-next";
 
 export function makeClient() {
 	const httpLink = new HttpLink({
@@ -20,7 +20,7 @@ export function makeClient() {
 	});
 
 	const authLink = setContext((_, { headers }) => {
-		const { session } = parseCookies();
+		const session = getCookie("session");
 
 		return {
 			headers: {

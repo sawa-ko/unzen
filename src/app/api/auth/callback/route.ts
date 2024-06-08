@@ -1,6 +1,6 @@
 import { makeClient } from "@/lib/constants/apollo-client";
 import { CreateSessionDocument, type Mutation } from "@/lib/graphql/apollo";
-import { serialize } from "cookie";
+import { setCookie } from "cookies-next";
 import { type NextRequest, NextResponse } from "next/server";
 
 const apolloClient = makeClient();
@@ -10,6 +10,8 @@ const quickRedirect = (endpoint: string, url: string) =>
 
 export async function GET(req: NextRequest) {
 	const code = req.nextUrl.searchParams.get("code");
+
+	const res = new NextResponse();
 
 	if (!code)
 		return quickRedirect(
@@ -33,15 +35,16 @@ export async function GET(req: NextRequest) {
 			req.url,
 		);
 
-	const cookie = serialize("session", auth.createSession.access_token, {
-		expires: new Date(Date.now() + auth.createSession.expires_in),
-		httpOnly: false,
-		secure: false,
+	setCookie("session", auth.createSession.access_token, {
+		req,
+		res,
 		path: "/",
+		secure: false,
+		httpOnly: false,
+		expires: new Date(Date.now() + auth.createSession.expires_in),
 	});
 
 	const finalResponse = quickRedirect("/", req.url);
-	finalResponse.headers.append("Set-Cookie", cookie);
 
 	return finalResponse;
 }

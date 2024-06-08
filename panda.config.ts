@@ -2,7 +2,7 @@ import { defineConfig } from "@pandacss/dev";
 import { getColors } from "theme-colors";
 
 const primaryColors = getColors("#8F00FF");
-const backgroundColors = getColors("#3A3A3A");
+const backgroundColors = getColors("#252933"); // old: 3A3A3A
 
 function generateColorTokens(colors: Record<string, string>) {
 	return Object.entries(colors).reduce(
@@ -34,6 +34,9 @@ export default defineConfig({
 				colors: {
 					brand: generateColorTokens(primaryColors),
 					background: generateColorTokens(backgroundColors),
+					bad: {
+						value: "#f31260",
+					},
 				},
 			},
 		},

@@ -55,6 +55,14 @@ export const button = cva({
 				},
 				color: "background.200",
 			},
+			bad: {
+				bg: {
+					base: "bad",
+					_hover: "bad/80",
+					_active: "bad/70",
+				},
+				color: "ButtonText",
+			},
 		},
 		size: {
 			sm: {

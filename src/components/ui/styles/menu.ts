@@ -28,6 +28,10 @@ export const menuItem = css({
 		bg: "background.700",
 		color: "white",
 	},
+	"&[data-focus]": {
+		bg: "background.700",
+		color: "white",
+	},
 
 	"& svg": {
 		w: 4,

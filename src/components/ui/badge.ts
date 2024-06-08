@@ -6,6 +6,7 @@ export const badge = cva({
 		alignItems: "center",
 		borderRadius: "full",
 		display: "inline-flex",
+		justifyContent: "space-between",
 		fontWeight: "medium",
 		userSelect: "none",
 		whiteSpace: "nowrap",

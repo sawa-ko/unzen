@@ -17,6 +17,12 @@ export const text = cva({
 			md: {
 				fontSize: "md",
 			},
+			sm: {
+				fontSize: "sm",
+			},
+			xs: {
+				fontSize: "xs",
+			},
 		},
 	},
 	defaultVariants: {

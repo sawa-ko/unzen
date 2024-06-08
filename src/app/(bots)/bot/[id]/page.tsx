@@ -16,10 +16,9 @@ import { css } from "@/styled-system/css";
 import { Box, Divider, Flex } from "@/styled-system/jsx";
 import { CalendarIcon } from "@heroicons/react/16/solid";
 import {
-	ArrowUpCircleIcon,
-	PlusCircleIcon,
 	ChartBarIcon,
 	ChevronUpIcon,
+	PlusIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -62,11 +61,11 @@ export default function Page({ params }: { params: { id: string } }) {
 				<Flex gap={2}>
 					<Button size="lg" color={"gray"}>
 						Invite
-						<PlusCircleIcon className={buttonIcon("right")} />
+						<PlusIcon className={buttonIcon("right")} />
 					</Button>
 					<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
 						Vote
-						<ArrowUpCircleIcon className={buttonIcon("right")} />
+						<ChevronUpIcon className={buttonIcon("right")} />
 					</LinkButton>
 				</Flex>
 			</Flex>
@@ -98,13 +97,7 @@ export default function Page({ params }: { params: { id: string } }) {
 			<Text>{getBot.shortDescription}</Text>
 			<Flex w={"full"} gap={5} mt={5}>
 				<BotTabsMain userCanManage={userIsOwner} {...getBot} />
-				<Box
-					w={"2/6"}
-					bg={"background.900"}
-					h={"screen"}
-					p={5}
-					borderRadius={"xl"}
-				>
+				<Box w={"2/6"} bg={"background.900"} p={5} borderRadius={"xl"}>
 					<Flex flexDir={"column"} gap={5}>
 						<Flex flexDir={"column"} gap={2}>
 							<LineTitle>About</LineTitle>
@@ -135,6 +128,12 @@ export default function Page({ params }: { params: { id: string } }) {
 											<pre>{owner.id}</pre>
 										</Badge>
 									</Flex>
+								))}
+							</Flex>
+							<LineTitle>Tags</LineTitle>
+							<Flex flexWrap={"wrap"} gap={1}>
+								{getBot.tags.map((tag) => (
+									<Badge key={tag.id}>{tag.displayName}</Badge>
 								))}
 							</Flex>
 						</Flex>

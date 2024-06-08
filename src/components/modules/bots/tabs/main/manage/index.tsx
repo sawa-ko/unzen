@@ -1,10 +1,43 @@
-import ErrorMessage from "@/components/shared/feedback/error";
-import { TabPanel } from "@headlessui/react";
+import type { SingleBotQuery } from "@/lib/graphql/apollo";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import {
+	Cog6ToothIcon,
+	ExclamationTriangleIcon,
+} from "@heroicons/react/24/solid";
+import BotTabManageSettings from "./settings";
+import { tabGroup, tabList, tab } from "@/components/ui/styles/tab";
+import { css, cx } from "@/styled-system/css";
+import BotTabManageDanger from "./danger";
 
-export default function BotTabManage() {
+export default function BotTabManage({
+	id,
+}: Pick<SingleBotQuery["getBot"], "id">) {
 	return (
 		<TabPanel>
-			<ErrorMessage>This section is being made!</ErrorMessage>
+			<TabGroup
+				vertical
+				className={cx(tabGroup, css({ display: "flex", gap: 2 }))}
+			>
+				<TabList
+					className={cx(
+						tabList,
+						css({ display: "flex", flexDir: "column", w: "fit" }),
+					)}
+				>
+					<Tab className={tab}>
+						<Cog6ToothIcon />
+						Settings
+					</Tab>
+					<Tab className={tab}>
+						<ExclamationTriangleIcon />
+						Danger
+					</Tab>
+				</TabList>
+				<TabPanels className={css({ w: "full" })}>
+					<BotTabManageSettings id={id} />
+					<BotTabManageDanger id={id} />
+				</TabPanels>
+			</TabGroup>
 		</TabPanel>
 	);
 }

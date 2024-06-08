@@ -9,7 +9,6 @@ import {
 
 export const input = cva({
 	base: {
-		transitionDuration: "normal",
 		outline: "none",
 		px: 3,
 		py: 2,
@@ -17,6 +16,7 @@ export const input = cva({
 		bg: {
 			base: "background.900",
 			_hover: "background.800",
+			_focus: "background.800",
 		},
 		borderWidth: 1,
 		borderColor: {
@@ -25,6 +25,15 @@ export const input = cva({
 		},
 		_placeholder: {
 			color: "background.400",
+		},
+	},
+	variants: {
+		isError: {
+			true: {
+				borderColor: "bad",
+				color: "bad",
+				bg: "bad/5",
+			},
 		},
 	},
 });

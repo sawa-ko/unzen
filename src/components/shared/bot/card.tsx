@@ -50,8 +50,8 @@ export default function BotCard({
 							className={css({ borderRadius: "xl" })}
 						/>
 						<Flex flexDir={"column"}>
-							<Heading>{name}</Heading>
-							<Text fontSize={"small"} color={"background.300"}>
+							<Heading size="lg">{name}</Heading>
+							<Text lineClamp={1} fontSize={"small"} color={"background.300"}>
 								{tags.map((tag) => tag.displayName).join(", ")}
 							</Text>
 						</Flex>

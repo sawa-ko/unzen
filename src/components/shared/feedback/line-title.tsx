@@ -9,6 +9,7 @@ export default function LineTitle({ children }: React.PropsWithChildren) {
 				textTransform={"uppercase"}
 				fontWeight={800}
 				color={"background.300"}
+				display={"inline-flex"}
 			>
 				{children}
 			</Text>

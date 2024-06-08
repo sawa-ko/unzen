@@ -1,11 +1,13 @@
 overwrite: true
 schema: "https://api.dbots.fun/graphql"
-documents: "src/lib/graphql/**/*.gql"
+documents: "src/lib/graphql/operations/**/*.gql"
+verbose: true
 generates:
   src/lib/graphql/apollo.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
+      - "typescript-resolvers"
       - "typescript-react-apollo"
   ./graphql.schema.json:
     plugins:
