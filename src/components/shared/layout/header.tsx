@@ -31,7 +31,7 @@ export default function Header() {
 						</Flex>
 					</Link>
 					<Flex alignItems={"center"} gap={3}>
-						<HomeSearch />
+						<HomeSearch bottomText={false} />
 						<AuthUser />
 					</Flex>
 				</Flex>
