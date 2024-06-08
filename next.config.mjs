@@ -10,6 +10,9 @@ const nextConfig = {
 			},
 		],
 	},
+	experimental: {
+		missingSuspenseWithCSRBailout: false, // we testin stuff so dont panik
+	},
 };
 
 export default nextConfig;
