@@ -1,5 +1,4 @@
 import { ErrorText } from "@/components/ui/error-text";
-import { Text } from "@/components/ui/text";
 import { Center } from "@/styled-system/jsx";
 import type React from "react";
 
