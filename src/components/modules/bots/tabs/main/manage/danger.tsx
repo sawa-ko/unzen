@@ -12,7 +12,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 import { popUpAnimation } from "@/lib/constants/animations";
 import { handleError } from "@/lib/utils/format";
 import { useRouter } from "next/navigation";
@@ -77,7 +77,7 @@ export default function BotTabManageDanger({
 								animate={"enter"}
 								exit={"exit"}
 								variants={popUpAnimation}
-								className={box}
+								className={cx(box, css({ zIndex: 100 }))}
 							>
 								<Heading size="xl">Delete bot</Heading>
 								<Text size="sm" my={3}>

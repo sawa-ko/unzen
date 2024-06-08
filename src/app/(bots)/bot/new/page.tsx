@@ -13,7 +13,10 @@ import { ErrorText } from "@/components/ui/error-text";
 import { Input, Textarea, input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
-import { useCreateBotMutation } from "@/lib/graphql/apollo";
+import {
+	useCreateBotMutation,
+	useGetTagsSuspenseQuery,
+} from "@/lib/graphql/apollo";
 import { type NewBotSchema, newBotSchema } from "@/lib/schemas/new-bot";
 import { handleError } from "@/lib/utils/format";
 import { css, cx } from "@/styled-system/css";
@@ -32,13 +35,14 @@ import {
 } from "@heroicons/react/24/solid";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-const availableTags = ["Fun", "Moderation", "Image manipulation", "Social"];
+import { toast } from "sonner";
 
 export default function Page() {
-	const [tags, setTags] = useState([]);
+	const router = useRouter();
+	const [tags, setTags] = useState<string[]>([]);
 	const [query, setQuery] = useState("");
 
 	const {
@@ -52,9 +56,14 @@ export default function Page() {
 	const [createBot, { loading: creatingBot }] = useCreateBotMutation({
 		onError: handleError,
 		onCompleted: () => {
-			alert("Bot created");
+			toast.success("Bot submitted successfully");
+			router.replace("/");
 		},
 	});
+
+	const {
+		data: { tags: availableTags },
+	} = useGetTagsSuspenseQuery();
 
 	const onSubmit = handleSubmit((data) =>
 		createBot({
@@ -66,10 +75,12 @@ export default function Page() {
 
 	const filteredTags =
 		query === ""
-			? availableTags
-			: availableTags.filter((tag) => {
-					return tag.toLowerCase().includes(query.toLowerCase());
-				});
+			? availableTags.nodes?.map((t) => t.displayName)
+			: availableTags.nodes
+					?.filter((tag) => {
+						return tag.id.toLowerCase().includes(query.toLowerCase());
+					})
+					.map((t) => t.displayName);
 	return (
 		<Center>
 			<Box
@@ -160,8 +171,13 @@ export default function Page() {
 									className={cx(input(), css({ w: "full" }))}
 								/>
 								<ComboboxOptions className={menuItems} anchor="top end">
-									{filteredTags.map((t) => (
-										<ComboboxOption className={menuItem} key={t} value={t}>
+									{filteredTags?.map((t) => (
+										<ComboboxOption
+											disabled={!tags.includes(t) && tags.length >= 7}
+											className={menuItem}
+											key={t}
+											value={t}
+										>
 											{({ selected }) => (
 												<>
 													<CheckIcon

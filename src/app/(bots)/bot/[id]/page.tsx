@@ -41,6 +41,8 @@ export default function Page({ params }: { params: { id: string } }) {
 	if (error) return notFound();
 
 	const userIsOwner = !!getBot.owners.find((o) => o.id === auth?.me.id);
+	const hasAnyLink =
+		!!getBot.website ?? !!getBot.github ?? !!getBot.supportServer;
 
 	return (
 		<Flex flexDir={"column"}>
@@ -113,15 +115,15 @@ export default function Page({ params }: { params: { id: string } }) {
 						<Flex flexDir={"column"} gap={2}>
 							<LineTitle>About</LineTitle>
 							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text fontWeight={500}>Prefix</Text>
+								<Text size={"sm"}>Prefix</Text>
 								<Badge size="md">{getBot.prefix ?? "Slash commands"}</Badge>
 							</Flex>
 							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text fontWeight={500}>Guilds</Text>
+								<Text size={"sm"}>Guilds</Text>
 								<Badge size="md">{getBot.guildCount ?? 0}</Badge>
 							</Flex>
 							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text fontWeight={500}>Votes</Text>
+								<Text size={"sm"}>Votes</Text>
 								<Badge size="md">{getBot.votes.totalCount ?? 0}</Badge>
 							</Flex>
 							<LineTitle>Owners</LineTitle>
@@ -133,7 +135,7 @@ export default function Page({ params }: { params: { id: string } }) {
 										alignItems={"center"}
 									>
 										<Link href={`/user/${owner.id}`}>
-											<Text fontWeight={500}>{owner.username}</Text>
+											<Text size={"sm"}>{owner.username}</Text>
 										</Link>
 										<Badge size="md">
 											<pre>{owner.id}</pre>
@@ -146,6 +148,25 @@ export default function Page({ params }: { params: { id: string } }) {
 								{getBot.tags.map((tag) => (
 									<Badge key={tag.id}>{tag.displayName}</Badge>
 								))}
+							</Flex>
+							<LineTitle>Links</LineTitle>
+							<Flex flexDir="column" gap={1}>
+								{getBot.website && (
+									<Link href={getBot.website}>
+										<Text size={"sm"}>Website</Text>
+									</Link>
+								)}
+								{getBot.github && (
+									<Link href={getBot.github}>
+										<Text size={"sm"}>Github</Text>
+									</Link>
+								)}
+								{getBot.supportServer && (
+									<Link href={getBot.supportServer}>
+										<Text size={"sm"}>Support Server</Text>
+									</Link>
+								)}
+								{!hasAnyLink && <Text>{getBot.name} has no links</Text>}
 							</Flex>
 						</Flex>
 					</Flex>

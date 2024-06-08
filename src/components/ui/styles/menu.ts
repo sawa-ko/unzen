@@ -28,6 +28,11 @@ export const menuItem = css({
 		bg: "background.700",
 		color: "white",
 	},
+	_disabled: {
+		opacity: 0.5,
+		cursor: "not-allowed",
+	},
+
 	"&[data-focus]": {
 		bg: "background.700",
 		color: "white",
