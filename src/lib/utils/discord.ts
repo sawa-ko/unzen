@@ -7,5 +7,5 @@ export function getAvatar(id: string, avatar?: Maybe<string>, size?: number) {
 }
 
 export function getDefaultInvite(id: string) {
-	return `https://discord.com/oauth2/authorize?client_id=${id}&permissions=0`;
+	return `https://discord.com/oauth2/authorize?client_id=${id}&permissions=0&scopes=bot`;
 }
