@@ -50,24 +50,24 @@ export default function Page({ params }: { params: { id: string } }) {
 			<Box position={"absolute"} inset={0} zIndex={-1}>
 				<Image
 					alt="bot avatar as background"
-					fill
 					draggable={false}
+					width={1000}
+					height={1000}
 					src={getAvatar(getBot.id, getBot.avatar)}
 					className={css({
 						position: "absolute",
+						w: "full",
 						zIndex: -1,
-						w: "screen",
 						objectFit: "cover",
 						objectPosition: "center top",
 						top: 0,
 						bottom: 0,
 						left: 0,
 						right: 0,
-						maxH: "90vh",
-						opacity: 0.05,
+						opacity: 0.3,
 						h: "100vh",
 						maskImage:
-							"radial-gradient(circle at top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))",
+							"radial-gradient(circle at top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0))",
 					})}
 				/>
 			</Box>

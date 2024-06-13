@@ -12,12 +12,10 @@ export default function Header() {
 		<header
 			className={css({
 				top: 0,
-				position: "sticky",
-				bg: "background.950/50",
+				position: "fixed",
+				bg: "background.950/0",
 				w: "full",
 				py: 3,
-				borderBottomWidth: 1,
-				borderColor: "background.800",
 				backdropBlur: "lg",
 				backdropFilter: "auto",
 				zIndex: 10,
