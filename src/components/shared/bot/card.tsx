@@ -1,4 +1,3 @@
-import { icon } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";

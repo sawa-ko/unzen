@@ -52,8 +52,8 @@ export default function BotTabManageSettings({
 					<AlertContent>
 						<AlertTitle>Not here what you looking for?</AlertTitle>
 						<AlertDescription>
-							Currently we don't give the ability to edit bots or manage
-							webhooks since that part is this WIP
+							At the moment, you can't edit bot information nor webhooks, this
+							will be added on the next major version!
 						</AlertDescription>
 					</AlertContent>
 				</Alert>
