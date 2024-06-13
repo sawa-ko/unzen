@@ -59,6 +59,7 @@ export default function Page() {
 		handleSubmit,
 		formState: { errors, isValid, isSubmitted },
 		reset: resetForm,
+		getValues,
 	} = useForm<NewBotSchema>({
 		resolver: zodResolver(newBotSchema),
 	});
@@ -78,7 +79,11 @@ export default function Page() {
 	const onSubmit = handleSubmit((data) =>
 		createBot({
 			variables: {
-				input: { ...data, tags: tags },
+				input: {
+					...data,
+					tags: tags,
+					owners: getValues("owners")?.split(",") ?? [],
+				},
 			},
 		}),
 	);
@@ -208,12 +213,12 @@ export default function Page() {
 									<Input
 										placeholder="Your bot's co-owners ids"
 										w={"full"}
-										id="coOwners"
-										{...register("coOwners")}
+										id="owners"
+										{...register("owners")}
 									/>
-									{errors.coOwners?.message && (
+									{errors.owners?.message && (
 										<ErrorText size="xs" mt={1}>
-											{errors.coOwners.message}
+											{errors.owners.message}
 										</ErrorText>
 									)}
 								</Field>

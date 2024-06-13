@@ -20,7 +20,7 @@ export const newBotSchema = z.object({
 		.max(5_000, { message: "5.000 chars max" }),
 
 	// Co-owners
-	coOwners: z.string().optional(),
+	owners: z.string().optional(),
 
 	// Extra
 	prefix: z
