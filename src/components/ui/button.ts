@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const icon = (size = 5) =>
 	css({
-		w: size,
-		h: size,
+		w: size.toString(),
+		h: size.toString(),
 	});
 
 export const buttonIcon = (pos: "left" | "right", size = 5) =>

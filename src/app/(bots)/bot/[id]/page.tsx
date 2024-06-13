@@ -22,6 +22,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import React from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -45,133 +46,159 @@ export default function Page({ params }: { params: { id: string } }) {
 		!!getBot.website ?? !!getBot.github ?? !!getBot.supportServer;
 
 	return (
-		<Flex flexDir={"column"}>
-			<Flex justifyContent={"space-between"} alignItems={"center"}>
-				<Flex alignItems={"center"} gap={3}>
-					<Image
-						alt="bot avatar"
-						width={100}
-						height={100}
-						src={getAvatar(getBot.id, getBot.avatar)}
-						className={css({ borderRadius: "full" })}
-					/>
-					<Flex alignItems={"center"} gap={1}>
-						<Heading size="4xl">{getBot.name}</Heading>
-						{getBot.certified && <CertifiedBadge />}
-					</Flex>
-				</Flex>
-				<Flex gap={2}>
-					<LinkButton
-						referrerPolicy="no-referrer"
-						target="_blank"
-						href={getBot.inviteLink ?? getDefaultInvite(getBot.id)}
-						size="lg"
-						color={"gray"}
-					>
-						Invite
-						<PlusIcon className={buttonIcon("right")} />
-					</LinkButton>
-					<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
-						Vote
-						<ChevronUpIcon className={buttonIcon("right")} />
-					</LinkButton>
-				</Flex>
-			</Flex>
-			<Flex mt={5} h="full" gap={3} color={"background.400"}>
-				<Flex alignItems={"center"}>
-					<CalendarIcon className={buttonIcon("left", 5)} />
-					<Text>Submitted {formatDateSince(getBot.createdAt)}</Text>
-				</Flex>
-				<Divider
-					h="auto"
-					borderColor={"background.500"}
-					orientation={"vertical"}
+		<React.Fragment>
+			<Box position={"absolute"} inset={0} zIndex={-1}>
+				<Image
+					alt="bot avatar as background"
+					fill
+					draggable={false}
+					src={getAvatar(getBot.id, getBot.avatar)}
+					className={css({
+						position: "absolute",
+						zIndex: -1,
+						w: "screen",
+						objectFit: "cover",
+						objectPosition: "center top",
+						top: 0,
+						bottom: 0,
+						left: 0,
+						right: 0,
+						maxH: "90vh",
+						opacity: 0.05,
+						h: "100vh",
+						maskImage:
+							"radial-gradient(circle at top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))",
+					})}
 				/>
-				<Flex alignItems={"center"}>
-					<ChartBarIcon className={buttonIcon("left", 5)} />
-					<Text>{getBot.guildCount} guilds</Text>
-				</Flex>
-				<Divider
-					h="auto"
-					borderColor={"background.500"}
-					orientation={"vertical"}
-				/>
-				<Flex alignItems={"center"}>
-					<ChevronUpIcon className={buttonIcon("left", 5)} />
-					<Text>{getBot.votes.totalCount} votes</Text>
-				</Flex>
-			</Flex>
-			<Divider borderColor={"background.700"} my={5} />
-			<Text>{getBot.shortDescription}</Text>
-			<Flex w={"full"} flexDir={{ lg: "row", base: "column" }} gap={5} mt={5}>
-				<BotTabsMain userCanManage={userIsOwner} {...getBot} />
-				<Box
-					w={{ lg: "2/6", base: "full" }}
-					bg={"background.900"}
-					p={5}
-					borderRadius={"xl"}
-				>
-					<Flex flexDir={"column"} gap={5}>
-						<Flex flexDir={"column"} gap={2}>
-							<LineTitle>About</LineTitle>
-							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text size={"sm"}>Prefix</Text>
-								<Badge size="md">{getBot.prefix ?? "Slash commands"}</Badge>
-							</Flex>
-							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text size={"sm"}>Guilds</Text>
-								<Badge size="md">{getBot.guildCount ?? 0}</Badge>
-							</Flex>
-							<Flex justifyContent={"space-between"} alignItems={"center"}>
-								<Text size={"sm"}>Votes</Text>
-								<Badge size="md">{getBot.votes.totalCount ?? 0}</Badge>
-							</Flex>
-							<LineTitle>Owners</LineTitle>
-							<Flex flexDir={"column"} gap={2}>
-								{getBot.owners.map((owner) => (
-									<Flex
-										key={owner.id}
-										justifyContent={"space-between"}
-										alignItems={"center"}
-									>
-										<Link href={`/user/${owner.id}`}>
-											<Text size={"sm"}>{owner.username}</Text>
-										</Link>
-										<Badge size="md">
-											<pre>{owner.id}</pre>
-										</Badge>
-									</Flex>
-								))}
-							</Flex>
-							<LineTitle>Tags</LineTitle>
-							<Flex flexWrap={"wrap"} gap={1}>
-								{getBot.tags.map((tag) => (
-									<Badge key={tag.id}>{tag.displayName}</Badge>
-								))}
-							</Flex>
-							<LineTitle>Links</LineTitle>
-							<Flex flexDir="column" gap={1}>
-								{getBot.website && (
-									<Link href={getBot.website}>
-										<Text size={"sm"}>Website</Text>
-									</Link>
-								)}
-								{getBot.github && (
-									<Link href={getBot.github}>
-										<Text size={"sm"}>Github</Text>
-									</Link>
-								)}
-								{getBot.supportServer && (
-									<Link href={getBot.supportServer}>
-										<Text size={"sm"}>Support Server</Text>
-									</Link>
-								)}
-								{!hasAnyLink && <Text>{getBot.name} has no links</Text>}
-							</Flex>
+			</Box>
+			<Flex flexDir={"column"}>
+				<Flex justifyContent={"space-between"} alignItems={"center"}>
+					<Flex alignItems={"center"} gap={3}>
+						<Image
+							alt="bot avatar"
+							width={100}
+							height={100}
+							src={getAvatar(getBot.id, getBot.avatar)}
+							className={css({ borderRadius: "full" })}
+						/>
+						<Flex alignItems={"center"} gap={1}>
+							<Heading size="4xl">{getBot.name}</Heading>
+							{getBot.certified && <CertifiedBadge />}
 						</Flex>
 					</Flex>
-				</Box>
+					<Flex gap={2}>
+						<LinkButton
+							referrerPolicy="no-referrer"
+							target="_blank"
+							href={getBot.inviteLink ?? getDefaultInvite(getBot.id)}
+							size="lg"
+							color={"gray"}
+						>
+							Invite
+							<PlusIcon className={buttonIcon("right")} />
+						</LinkButton>
+						<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
+							Vote
+							<ChevronUpIcon className={buttonIcon("right")} />
+						</LinkButton>
+					</Flex>
+				</Flex>
+				<Flex mt={5} h="full" gap={3} color={"background.400"}>
+					<Flex alignItems={"center"}>
+						<CalendarIcon className={buttonIcon("left", 5)} />
+						<Text>Submitted {formatDateSince(getBot.createdAt)}</Text>
+					</Flex>
+					<Divider
+						h="auto"
+						borderColor={"background.500"}
+						orientation={"vertical"}
+					/>
+					<Flex alignItems={"center"}>
+						<ChartBarIcon className={buttonIcon("left", 5)} />
+						<Text>{getBot.guildCount} guilds</Text>
+					</Flex>
+					<Divider
+						h="auto"
+						borderColor={"background.500"}
+						orientation={"vertical"}
+					/>
+					<Flex alignItems={"center"}>
+						<ChevronUpIcon className={buttonIcon("left", 5)} />
+						<Text>{getBot.votes.totalCount} votes</Text>
+					</Flex>
+				</Flex>
+				<Divider borderColor={"background.700"} my={5} />
+				<Text>{getBot.shortDescription}</Text>
+				<Flex w={"full"} flexDir={{ lg: "row", base: "column" }} gap={5} mt={5}>
+					<BotTabsMain userCanManage={userIsOwner} {...getBot} />
+					<Box
+						w={{ lg: "2/6", base: "full" }}
+						bg={"background.900"}
+						p={5}
+						borderRadius={"xl"}
+					>
+						<Flex flexDir={"column"} gap={5}>
+							<Flex flexDir={"column"} gap={2}>
+								<LineTitle>About</LineTitle>
+								<Flex justifyContent={"space-between"} alignItems={"center"}>
+									<Text size={"sm"}>Prefix</Text>
+									<Badge size="md">{getBot.prefix ?? "Slash commands"}</Badge>
+								</Flex>
+								<Flex justifyContent={"space-between"} alignItems={"center"}>
+									<Text size={"sm"}>Guilds</Text>
+									<Badge size="md">{getBot.guildCount ?? 0}</Badge>
+								</Flex>
+								<Flex justifyContent={"space-between"} alignItems={"center"}>
+									<Text size={"sm"}>Votes</Text>
+									<Badge size="md">{getBot.votes.totalCount ?? 0}</Badge>
+								</Flex>
+								<LineTitle>Owners</LineTitle>
+								<Flex flexDir={"column"} gap={2}>
+									{getBot.owners.map((owner) => (
+										<Flex
+											key={owner.id}
+											justifyContent={"space-between"}
+											alignItems={"center"}
+										>
+											<Link href={`/user/${owner.id}`}>
+												<Text size={"sm"}>{owner.username}</Text>
+											</Link>
+											<Badge size="md">
+												<pre>{owner.id}</pre>
+											</Badge>
+										</Flex>
+									))}
+								</Flex>
+								<LineTitle>Tags</LineTitle>
+								<Flex flexWrap={"wrap"} gap={1}>
+									{getBot.tags.map((tag) => (
+										<Badge key={tag.id}>{tag.displayName}</Badge>
+									))}
+								</Flex>
+								<LineTitle>Links</LineTitle>
+								<Flex flexDir="column" gap={1}>
+									{getBot.website && (
+										<Link href={getBot.website}>
+											<Text size={"sm"}>Website</Text>
+										</Link>
+									)}
+									{getBot.github && (
+										<Link href={getBot.github}>
+											<Text size={"sm"}>Github</Text>
+										</Link>
+									)}
+									{getBot.supportServer && (
+										<Link href={getBot.supportServer}>
+											<Text size={"sm"}>Support Server</Text>
+										</Link>
+									)}
+									{!hasAnyLink && <Text>{getBot.name} has no links</Text>}
+								</Flex>
+							</Flex>
+						</Flex>
+					</Box>
+				</Flex>
 			</Flex>
-		</Flex>
+		</React.Fragment>
 	);
 }

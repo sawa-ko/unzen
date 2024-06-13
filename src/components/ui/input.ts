@@ -25,6 +25,7 @@ export const input = cva({
 		},
 		_placeholder: {
 			color: "background.400",
+			fontSize: "sm",
 		},
 	},
 	variants: {
