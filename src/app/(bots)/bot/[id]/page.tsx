@@ -44,6 +44,7 @@ export default function Page({ params }: { params: { id: string } }) {
 	const userIsOwner = !!getBot.owners.find((o) => o.id === auth?.me.id);
 	const hasAnyLink =
 		!!getBot.website ?? !!getBot.github ?? !!getBot.supportServer;
+	const banner = getBot.banner ?? getAvatar(getBot.id, getBot.avatar);
 
 	return (
 		<React.Fragment>
@@ -53,7 +54,7 @@ export default function Page({ params }: { params: { id: string } }) {
 					draggable={false}
 					width={1000}
 					height={1000}
-					src={getAvatar(getBot.id, getBot.avatar)}
+					src={banner}
 					className={css({
 						position: "absolute",
 						w: "full",
@@ -64,7 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						bottom: 0,
 						left: 0,
 						right: 0,
-						opacity: 0.3,
+						opacity: 0.2,
 						h: "100vh",
 						maskImage:
 							"radial-gradient(circle at top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0))",

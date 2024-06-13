@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { GraphQLResolveInfo } from 'graphql';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -833,7 +832,7 @@ export type SingleBotQueryVariables = Exact<{
 }>;
 
 
-export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, createdAt: string, name: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
+export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, banner?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, createdAt: string, name: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
 
 export type SingleBotVoteQueryVariables = Exact<{
   input: GetBotInput;
@@ -1678,6 +1677,7 @@ export const SingleBotDocument = gql`
     query SingleBot($input: GetBotInput!) {
   getBot(input: $input) {
     avatar
+    banner
     certified
     description
     website

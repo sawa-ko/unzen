@@ -39,6 +39,7 @@ query FrontBots($pagination: PaginationInput) {
 query SingleBot($input: GetBotInput!) {
   getBot(input: $input) {
     avatar
+    banner
     certified
     description
     website

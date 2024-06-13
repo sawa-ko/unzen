@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
 import { css, cx } from "@/styled-system/css";
-import { popUpAnimation } from "@/lib/constants/animations";
+import { fadeIn, popUpAnimation } from "@/lib/constants/animations";
 import { handleError } from "@/lib/utils/format";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -51,9 +51,10 @@ export default function BotTabManageDanger({
 						onClose={onClose}
 					>
 						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
+							initial={"initial"}
+							animate={"enter"}
+							exit={"exit"}
+							variants={fadeIn}
 							className={css({
 								inset: 0,
 								position: "fixed",

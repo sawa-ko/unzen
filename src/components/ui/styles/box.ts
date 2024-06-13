@@ -7,5 +7,4 @@ export const box = css({
 	borderRadius: "xl",
 	p: 5,
 	w: "full",
-	transitionDelay: "fast",
 });

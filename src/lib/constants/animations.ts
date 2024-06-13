@@ -45,10 +45,10 @@ export const fadeIn: Variants = {
 	initial: { opacity: 0 },
 	enter: {
 		opacity: 1,
-		transition: spring,
+		transition: { duration: 0.1 },
 	},
 	exit: {
 		opacity: 0,
-		transition: spring,
+		transition: { duration: 0.1 },
 	},
 };
