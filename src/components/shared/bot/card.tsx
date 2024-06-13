@@ -68,12 +68,12 @@ export default function BotCard({
 					</Text>
 					<Flex gap={2} justifyContent={"space-between"} alignItems={"center"}>
 						<Flex alignItems={"center"} display={"inline-flex"} gap={1}>
+							<ChartBarIcon className={css({ w: "4", h: "4" })} />
 							<Text>{guildCount}</Text>
-							<ChartBarIcon className={icon(4)} />
 						</Flex>
 						<Flex alignItems={"center"} gap={1}>
 							<Text>{votes.totalCount}</Text>
-							<ChevronUpIcon className={icon(4)} />
+							<ChevronUpIcon className={css({ w: "4", h: "4" })} />
 						</Flex>
 					</Flex>
 				</Flex>
