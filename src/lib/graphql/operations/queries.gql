@@ -37,17 +37,17 @@ query BotCards($pagination: PaginationInput) {
 
 # Query for home bots
 query HomeBots {
-  mostVoted: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "votes" }) {
+  mostVoted: bots(pagination: { size: 4, sortOrder: DESC, sortBy: "votes" }) {
     nodes {
       ...BotCard
     }
   }
-  mostBig: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "guildCount" }) {
+  mostBig: bots(pagination: { size: 4, sortOrder: DESC, sortBy: "guildCount" }) {
     nodes {
       ...BotCard
     }
   }
-  mostReviewed: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "reviews" }) {
+  mostReviewed: bots(pagination: { size: 4, sortOrder: DESC, sortBy: "reviews" }) {
     nodes {
       ...BotCard
     }
