@@ -1,6 +1,5 @@
 import { Box, Flex } from "@/styled-system/jsx";
 import type { BotCardProps } from "./card";
-import { box } from "@/components/ui/styles/box";
 import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Heading } from "@/components/ui/heading";
