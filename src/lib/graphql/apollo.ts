@@ -1688,17 +1688,17 @@ export type BotCardsSuspenseQueryHookResult = ReturnType<typeof useBotCardsSuspe
 export type BotCardsQueryResult = Apollo.QueryResult<BotCardsQuery, BotCardsQueryVariables>;
 export const HomeBotsDocument = gql`
     query HomeBots {
-  mostVoted: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "votes"}) {
+  mostVoted: bots(pagination: {size: 4, sortOrder: DESC, sortBy: "votes"}) {
     nodes {
       ...BotCard
     }
   }
-  mostBig: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "guildCount"}) {
+  mostBig: bots(pagination: {size: 4, sortOrder: DESC, sortBy: "guildCount"}) {
     nodes {
       ...BotCard
     }
   }
-  mostReviewed: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "reviews"}) {
+  mostReviewed: bots(pagination: {size: 4, sortOrder: DESC, sortBy: "reviews"}) {
     nodes {
       ...BotCard
     }
