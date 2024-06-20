@@ -1,14 +1,14 @@
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
-import type { FrontBotsQuery } from "@/lib/graphql/apollo";
+import type { BotCardsQuery } from "@/lib/graphql/apollo";
 import { getAvatar } from "@/lib/utils/discord";
 import { css } from "@/styled-system/css";
 import { Box, Flex } from "@/styled-system/jsx";
 import { ChartBarIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-type BotCardProps = NonNullable<FrontBotsQuery["bots"]["nodes"]>[number];
+export type BotCardProps = NonNullable<BotCardsQuery["bots"]["nodes"]>[number];
 
 export default function BotCard({
 	id,
@@ -25,9 +25,10 @@ export default function BotCard({
 				p={4}
 				maxH={"4xl"}
 				maxW={"lg"}
-				bg={{
-					base: "background.900",
-				}}
+				bgGradient={"to-b"}
+				gradientFrom={"background.900"}
+				gradientVia={"background.900"}
+				gradientTo={"background.800"}
 				_active={{
 					scale: 0.98,
 				}}

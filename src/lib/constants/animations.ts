@@ -52,3 +52,17 @@ export const fadeIn: Variants = {
 		transition: { duration: 0.1 },
 	},
 };
+
+export const fadeInFromTopExitBottom: Variants = {
+	initial: { opacity: 0, y: 10, transition: spring },
+	enter: {
+		opacity: 1,
+		y: 0,
+		transition: spring,
+	},
+	exit: {
+		opacity: 0,
+		y: 5,
+		transition: { duration: 0.1 },
+	},
+};

@@ -26,9 +26,28 @@ fragment BotCard on BotObject {
 ######                          ######
 ######################################
 
-# Query for home page
-query FrontBots($pagination: PaginationInput) {
+# Type
+query BotCards($pagination: PaginationInput) {
   bots(pagination: $pagination) {
+    nodes {
+      ...BotCard
+    }
+  }
+}
+
+# Query for home bots
+query HomeBots {
+  mostVoted: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "votes" }) {
+    nodes {
+      ...BotCard
+    }
+  }
+  mostBig: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "guildCount" }) {
+    nodes {
+      ...BotCard
+    }
+  }
+  mostReviewed: bots(pagination: { size: 5, sortOrder: DESC, sortBy: "reviews" }) {
     nodes {
       ...BotCard
     }
@@ -68,6 +87,20 @@ query SingleBot($input: GetBotInput!) {
     }
   }
 }
+
+# Query to search bots
+query SearchBots($pagination: PaginationInput, $input: SafeFiltersInput) {
+  bots(pagination: $pagination, input: $input) {
+    totalCount
+    nodes {
+      id
+      avatar
+      name
+      shortDescription
+    }
+  }
+}
+
 
 # Query for a single bot vote information
 query SingleBotVote($input: GetBotInput!) {

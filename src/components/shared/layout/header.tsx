@@ -29,13 +29,22 @@ export default function Header() {
 								placeholder={"empty"}
 								src={Logo}
 								alt={"dbots.fun logo"}
-								width={35}
-								height={35}
+								width={100}
+								height={100}
+								className={css({
+									w: "35px",
+									h: "35px",
+									scale: {
+										_hover: "1.1",
+										_active: "0.9",
+									},
+									transitionDuration: "normal",
+								})}
 							/>
 						</Flex>
 					</Link>
 					<Flex alignItems={"center"} gap={3}>
-						<HomeSearch bottomText={false} />
+						<HomeSearch isNav={true} />
 						<AuthUser />
 					</Flex>
 				</Flex>

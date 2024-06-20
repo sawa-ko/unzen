@@ -820,12 +820,17 @@ export type CreateVanityMutation = { __typename?: 'Mutation', createVanity: { __
 
 export type BotCardFragment = { __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } };
 
-export type FrontBotsQueryVariables = Exact<{
+export type BotCardsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationInput>;
 }>;
 
 
-export type FrontBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
+export type BotCardsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
+
+export type HomeBotsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeBotsQuery = { __typename?: 'Query', mostVoted: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostBig: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostReviewed: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
 
 export type SingleBotQueryVariables = Exact<{
   input: GetBotInput;
@@ -833,6 +838,14 @@ export type SingleBotQueryVariables = Exact<{
 
 
 export type SingleBotQuery = { __typename?: 'Query', getBot: { __typename?: 'BotObject', avatar?: string | null, banner?: string | null, certified: boolean, description: string, website?: string | null, supportServer?: string | null, status: BotStatus, shortDescription: string, prefix?: string | null, github?: string | null, guildCount: number, id: string, importedFrom?: string | null, inviteLink?: string | null, createdAt: string, name: string, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number }, owners: Array<{ __typename?: 'BotOwnerObject', username: string, id: string, avatar?: string | null }>, tags: Array<{ __typename?: 'BotTagObject', displayName: string, id: string }> } };
+
+export type SearchBotsQueryVariables = Exact<{
+  pagination?: InputMaybe<PaginationInput>;
+  input?: InputMaybe<SafeFiltersInput>;
+}>;
+
+
+export type SearchBotsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsConnection', totalCount: number, nodes?: Array<{ __typename?: 'BotObject', id: string, avatar?: string | null, name: string, shortDescription: string }> | null } };
 
 export type SingleBotVoteQueryVariables = Exact<{
   input: GetBotInput;
@@ -1631,8 +1644,8 @@ export function useCreateVanityMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateVanityMutationHookResult = ReturnType<typeof useCreateVanityMutation>;
 export type CreateVanityMutationResult = Apollo.MutationResult<CreateVanityMutation>;
 export type CreateVanityMutationOptions = Apollo.BaseMutationOptions<CreateVanityMutation, CreateVanityMutationVariables>;
-export const FrontBotsDocument = gql`
-    query FrontBots($pagination: PaginationInput) {
+export const BotCardsDocument = gql`
+    query BotCards($pagination: PaginationInput) {
   bots(pagination: $pagination) {
     nodes {
       ...BotCard
@@ -1642,37 +1655,88 @@ export const FrontBotsDocument = gql`
     ${BotCardFragmentDoc}`;
 
 /**
- * __useFrontBotsQuery__
+ * __useBotCardsQuery__
  *
- * To run a query within a React component, call `useFrontBotsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFrontBotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useBotCardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBotCardsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFrontBotsQuery({
+ * const { data, loading, error } = useBotCardsQuery({
  *   variables: {
  *      pagination: // value for 'pagination'
  *   },
  * });
  */
-export function useFrontBotsQuery(baseOptions?: Apollo.QueryHookOptions<FrontBotsQuery, FrontBotsQueryVariables>) {
+export function useBotCardsQuery(baseOptions?: Apollo.QueryHookOptions<BotCardsQuery, BotCardsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FrontBotsQuery, FrontBotsQueryVariables>(FrontBotsDocument, options);
+        return Apollo.useQuery<BotCardsQuery, BotCardsQueryVariables>(BotCardsDocument, options);
       }
-export function useFrontBotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FrontBotsQuery, FrontBotsQueryVariables>) {
+export function useBotCardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BotCardsQuery, BotCardsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FrontBotsQuery, FrontBotsQueryVariables>(FrontBotsDocument, options);
+          return Apollo.useLazyQuery<BotCardsQuery, BotCardsQueryVariables>(BotCardsDocument, options);
         }
-export function useFrontBotsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FrontBotsQuery, FrontBotsQueryVariables>) {
+export function useBotCardsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<BotCardsQuery, BotCardsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FrontBotsQuery, FrontBotsQueryVariables>(FrontBotsDocument, options);
+          return Apollo.useSuspenseQuery<BotCardsQuery, BotCardsQueryVariables>(BotCardsDocument, options);
         }
-export type FrontBotsQueryHookResult = ReturnType<typeof useFrontBotsQuery>;
-export type FrontBotsLazyQueryHookResult = ReturnType<typeof useFrontBotsLazyQuery>;
-export type FrontBotsSuspenseQueryHookResult = ReturnType<typeof useFrontBotsSuspenseQuery>;
-export type FrontBotsQueryResult = Apollo.QueryResult<FrontBotsQuery, FrontBotsQueryVariables>;
+export type BotCardsQueryHookResult = ReturnType<typeof useBotCardsQuery>;
+export type BotCardsLazyQueryHookResult = ReturnType<typeof useBotCardsLazyQuery>;
+export type BotCardsSuspenseQueryHookResult = ReturnType<typeof useBotCardsSuspenseQuery>;
+export type BotCardsQueryResult = Apollo.QueryResult<BotCardsQuery, BotCardsQueryVariables>;
+export const HomeBotsDocument = gql`
+    query HomeBots {
+  mostVoted: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "votes"}) {
+    nodes {
+      ...BotCard
+    }
+  }
+  mostBig: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "guildCount"}) {
+    nodes {
+      ...BotCard
+    }
+  }
+  mostReviewed: bots(pagination: {size: 5, sortOrder: DESC, sortBy: "reviews"}) {
+    nodes {
+      ...BotCard
+    }
+  }
+}
+    ${BotCardFragmentDoc}`;
+
+/**
+ * __useHomeBotsQuery__
+ *
+ * To run a query within a React component, call `useHomeBotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHomeBotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHomeBotsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHomeBotsQuery(baseOptions?: Apollo.QueryHookOptions<HomeBotsQuery, HomeBotsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HomeBotsQuery, HomeBotsQueryVariables>(HomeBotsDocument, options);
+      }
+export function useHomeBotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HomeBotsQuery, HomeBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HomeBotsQuery, HomeBotsQueryVariables>(HomeBotsDocument, options);
+        }
+export function useHomeBotsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<HomeBotsQuery, HomeBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<HomeBotsQuery, HomeBotsQueryVariables>(HomeBotsDocument, options);
+        }
+export type HomeBotsQueryHookResult = ReturnType<typeof useHomeBotsQuery>;
+export type HomeBotsLazyQueryHookResult = ReturnType<typeof useHomeBotsLazyQuery>;
+export type HomeBotsSuspenseQueryHookResult = ReturnType<typeof useHomeBotsSuspenseQuery>;
+export type HomeBotsQueryResult = Apollo.QueryResult<HomeBotsQuery, HomeBotsQueryVariables>;
 export const SingleBotDocument = gql`
     query SingleBot($input: GetBotInput!) {
   getBot(input: $input) {
@@ -1740,6 +1804,53 @@ export type SingleBotQueryHookResult = ReturnType<typeof useSingleBotQuery>;
 export type SingleBotLazyQueryHookResult = ReturnType<typeof useSingleBotLazyQuery>;
 export type SingleBotSuspenseQueryHookResult = ReturnType<typeof useSingleBotSuspenseQuery>;
 export type SingleBotQueryResult = Apollo.QueryResult<SingleBotQuery, SingleBotQueryVariables>;
+export const SearchBotsDocument = gql`
+    query SearchBots($pagination: PaginationInput, $input: SafeFiltersInput) {
+  bots(pagination: $pagination, input: $input) {
+    totalCount
+    nodes {
+      id
+      avatar
+      name
+      shortDescription
+    }
+  }
+}
+    `;
+
+/**
+ * __useSearchBotsQuery__
+ *
+ * To run a query within a React component, call `useSearchBotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchBotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchBotsQuery({
+ *   variables: {
+ *      pagination: // value for 'pagination'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSearchBotsQuery(baseOptions?: Apollo.QueryHookOptions<SearchBotsQuery, SearchBotsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchBotsQuery, SearchBotsQueryVariables>(SearchBotsDocument, options);
+      }
+export function useSearchBotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchBotsQuery, SearchBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchBotsQuery, SearchBotsQueryVariables>(SearchBotsDocument, options);
+        }
+export function useSearchBotsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SearchBotsQuery, SearchBotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchBotsQuery, SearchBotsQueryVariables>(SearchBotsDocument, options);
+        }
+export type SearchBotsQueryHookResult = ReturnType<typeof useSearchBotsQuery>;
+export type SearchBotsLazyQueryHookResult = ReturnType<typeof useSearchBotsLazyQuery>;
+export type SearchBotsSuspenseQueryHookResult = ReturnType<typeof useSearchBotsSuspenseQuery>;
+export type SearchBotsQueryResult = Apollo.QueryResult<SearchBotsQuery, SearchBotsQueryVariables>;
 export const SingleBotVoteDocument = gql`
     query SingleBotVote($input: GetBotInput!) {
   getBot(input: $input) {
