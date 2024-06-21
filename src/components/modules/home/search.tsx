@@ -57,6 +57,7 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 			pos={isNav ? "initial" : "relative"}
 		>
 			<Input
+				autoComplete="off"
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
 					setQuery(e.target.value)
 				}
@@ -74,7 +75,7 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 						exit="exit"
 						className={cx(
 							box,
-							css({ pos: "absolute", mt: 12, w: isNav ? "1/3" : "full" }),
+							css({ pos: "absolute", mt: 12, w: isNav ? "1/2" : "full" }),
 						)}
 					>
 						<LineTitle>Search bots</LineTitle>
