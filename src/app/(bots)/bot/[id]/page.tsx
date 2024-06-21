@@ -89,7 +89,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							width={100}
 							height={100}
 							src={getAvatar(getBot.id, getBot.avatar)}
-							className={css({ borderRadius: "full" })}
+							className={css({ rounded: "full" })}
 						/>
 						<Flex alignItems={"center"} gap={1}>
 							<Heading size="4xl">{getBot.name}</Heading>
@@ -150,7 +150,7 @@ export default function Page({ params }: { params: { id: string } }) {
 						w={{ lg: "2/6", base: "full" }}
 						bg={"background.900"}
 						p={5}
-						borderRadius={"xl"}
+						rounded={"xl"}
 					>
 						<Flex flexDir={"column"} gap={5}>
 							<Flex flexDir={"column"} gap={2}>

@@ -28,7 +28,7 @@ import { css } from "@/styled-system/css";
 import { Box, Center, Flex } from "@/styled-system/jsx";
 import {
 	ArrowLeftIcon,
-	CheckIcon,
+	ClockIcon,
 	InformationCircleIcon,
 } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
@@ -58,6 +58,7 @@ export default function Page({ params }: { params: { id: string } }) {
 		{ data: canVote, loading: canVoteLoading, refetch: refetchCanVote },
 	] = useCanVoteLazyQuery({
 		errorPolicy: "ignore",
+		fetchPolicy: "network-only",
 	});
 
 	const [voteBot, { loading: votingBot }] = useCreateVoteMutation({
@@ -72,6 +73,7 @@ export default function Page({ params }: { params: { id: string } }) {
 	if (error) return notFound();
 
 	const hasVoted = canVote?.canVote.expires;
+	const loading = canVoteLoading ?? gettingAuth;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: no
 	useEffect(() => {
@@ -97,10 +99,12 @@ export default function Page({ params }: { params: { id: string } }) {
 						>
 							<Alert>
 								<AlertIcon>
-									<CheckIcon />
+									<ClockIcon />
 								</AlertIcon>
 								<AlertContent>
-									<AlertTitle>You voted {getBot.name} successfully!</AlertTitle>
+									<AlertTitle>
+										Your vote on {getBot.name} is registered!
+									</AlertTitle>
 									<AlertDescription>
 										You will be able to vote again tomorrow!
 									</AlertDescription>
@@ -114,19 +118,21 @@ export default function Page({ params }: { params: { id: string } }) {
 						<Flex alignItems={"center"} gap={3}>
 							<Image
 								alt="bot avatar"
-								width={50}
-								height={50}
+								width={200}
+								height={200}
 								src={getAvatar(getBot.id, getBot.avatar)}
-								className={css({ borderRadius: "full" })}
+								className={css({ rounded: "xl", w: 14, h: 14 })}
 							/>
 							<Flex alignItems={"center"} gap={1}>
 								<Heading size="2xl">{getBot.name}</Heading>
 								{getBot.certified && <CertifiedBadge />}
 							</Flex>
 						</Flex>
-						{canVoteLoading || gettingAuth ? (
+						{loading ? (
 							<Spinner />
-						) : !hasVoted ? (
+						) : hasVoted ? (
+							<ErrorText>Come back tomorrow</ErrorText>
+						) : auth ? (
 							<Button
 								disabled={votingBot}
 								onClick={() =>
@@ -135,10 +141,8 @@ export default function Page({ params }: { params: { id: string } }) {
 							>
 								Vote
 							</Button>
-						) : hasVoted ? (
-							<ErrorText>Hold up buddy</ErrorText>
 						) : (
-							<Login />
+							<Login>Login to vote</Login>
 						)}
 					</Flex>
 				</Box>

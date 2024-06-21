@@ -15,7 +15,7 @@ export const tab = css({
 	py: 1,
 	display: "inline-flex",
 	alignItems: "center",
-	borderRadius: "full",
+	rounded: "full",
 	bg: "background.900",
 	color: "background.300",
 	outline: "none",

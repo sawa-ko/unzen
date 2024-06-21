@@ -33,7 +33,7 @@ export default function BotCard({
 					scale: 0.98,
 				}}
 				transitionDuration={"fast"}
-				borderRadius={"xl"}
+				rounded={"xl"}
 				borderWidth={1}
 				borderColor={"background.800"}
 				h={"full"}
@@ -47,7 +47,7 @@ export default function BotCard({
 								src={getAvatar(id, avatar)}
 								width={74}
 								height={74}
-								className={css({ borderRadius: "xl" })}
+								className={css({ rounded: "xl" })}
 							/>
 							<Flex flexDir={"column"}>
 								<Heading size="lg">{name}</Heading>

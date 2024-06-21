@@ -5,7 +5,7 @@ export const skeleton = cva({
 	base: {
 		bg: "background.800",
 		animation: "pulse 1.5s infinite",
-		borderRadius: "lg",
+		rounded: "lg",
 	},
 });
 

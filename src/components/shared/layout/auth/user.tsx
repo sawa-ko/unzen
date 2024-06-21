@@ -18,11 +18,23 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import Login from "../../feedback/login";
+import { useLogoutMutation } from "@/lib/graphql/apollo";
+import { useRouter } from "next/navigation";
+import { removeFromCache } from "@/lib/utils/cache";
 
 export default function AuthUser() {
+	const router = useRouter();
 	const { data: auth, loading } = useAuth();
+	const [logout] = useLogoutMutation({
+		update: (cache) =>
+			removeFromCache(cache, {
+				id: auth?.me.id as string,
+				__typename: "AuthUserObject",
+			}),
+	});
+
 	return loading ? (
-		<Skeleton borderRadius={"full"} w={10} h={10} />
+		<Skeleton rounded={"full"} w={10} h={10} />
 	) : auth ? (
 		<Flex alignItems={"center"} gap={2}>
 			<Menu>
@@ -36,7 +48,7 @@ export default function AuthUser() {
 								width={36}
 								height={36}
 								className={css({
-									borderRadius: "full",
+									rounded: "full",
 									cursor: "pointer",
 									w: 10,
 									h: 10,
@@ -67,7 +79,14 @@ export default function AuthUser() {
 										<PlusCircleIcon />
 										<Text>New bot</Text>
 									</MenuItem>
-									<MenuItem as={"div"} className={menuItem}>
+									<MenuItem
+										onClick={() => {
+											logout();
+											router.replace("/");
+										}}
+										as={"div"}
+										className={menuItem}
+									>
 										<ArrowRightStartOnRectangleIcon />
 										<Text>Logout</Text>
 									</MenuItem>

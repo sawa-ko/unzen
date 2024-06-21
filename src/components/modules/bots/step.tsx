@@ -42,7 +42,7 @@ export default function Step({
 					className={css({
 						position: "absolute",
 						inset: 0,
-						borderRadius: "full",
+						rounded: "full",
 					})}
 				/>
 
@@ -70,7 +70,7 @@ export default function Step({
 						h: 10,
 						alignItems: "center",
 						justifyContent: "center",
-						borderRadius: "full",
+						rounded: "full",
 					})}
 				>
 					<Flex alignItems={"center"} justifyContent={"center"}>

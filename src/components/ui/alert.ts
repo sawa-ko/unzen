@@ -5,7 +5,7 @@ export const alert = cva({
 	base: {
 		display: "flex",
 		alignItems: "center",
-		borderRadius: "xl",
+		rounded: "xl",
 		p: "4",
 		fontSize: "sm",
 		fontWeight: "medium",

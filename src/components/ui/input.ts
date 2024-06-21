@@ -12,7 +12,7 @@ export const input = cva({
 		outline: "none",
 		px: 3,
 		py: 2,
-		borderRadius: "lg",
+		rounded: "lg",
 		bg: {
 			base: "background.900",
 			_hover: "background.800",

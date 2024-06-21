@@ -62,7 +62,7 @@ export default function UserData({ id }: Pick<GetUserQuery["getUser"], "id">) {
 							width={100}
 							height={100}
 							src={avatar}
-							className={css({ borderRadius: "full" })}
+							className={css({ rounded: "full" })}
 						/>
 						<Flex flexDir="column">
 							<Heading size="4xl">{getUser.username}</Heading>
