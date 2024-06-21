@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 		);
 
 	const finalResponse = quickRedirect(
-		`/?cookie=${encodeURIComponent(auth.createSession.access_token)}&expires=${encodeURIComponent(auth.createSession.expires_in)}`,
+		`/auth/cookie?c=${encodeURIComponent(auth.createSession.access_token)}&e=${encodeURIComponent(auth.createSession.expires_in)}`,
 	);
 
 	return finalResponse;

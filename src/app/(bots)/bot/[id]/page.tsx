@@ -73,8 +73,17 @@ export default function Page({ params }: { params: { id: string } }) {
 				/>
 			</Box>
 			<Flex flexDir={"column"}>
-				<Flex justifyContent={"space-between"} alignItems={"center"}>
-					<Flex alignItems={"center"} gap={3}>
+				<Flex
+					flexDir={{ lg: "row", base: "column" }}
+					justifyContent={"space-between"}
+					alignItems={"center"}
+					gap={2}
+				>
+					<Flex
+						flexDir={{ lg: "row", base: "column" }}
+						alignItems={"center"}
+						gap={3}
+					>
 						<Image
 							alt="bot avatar"
 							width={100}
@@ -87,8 +96,13 @@ export default function Page({ params }: { params: { id: string } }) {
 							{getBot.certified && <CertifiedBadge />}
 						</Flex>
 					</Flex>
-					<Flex gap={2}>
+					<Flex
+						w={{ lg: "fit", base: "full" }}
+						gap={2}
+						flexDir={{ lg: "row", base: "column" }}
+					>
 						<LinkButton
+							w={"full"}
 							referrerPolicy="no-referrer"
 							target="_blank"
 							href={getBot.inviteLink ?? getDefaultInvite(getBot.id)}
@@ -98,7 +112,7 @@ export default function Page({ params }: { params: { id: string } }) {
 							Invite
 							<PlusIcon className={buttonIcon("right")} />
 						</LinkButton>
-						<LinkButton href={`/bot/${getBot.id}/vote`} size="lg">
+						<LinkButton w={"full"} href={`/bot/${getBot.id}/vote`} size="lg">
 							Vote
 							<ChevronUpIcon className={buttonIcon("right")} />
 						</LinkButton>

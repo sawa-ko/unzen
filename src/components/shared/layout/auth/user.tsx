@@ -55,7 +55,11 @@ export default function AuthUser() {
 									anchor="bottom end"
 									className={menuItems}
 								>
-									<MenuItem as={"div"} className={menuItem}>
+									<MenuItem
+										as={Link}
+										href={`/user/${auth.me.id}`}
+										className={menuItem}
+									>
 										<Cog6ToothIcon />
 										<Text>Profile</Text>
 									</MenuItem>

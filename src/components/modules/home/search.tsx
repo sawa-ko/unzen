@@ -7,30 +7,23 @@ import { Input } from "@/components/ui/input";
 import { box } from "@/components/ui/styles/box";
 import { Text } from "@/components/ui/text";
 import { fadeInFromTopExitBottom } from "@/lib/constants/animations";
-import { useSearchBotsQuery } from "@/lib/graphql/apollo";
+import { useSearchBotsLazyQuery } from "@/lib/graphql/apollo";
 import { css, cx } from "@/styled-system/css";
 import { Center, Flex, Grid, GridItem } from "@/styled-system/jsx";
 import { useOutsideClick } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useDebounce } from "react-use";
 
 export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 	const searchRef = useRef<HTMLDivElement>(null);
 	const [query, setQuery] = useState<string | null>(null);
 	const [active, setActive] = useState<boolean>(false);
 
-	const {
-		data: results,
-		loading,
-		error,
-		refetch,
-	} = useSearchBotsQuery({
-		variables: {
-			pagination: {
-				size: 4,
-			},
-		},
-	});
+	const [
+		executeSearchQuery,
+		{ data: results, loading: searching, error, refetch, called },
+	] = useSearchBotsLazyQuery();
 
 	useOutsideClick({
 		ref: searchRef,
@@ -41,14 +34,20 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 		if (query?.length === 0) setQuery(null);
 	}, [query]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: stfu
-	useEffect(() => {
-		refetch({
-			input: {
-				query: query ?? undefined,
-			},
-		});
-	}, [query]);
+	const [ready] = useDebounce(
+		() => {
+			if (query)
+				refetch({
+					input: {
+						query: query ?? undefined,
+					},
+				});
+		},
+		500,
+		[query],
+	);
+
+	const loading = (!ready() ?? true) && searching && !results;
 	return (
 		<Flex
 			flexDir={"column"}
@@ -61,8 +60,21 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
 					setQuery(e.target.value)
 				}
-				onFocus={() => setActive(true)}
-				onBlur={() => setActive(false)}
+				onFocus={() => {
+					if (!called)
+						executeSearchQuery({
+							variables: {
+								pagination: {
+									size: 4,
+								},
+								input: {
+									query,
+								},
+							},
+						});
+					setActive(true);
+				}}
+				onBlur={() => setActive(true)}
 				ref={searchRef}
 				placeholder={"Search bots..."}
 			/>
@@ -75,20 +87,21 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 						exit="exit"
 						className={cx(
 							box,
-							css({ pos: "absolute", mt: 12, w: isNav ? "1/2" : "full" }),
+							css({
+								pos: "absolute",
+								mt: 12,
+								w: "full",
+								maxW: isNav ? "1/2" : "full",
+							}),
 						)}
 					>
-						<LineTitle>Search bots</LineTitle>
-						{error && (
-							<ErrorMessage>
-								An error occurred while searching bots...
-							</ErrorMessage>
-						)}
+						<LineTitle>Search bots {loading}</LineTitle>
 						{loading && (
-							<Center>
+							<Center my={22}>
 								<Text>Loading...</Text>
 							</Center>
 						)}
+						{error && <ErrorMessage>{error.message}</ErrorMessage>}
 						{results?.bots.nodes?.length ? (
 							<Grid gridTemplateRows={1} gap={2} mt={3}>
 								{results?.bots.nodes?.map((bot) => (

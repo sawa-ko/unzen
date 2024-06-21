@@ -25,7 +25,7 @@ export default function RootLayout({
 				<Loader color="var(--colors-brand-500)" showSpinner={false} />
 				<Providers>
 					<Header />
-					<Container maxW="full" px={{ lg: 16 }} mt={11} py={11}>
+					<Container maxW="full" px={{ lg: 16, base: 5 }} mt={11} py={11}>
 						{children}
 					</Container>
 				</Providers>

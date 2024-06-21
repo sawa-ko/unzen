@@ -2,11 +2,15 @@ import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import { toast } from "sonner";
 
-export function formatDateSince(stringDate: string) {
-	const diff = Date.now() - new Date(stringDate).getTime();
-	const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+export function formatDateSince(dateStr: string): string {
+	const now = new Date();
+	const date = new Date(dateStr);
+	const diffMs = now.getTime() - date.getTime();
+	const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-	return days === 0 ? "today" : `${days} days ago`;
+	if (diffDays === 0) return "Today";
+	if (diffDays === 1) return "Yesterday";
+	return `${diffDays} days ago`;
 }
 
 export function handleError(error: ApolloError) {
