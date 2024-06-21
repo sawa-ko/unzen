@@ -8,7 +8,7 @@ import { Flex } from "@/styled-system/jsx";
 import React from "react";
 
 export default async function Page() {
-	const { data, error } = await apolloClient().query<HomeBotsQuery>({
+	const { data, error } = await apolloClient.query<HomeBotsQuery>({
 		query: HomeBotsDocument,
 	});
 

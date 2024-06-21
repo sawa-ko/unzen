@@ -1,6 +1,10 @@
-import {ApolloLink, HttpLink} from '@apollo/client';
-import {setContext} from '@apollo/client/link/context';
-import {ApolloClient, InMemoryCache, SSRMultipartLink} from '@apollo/experimental-nextjs-app-support';
+import { ApolloLink, HttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import {
+	ApolloClient,
+	InMemoryCache,
+	SSRMultipartLink,
+} from "@apollo/experimental-nextjs-app-support";
 
 export function makeClient() {
 	const httpLink = new HttpLink({
@@ -16,12 +20,12 @@ export function makeClient() {
 	});
 
 	const authLink = setContext((_, { headers }) => {
-		// const session = getCookie("session");
+		/*const session = cookies().get("session");*/
 
 		return {
 			headers: {
 				...headers,
-				// Authorization: `Bearer ${session}`,
+				/*Authorization: `Bearer ${session}`,*/
 			},
 		};
 	});
@@ -31,11 +35,12 @@ export function makeClient() {
 		link: authLink.concat(
 			typeof window === "undefined"
 				? ApolloLink.from([
-					new SSRMultipartLink({
-						stripDefer: true,
-					}),
-					httpLink,
-				])
-				: httpLink),
+						new SSRMultipartLink({
+							stripDefer: true,
+						}),
+						httpLink,
+					])
+				: httpLink,
+		),
 	});
 }

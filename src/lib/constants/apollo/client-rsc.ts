@@ -1,14 +1,19 @@
-import {HttpLink} from '@apollo/client';
-import {setContext} from '@apollo/client/link/context';
-import {ApolloClient, InMemoryCache, registerApolloClient} from '@apollo/experimental-nextjs-app-support';
+import { HttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import {
+	ApolloClient,
+	InMemoryCache,
+	registerApolloClient,
+} from "@apollo/experimental-nextjs-app-support";
+// import { cookies } from "next/headers";
 
-export const { getClient: apolloClient } = registerApolloClient(() => {
+export const { getClient } = registerApolloClient(() => {
 	const httpLink = new HttpLink({
 		uri: process.env.NEXT_PUBLIC_API_URL,
 	});
 
 	const authLink = setContext((_, { headers }) => {
-		// const session = getCookie("session");
+		// const session = cookies().get("session");
 
 		return {
 			headers: {
@@ -25,3 +30,5 @@ export const { getClient: apolloClient } = registerApolloClient(() => {
 		link: authLink.concat(httpLink),
 	});
 });
+
+export const apolloClient = getClient();
