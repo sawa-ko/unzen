@@ -1,8 +1,7 @@
-import { makeClient } from "@/lib/constants/apollo-client";
+import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import { CreateSessionDocument, type Mutation } from "@/lib/graphql/apollo";
 import { type NextRequest, NextResponse } from "next/server";
 
-const apolloClient = makeClient();
 const url = process.env.NEXT_PUBLIC_URL ?? "https://dbots.fun";
 
 const quickRedirect = (endpoint: string) =>
@@ -16,7 +15,7 @@ export async function GET(req: NextRequest) {
 			`/?e=${encodeURIComponent("No code provided from Discord")}`,
 		);
 
-	const { data: auth } = await apolloClient.mutate<Mutation>({
+	const { data: auth } = await apolloClient().mutate<Mutation>({
 		mutation: CreateSessionDocument,
 		variables: {
 			input: {
