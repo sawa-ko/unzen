@@ -5,6 +5,7 @@ import {
 	InMemoryCache,
 	registerApolloClient,
 } from "@apollo/experimental-nextjs-app-support";
+import { cookies } from "next/headers";
 // import { cookies } from "next/headers";
 
 export const { getClient } = registerApolloClient(() => {
@@ -13,12 +14,16 @@ export const { getClient } = registerApolloClient(() => {
 	});
 
 	const authLink = setContext((_, { headers }) => {
-		// const session = cookies().get("session");
+		const session = cookies().get("session");
 
 		return {
 			headers: {
 				...headers,
-				// Authorization: `Bearer ${session}`,
+				...(headers?.authorization
+					? { authorization: headers.authorization }
+					: session
+						? { authorization: `Bearer ${session.value.toString()}` }
+						: {}),
 			},
 		};
 	});
