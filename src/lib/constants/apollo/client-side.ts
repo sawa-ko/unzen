@@ -6,7 +6,7 @@ import {
 	SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support";
 
-export function makeClient(authToken?: string) {
+export function makeClientSide(authToken?: string) {
 	const httpLink = new HttpLink({
 		// this needs to be an absolute url, as relative urls cannot be used in SSR
 		uri: process.env.NEXT_PUBLIC_API_URL,

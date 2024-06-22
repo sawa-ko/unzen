@@ -1,3 +1,5 @@
+"use client";
+
 import { icon } from "@/components/ui/button";
 import { css, cx } from "@/styled-system/css";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";

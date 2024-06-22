@@ -6,7 +6,14 @@ import {
 	registerApolloClient,
 } from "@apollo/experimental-nextjs-app-support";
 import { cookies } from "next/headers";
-// import { cookies } from "next/headers";
+
+// @ts-ignore - this is a global variable
+// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+if (!globalThis["cache"]) {
+	// @ts-ignore - this is a global variable
+	// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+	globalThis["cache"] = new InMemoryCache();
+}
 
 export const { getClient } = registerApolloClient(() => {
 	const httpLink = new HttpLink({
@@ -28,10 +35,10 @@ export const { getClient } = registerApolloClient(() => {
 		};
 	});
 
-	// use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
 	return new ApolloClient({
-		// use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
-		cache: new InMemoryCache(),
+		// @ts-ignore - this is a global variable
+		// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+		cache: globalThis["cache"] as InMemoryCache,
 		link: authLink.concat(httpLink),
 	});
 });

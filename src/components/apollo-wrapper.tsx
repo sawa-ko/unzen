@@ -1,6 +1,6 @@
 "use client";
 
-import { makeClient } from "@/lib/constants/apollo/client";
+import { makeClientSide } from "@/lib/constants/apollo/client-side";
 import { ApolloNextAppProvider } from "@apollo/experimental-nextjs-app-support";
 import type React from "react";
 
@@ -11,7 +11,7 @@ interface ApolloWrapperProps {
 
 export function ApolloWrapper({ children, token }: ApolloWrapperProps) {
 	return (
-		<ApolloNextAppProvider makeClient={() => makeClient(token)}>
+		<ApolloNextAppProvider makeClient={() => makeClientSide(token)}>
 			{children}
 		</ApolloNextAppProvider>
 	);
