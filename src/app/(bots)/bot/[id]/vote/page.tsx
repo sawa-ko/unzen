@@ -1,4 +1,4 @@
-import { SessionDocument } from "@/app/api/auth/callback/route";
+import { SessionClientDocument } from "@/app/api/auth/callback/route";
 import Vote, { VoteTitle } from "@/components/modules/bots/vote";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";
@@ -57,7 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 	});
 
 	const auth = apolloClient.readQuery<SessionQuery>({
-		query: SessionDocument,
+		query: SessionClientDocument,
 	});
 
 	if (getBotError || canVoteError) return notFound();
