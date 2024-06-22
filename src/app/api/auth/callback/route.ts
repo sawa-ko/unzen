@@ -9,7 +9,7 @@ import { gql } from "@apollo/client";
 import { type NextRequest, NextResponse } from "next/server";
 
 const url = process.env.NEXT_PUBLIC_URL ?? "https://dbots.fun";
-export const SESSION_QUERY = gql`
+export const SessionDocument = gql`
   query GetSession {
     me @client {
       token
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
 	});
 
 	apolloClient.writeQuery({
-		query: SESSION_QUERY,
+		query: SessionDocument,
 		data: {
 			me: {
 				token: auth.createSession.access_token,

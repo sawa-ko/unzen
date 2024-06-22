@@ -1,4 +1,4 @@
-import { SESSION_QUERY } from "@/app/api/auth/callback/route";
+import { SessionDocument } from "@/app/api/auth/callback/route";
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import LineTitle from "@/components/shared/feedback/line-title";
@@ -30,7 +30,7 @@ import React from "react";
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const auth = apolloClient.readQuery<SessionQuery>({
-		query: SESSION_QUERY,
+		query: SessionDocument,
 	});
 
 	const {
