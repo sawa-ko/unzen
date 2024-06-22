@@ -13,8 +13,9 @@ import {
 	type CanVoteQuery,
 	type CanVoteQueryVariables,
 	type SessionQuery,
-	SingleBotDocument,
-	type SingleBotQuery,
+	SingleBotVoteDocument,
+	type SingleBotVoteQuery,
+	type SingleBotVoteQueryVariables,
 } from "@/lib/graphql/apollo";
 import { getAvatar } from "@/lib/utils/discord";
 import { css } from "@/styled-system/css";
@@ -31,14 +32,16 @@ export default async function Page({ params }: { params: { id: string } }) {
 	const {
 		data: { getBot },
 		error: getBotError,
-	} = await apolloClient.query<SingleBotQuery>({
-		query: SingleBotDocument,
-		variables: {
-			input: {
-				id: params.id,
+	} = await apolloClient.query<SingleBotVoteQuery, SingleBotVoteQueryVariables>(
+		{
+			query: SingleBotVoteDocument,
+			variables: {
+				input: {
+					id: params.id,
+				},
 			},
 		},
-	});
+	);
 
 	const {
 		data: { canVote },

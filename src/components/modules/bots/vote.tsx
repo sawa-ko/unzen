@@ -13,7 +13,7 @@ import { ErrorText } from "@/components/ui/error-text";
 import { popUpAnimation } from "@/lib/constants/animations";
 import {
 	type SessionQuery,
-	type SingleBotQuery,
+	type SingleBotVoteQuery,
 	useCreateVoteMutation,
 } from "@/lib/graphql/apollo";
 import { handleError } from "@/lib/utils/format";
@@ -57,7 +57,7 @@ export default function Vote({ auth, botId, hasVoted }: VoteProps) {
 
 interface VoteTitleProps {
 	canVote: boolean;
-	bot: SingleBotQuery["getBot"];
+	bot: SingleBotVoteQuery["getBot"];
 }
 
 export function VoteTitle({ canVote, bot }: VoteTitleProps) {
