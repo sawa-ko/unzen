@@ -24,6 +24,7 @@ import {
 	ArrowLeftIcon,
 	InformationCircleIcon,
 } from "@heroicons/react/24/solid";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -56,6 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 	const auth = apolloClient.readQuery<SessionQuery>({
 		query: SessionClientDocument,
+		id: cookies().get("session")?.value,
 	});
 
 	if (getBotError || canVoteError) return notFound();

@@ -62,9 +62,7 @@ export async function GET(req: NextRequest) {
 				permissions: userInfo.data.me.permissions,
 			},
 		},
-		variables: {
-			token: auth.createSession.access_token,
-		},
+		id: auth.createSession.access_token,
 	});
 
 	const response = NextResponse.redirect(url);

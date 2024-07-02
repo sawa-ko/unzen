@@ -24,6 +24,7 @@ import {
 	ChevronUpIcon,
 	PlusIcon,
 } from "@heroicons/react/24/solid";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -31,6 +32,7 @@ import React from "react";
 export default async function Page({ params }: { params: { id: string } }) {
 	const auth = apolloClient.readQuery<SessionQuery>({
 		query: SessionClientDocument,
+		id: cookies().get("session")?.value,
 	});
 
 	const {
