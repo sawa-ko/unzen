@@ -4,6 +4,7 @@ import Image from "@/components/ui/image";
 import { menuItem, menuItems } from "@/components/ui/styles/menu";
 import { Text } from "@/components/ui/text";
 import { menuAnimation } from "@/lib/constants/animations";
+import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import type { SessionQuery } from "@/lib/graphql/apollo";
 import { getAvatar } from "@/lib/utils/discord";
 import { css } from "@/styled-system/css";
@@ -20,9 +21,14 @@ import { redirect } from "next/navigation";
 
 interface UserMenuOptionsProps {
 	auth: SessionQuery;
+	token: string;
 }
 
-export default function UserMenuOptions({ auth }: UserMenuOptionsProps) {
+export default function UserMenuOptions({ auth, token }: UserMenuOptionsProps) {
+	const logOut = () => {
+		apolloClient.cache.evict({ id: token });
+	};
+
 	return (
 		<Flex alignItems={"center"} gap={2}>
 			<Menu>
@@ -69,7 +75,7 @@ export default function UserMenuOptions({ auth }: UserMenuOptionsProps) {
 									</MenuItem>
 									<MenuItem
 										onClick={() => {
-											/*logout();*/
+											logOut();
 											redirect("/");
 										}}
 										as={"div"}
