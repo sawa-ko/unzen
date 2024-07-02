@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 								{getBot.certified && <CertifiedBadge />}
 							</Flex>
 						</Flex>
-						<Vote botId={params.id} auth={auth} hasVoted={canVote.canVote} />
+						<Vote botId={params.id} auth={auth} hasVoted={!canVote.canVote} />
 					</Flex>
 				</Box>
 				<LinkButton href={`/bot/${getBot.id}`} mx="auto" size="sm" color="gray">
