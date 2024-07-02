@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import Login from "../../feedback/login";
 
 export default function AuthUser() {
+	const token = cookies().get("session")?.value;
 	const auth = apolloClient.readQuery<SessionQuery>({
 		query: SessionClientDocument,
 		id: cookies().get("session")?.value,
@@ -15,5 +16,6 @@ export default function AuthUser() {
 		return <Login size="sm">Login</Login>;
 	}
 
-	return <UserMenuOptions auth={auth} />;
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
+	return <UserMenuOptions auth={auth} token={token!} />;
 }
