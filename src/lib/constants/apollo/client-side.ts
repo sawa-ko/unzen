@@ -35,6 +35,9 @@ export function makeClientSide(authToken?: string) {
 	});
 
 	return new ApolloClient({
+		ssrMode: true,
+		queryDeduplication: true,
+		name: "client-side",
 		cache: new InMemoryCache(),
 		link: authLink.concat(
 			typeof window === "undefined"

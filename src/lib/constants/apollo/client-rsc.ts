@@ -40,6 +40,7 @@ export const { getClient } = registerApolloClient(() => {
 		// biome-ignore lint/complexity/useLiteralKeys: <explanation>
 		cache: globalThis["cache"] as InMemoryCache,
 		link: authLink.concat(httpLink),
+		name: "client-rsc",
 	});
 });
 

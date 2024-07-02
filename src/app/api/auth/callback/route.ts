@@ -1,3 +1,4 @@
+import { SessionClientDocument } from "@/lib/constants/apollo/cache-queries";
 import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import {
 	CreateSessionDocument,
@@ -5,22 +6,9 @@ import {
 	SessionDocument,
 	type SessionQuery,
 } from "@/lib/graphql/apollo";
-import { gql } from "@apollo/client";
 import { type NextRequest, NextResponse } from "next/server";
 
 const url = process.env.NEXT_PUBLIC_URL ?? "https://dbots.fun";
-export const SessionClientDocument = gql`
-  query GetSession {
-    me @client {
-      token
-      token_expires
-      id
-      username
-      avatar
-      permissions
-    }
-  }
-`;
 
 export async function GET(req: NextRequest) {
 	const code = req.nextUrl.searchParams.get("code");
@@ -73,6 +61,9 @@ export async function GET(req: NextRequest) {
 				avatar: userInfo.data.me.avatar,
 				permissions: userInfo.data.me.permissions,
 			},
+		},
+		variables: {
+			token: auth.createSession.access_token,
 		},
 	});
 

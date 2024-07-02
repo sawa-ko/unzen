@@ -1,4 +1,3 @@
-import { SessionClientDocument } from "@/app/api/auth/callback/route";
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import LineTitle from "@/components/shared/feedback/line-title";
@@ -8,6 +7,7 @@ import { buttonIcon } from "@/components/ui/button-icon";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
+import { SessionClientDocument } from "@/lib/constants/apollo/cache-queries";
 import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import {
 	type SessionQuery,

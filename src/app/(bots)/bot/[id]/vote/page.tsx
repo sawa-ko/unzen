@@ -1,4 +1,3 @@
-import { SessionClientDocument } from "@/app/api/auth/callback/route";
 import Vote, { VoteTitle } from "@/components/modules/bots/vote";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";
@@ -7,6 +6,7 @@ import { buttonIcon } from "@/components/ui/button-icon";
 import { Heading } from "@/components/ui/heading";
 import Image from "@/components/ui/image";
 import { box } from "@/components/ui/styles/box";
+import { SessionClientDocument } from "@/lib/constants/apollo/cache-queries";
 import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import {
 	CanVoteDocument,
@@ -25,8 +25,6 @@ import {
 	InformationCircleIcon,
 } from "@heroicons/react/24/solid";
 import { notFound } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const {
