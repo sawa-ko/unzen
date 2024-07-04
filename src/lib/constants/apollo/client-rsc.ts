@@ -26,10 +26,10 @@ export const { getClient } = registerApolloClient(() => {
 		return {
 			headers: {
 				...headers,
-				...(headers?.authorization
-					? { authorization: headers.authorization }
+				...(headers?.Authorization
+					? { Authorization: headers.Authorization }
 					: session
-						? { authorization: `Bearer ${session.value.toString()}` }
+						? { Authorization: `Bearer ${session.value.toString()}` }
 						: {}),
 			},
 		};

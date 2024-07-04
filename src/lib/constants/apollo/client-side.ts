@@ -27,7 +27,7 @@ export function makeClientSide(authToken?: string) {
 				...headers,
 				...(authToken
 					? {
-							authorization: `Bearer ${authToken}`,
+							Authorization: `Bearer ${authToken}`,
 						}
 					: {}),
 			},
