@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Todo: Add required error messages
 export const newBotSchema = z.object({
 	// Required fields
 	id: z
@@ -18,9 +19,6 @@ export const newBotSchema = z.object({
 		.string()
 		.min(100, { message: "100 chars min" })
 		.max(5_000, { message: "5.000 chars max" }),
-
-	// Co-owners
-	owners: z.string().optional(),
 
 	// Extra
 	prefix: z

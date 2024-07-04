@@ -11,17 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { ErrorText } from "@/components/ui/error-text";
 import { popUpAnimation } from "@/lib/constants/animations";
-import { SessionClientDocument } from "@/lib/constants/apollo/cache-queries";
 import {
 	type SessionQuery,
 	type SingleBotVoteQuery,
 	useCreateVoteMutation,
 } from "@/lib/graphql/apollo";
 import { handleError } from "@/lib/utils/format";
-import { useApolloClient } from "@apollo/client";
 import { ClockIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
@@ -64,13 +61,6 @@ interface VoteTitleProps {
 }
 
 export function VoteTitle({ canVote, bot }: VoteTitleProps) {
-	const auth = useApolloClient().readQuery<SessionQuery>({
-		query: SessionClientDocument,
-		id: cookies().get("session")?.value,
-	});
-
-	console.log(auth);
-
 	return (
 		<AnimatePresence>
 			{!canVote && (

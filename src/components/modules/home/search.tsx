@@ -12,12 +12,12 @@ import { css, cx } from "@/styled-system/css";
 import { Center, Flex, Grid, GridItem } from "@/styled-system/jsx";
 import { useOutsideClick } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
-import { type ChangeEvent, useEffect, useRef, useState } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 import { useDebounce } from "react-use";
 
 export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 	const searchRef = useRef<HTMLDivElement>(null);
-	const [query, setQuery] = useState<string | null>(null);
+	const [query, setQuery] = useState<string>("");
 	const [active, setActive] = useState<boolean>(false);
 
 	const [
@@ -29,10 +29,6 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 		ref: searchRef,
 		handler: () => setActive(false),
 	});
-
-	useEffect(() => {
-		if (query?.length === 0) setQuery(null);
-	}, [query]);
 
 	const [ready] = useDebounce(
 		async () => {
@@ -55,6 +51,7 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 			alignItems={isNav ? "end" : "initial"}
 			gap={2}
 			pos={isNav ? "initial" : "relative"}
+			display={{ base: isNav ? "none" : "flex", md: "flex" }}
 		>
 			<Input
 				autoComplete="off"

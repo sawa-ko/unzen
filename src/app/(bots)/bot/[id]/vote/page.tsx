@@ -1,3 +1,5 @@
+"use server";
+
 import Vote, { VoteTitle } from "@/components/modules/bots/vote";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";

@@ -42,7 +42,7 @@ export const alertDescription = cva({
 
 export const alertIcon = cva({
 	base: {
-		mr: "2",
+		mr: "3",
 		flexShrink: 0,
 		w: 6,
 		h: 6,

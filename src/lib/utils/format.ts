@@ -16,5 +16,7 @@ export function formatDateSince(dateStr: string): string {
 export function handleError(error: ApolloError) {
 	const errorMessage = (e: GraphQLError) => e.message;
 
-	return error.graphQLErrors.map((e) => toast.error(errorMessage(e)));
+	return error.graphQLErrors
+		? error.graphQLErrors.map((e) => toast.error(errorMessage(e)))
+		: toast.error("Unknown error");
 }

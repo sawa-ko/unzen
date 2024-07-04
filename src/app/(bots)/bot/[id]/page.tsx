@@ -1,6 +1,13 @@
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import LineTitle from "@/components/shared/feedback/line-title";
+import {
+	Alert,
+	AlertIcon,
+	AlertContent,
+	AlertTitle,
+	AlertDescription,
+} from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { LinkButton } from "@/components/ui/button";
 import { buttonIcon } from "@/components/ui/button-icon";
@@ -10,6 +17,7 @@ import { Text } from "@/components/ui/text";
 import { SessionClientDocument } from "@/lib/constants/apollo/cache-queries";
 import { apolloClient } from "@/lib/constants/apollo/client-rsc";
 import {
+	BotStatus,
 	type SessionQuery,
 	SingleBotDocument,
 	type SingleBotQuery,
@@ -22,6 +30,7 @@ import { CalendarIcon } from "@heroicons/react/16/solid";
 import {
 	ChartBarIcon,
 	ChevronUpIcon,
+	ExclamationTriangleIcon,
 	PlusIcon,
 } from "@heroicons/react/24/solid";
 import { cookies } from "next/headers";
@@ -80,6 +89,20 @@ export default async function Page({ params }: { params: { id: string } }) {
 					})}
 				/>
 			</Box>
+			{getBot.status !== BotStatus.Approved && (
+				<Alert mb={4}>
+					<AlertIcon>
+						<ExclamationTriangleIcon />
+					</AlertIcon>
+					<AlertContent>
+						<AlertTitle>Note</AlertTitle>
+						<AlertDescription>
+							This bot is {getBot.status} and only you and the reviewers are
+							able to see this page
+						</AlertDescription>
+					</AlertContent>
+				</Alert>
+			)}
 			<Flex flexDir={"column"}>
 				<Flex
 					flexDir={{ lg: "row", base: "column" }}
