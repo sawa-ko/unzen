@@ -16,6 +16,9 @@ export default function AuthUser() {
 		return <Login size="sm">Login</Login>;
 	}
 
-	// biome-ignore lint/style/noNonNullAssertion: <explanation>
-	return <UserMenuOptions auth={auth} token={token!} />;
+	const logoutFn = () => {
+		apolloClient.cache.evict({ id: token });
+	};
+
+	return <UserMenuOptions auth={auth} logoutFn={logoutFn} />;
 }
