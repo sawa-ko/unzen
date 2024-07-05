@@ -6,16 +6,16 @@ import { Flex, Grid, GridItem } from "@/styled-system/jsx";
 
 interface HomeBotsProps {
 	mostBigBots: HomeBotsQuery["mostBig"];
-	mostReviewedBots: HomeBotsQuery["mostReviewed"];
+	mostRecentBots: HomeBotsQuery["mostRecent"];
 	mostVotedBots: HomeBotsQuery["mostVoted"];
 }
 
 export default function HomeBots({
 	mostVotedBots,
-	mostReviewedBots,
+	mostRecentBots,
 	mostBigBots,
 }: HomeBotsProps) {
-	const totalBots = [mostBigBots, mostReviewedBots, mostVotedBots].reduce(
+	const totalBots = [mostBigBots, mostRecentBots, mostVotedBots].reduce(
 		(acc, item) => acc + (item?.nodes?.length ?? 0),
 		0,
 	);
@@ -40,9 +40,9 @@ export default function HomeBots({
 					</GridItem>
 				))}
 			</Grid>
-			<LineTitle>Most reviewed</LineTitle>
+			<LineTitle>Most recent</LineTitle>
 			<Grid gridTemplateColumns={{ lg: 4, sm: 2, xl: 4, md: 3 }}>
-				{mostReviewedBots.nodes?.map((bot) => (
+				{mostRecentBots.nodes?.map((bot) => (
 					<GridItem key={bot.id}>
 						<BotCard {...bot} />
 					</GridItem>

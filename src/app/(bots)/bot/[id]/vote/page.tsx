@@ -1,6 +1,6 @@
 "use server";
 
-import Vote, { VoteTitle } from "@/components/modules/bots/vote";
+import Vote, { VoteAlert } from "@/components/modules/bots/vote";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import { Alert, AlertIcon, AlertTitle } from "@/components/ui/alert";
 import { LinkButton } from "@/components/ui/button";
@@ -73,7 +73,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 					</AlertIcon>
 					<AlertTitle>This page is work-in-progress</AlertTitle>
 				</Alert>
-				<VoteTitle canVote={canVote.canVote} bot={getBot} />
+				<VoteAlert auth={auth} canVote={canVote.canVote} bot={getBot} />
 				<Box className={box}>
 					<Flex alignItems={"center"} justifyContent={"space-between"}>
 						<Flex alignItems={"center"} gap={3}>
@@ -82,7 +82,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 								width={200}
 								height={200}
 								src={getAvatar(getBot.id, getBot.avatar)}
-								className={css({ rounded: "xl", w: 14, h: 14 })}
+								className={css({ rounded: "lg", w: 14, h: 14 })}
 							/>
 							<Flex alignItems={"center"} gap={1}>
 								<Heading size="2xl">{getBot.name}</Heading>

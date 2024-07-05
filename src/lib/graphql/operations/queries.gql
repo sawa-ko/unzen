@@ -47,7 +47,7 @@ query HomeBots {
       ...BotCard
     }
   }
-  mostReviewed: bots(pagination: { size: 4, sortOrder: DESC, sortBy: "reviews" }) {
+  mostRecent: bots(pagination: { size: 4, sortOrder: DESC, sortBy: "createdAt" }) {
     nodes {
       ...BotCard
     }

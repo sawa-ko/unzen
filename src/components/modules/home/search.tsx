@@ -12,7 +12,7 @@ import { css, cx } from "@/styled-system/css";
 import { Center, Flex, Grid, GridItem } from "@/styled-system/jsx";
 import { useOutsideClick } from "@chakra-ui/hooks";
 import { AnimatePresence, motion } from "framer-motion";
-import { type ChangeEvent, useRef, useState } from "react";
+import { type ChangeEvent, type RefObject, useRef, useState } from "react";
 import { useDebounce } from "react-use";
 
 export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
@@ -73,7 +73,7 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 					setActive(true);
 				}}
 				onBlur={() => setActive(true)}
-				ref={searchRef}
+				ref={searchRef as RefObject<HTMLInputElement>}
 				placeholder={"Search bots..."}
 			/>
 			<AnimatePresence>
@@ -90,6 +90,7 @@ export default function HomeSearch({ isNav = false }: { isNav?: boolean }) {
 								mt: 12,
 								w: "full",
 								maxW: isNav ? "1/2" : "full",
+								zIndex: 100,
 							}),
 						)}
 					>

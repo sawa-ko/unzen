@@ -28,7 +28,7 @@ export default async function Page() {
 			</Flex>
 			<HomeBots
 				mostBigBots={data.mostBig}
-				mostReviewedBots={data.mostReviewed}
+				mostRecentBots={data.mostRecent}
 				mostVotedBots={data.mostVoted}
 			/>
 		</React.Fragment>

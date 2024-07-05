@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { box } from "@/components/ui/styles/box";
 import { Box, Center, Container, VStack } from "@/styled-system/jsx";
 import { Field, Fieldset } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { newBotSchema } from "@/lib/schemas/new-bot";
 import {
 	useCreateBotMutation,
@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
 import TagInput from "@/components/modules/bots/form/tag-input";
+import { Link } from "@/components/ui/link";
 
 // Had to make this page client side since it uses a lot of hooks. please kaname dont kill me
 
@@ -80,14 +81,16 @@ export default function Page() {
 				<VStack>
 					<Alert>
 						<AlertIcon>
-							<ExclamationTriangleIcon />
+							<BookOpenIcon />
 						</AlertIcon>
 						<AlertContent>
-							<AlertTitle>Please read me</AlertTitle>
+							<AlertTitle>Read before submitting</AlertTitle>
 							<AlertDescription>
-								You might be wondering why this page is so ugly and why we
-								removed the old-new wizard-like form. We removed it because of
-								some issues that form had and we preferred not to mantain.
+								Please make sure you read our botlist rules on our{" "}
+								<Link href="https://discord.com/invite/qhuQkGWmsE">
+									Discord server
+								</Link>{" "}
+								before submitting a bot.
 							</AlertDescription>
 						</AlertContent>
 					</Alert>

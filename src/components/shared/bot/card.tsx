@@ -25,17 +25,16 @@ export default function BotCard({
 				p={4}
 				maxH={"4xl"}
 				maxW={"lg"}
-				bgGradient={"to-b"}
-				gradientFrom={"background.900"}
-				gradientVia={"background.900"}
-				gradientTo={"background.800"}
+				bg="background.900/70"
+				backdropBlur={"sm"}
+				backdropFilter={"auto"}
 				_active={{
 					scale: 0.98,
 				}}
 				transitionDuration={"fast"}
 				rounded={"xl"}
-				borderWidth={1}
-				borderColor={"background.800"}
+				borderWidth={2}
+				borderColor={"background.700"}
 				h={"full"}
 				cursor={"pointer"}
 			>

@@ -4,7 +4,7 @@ import type React from "react";
 
 export default function LineTitle({ children }: React.PropsWithChildren) {
 	return (
-		<Flex alignItems={"center"} gap={2}>
+		<Flex alignItems={"center"} gap={2} w="full">
 			<Flex alignItems={"center"}>
 				<Text
 					w={"max"}

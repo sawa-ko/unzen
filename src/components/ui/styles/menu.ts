@@ -3,9 +3,11 @@ import { css } from "@/styled-system/css";
 export const menuItems = css({
 	display: "flex",
 	flexDirection: "column",
-	bg: "background.800",
+	bg: "background.800/50",
+	backdropBlur: "lg",
+	backdropFilter: "auto",
 	borderWidth: 1,
-	borderColor: "background.700",
+	borderColor: "background.600",
 	rounded: "lg",
 	p: 0.5,
 	minWidth: "200px",
@@ -25,7 +27,7 @@ export const menuItem = css({
 	color: "background.300",
 	cursor: "pointer",
 	_hover: {
-		bg: "background.700",
+		bg: "background.700/50",
 		color: "white",
 	},
 	_disabled: {
@@ -34,7 +36,7 @@ export const menuItem = css({
 	},
 
 	"&[data-focus]": {
-		bg: "background.700",
+		bg: "background.700/50",
 		color: "white",
 	},
 

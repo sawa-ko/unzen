@@ -1,6 +1,7 @@
 import BotTabsMain from "@/components/modules/bots/tabs/main";
 import CertifiedBadge from "@/components/shared/bot/certified-badge";
 import LineTitle from "@/components/shared/feedback/line-title";
+import ImageBackground from "@/components/shared/layout/image-background";
 import {
 	Alert,
 	AlertIcon,
@@ -38,6 +39,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params }: { params: { id: string } }) {
 	const auth = apolloClient.readQuery<SessionQuery>({
 		query: SessionClientDocument,
@@ -61,34 +64,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 	const userIsOwner = !!getBot.owners.find((o) => o.id === auth?.me.id);
 	const hasAnyLink =
 		!!getBot.website ?? !!getBot.github ?? !!getBot.supportServer;
-	const banner = getBot.banner ?? getAvatar(getBot.id, getBot.avatar);
+	const avatar = getAvatar(getBot.id, getBot.avatar);
+	const banner = getBot.banner ?? avatar;
 
 	return (
 		<React.Fragment>
-			<Box position={"absolute"} inset={0} zIndex={-1}>
-				<Image
-					alt="bot avatar as background"
-					draggable={false}
-					width={1000}
-					height={1000}
-					src={banner}
-					className={css({
-						position: "absolute",
-						w: "full",
-						zIndex: -1,
-						objectFit: "cover",
-						objectPosition: "center top",
-						top: 0,
-						bottom: 0,
-						left: 0,
-						right: 0,
-						opacity: 0.2,
-						h: "100vh",
-						maskImage:
-							"radial-gradient(circle at top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0))",
-					})}
-				/>
-			</Box>
+			<ImageBackground image={banner} />
 			{getBot.status !== BotStatus.Approved && (
 				<Alert mb={4}>
 					<AlertIcon>
@@ -119,8 +100,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 							alt="bot avatar"
 							width={100}
 							height={100}
-							src={getAvatar(getBot.id, getBot.avatar)}
-							className={css({ rounded: "full" })}
+							src={avatar}
+							className={css({ rounded: "2xl" })}
 						/>
 						<Flex alignItems={"center"} gap={1}>
 							<Heading size="4xl">{getBot.name}</Heading>

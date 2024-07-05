@@ -55,15 +55,16 @@ export default function Vote({ auth, botId, hasVoted }: VoteProps) {
 	);
 }
 
-interface VoteTitleProps {
+interface VoteAlertProps {
 	canVote: boolean;
 	bot: SingleBotVoteQuery["getBot"];
+	auth: SessionQuery | null;
 }
 
-export function VoteTitle({ canVote, bot }: VoteTitleProps) {
+export function VoteAlert({ canVote, bot, auth }: VoteAlertProps) {
 	return (
 		<AnimatePresence>
-			{!canVote && (
+			{!canVote && auth && (
 				<motion.div
 					variants={popUpAnimation}
 					animate="enter"

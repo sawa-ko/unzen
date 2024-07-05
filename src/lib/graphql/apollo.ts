@@ -830,7 +830,7 @@ export type BotCardsQuery = { __typename?: 'Query', bots: { __typename?: 'BotsCo
 export type HomeBotsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HomeBotsQuery = { __typename?: 'Query', mostVoted: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostBig: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostReviewed: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
+export type HomeBotsQuery = { __typename?: 'Query', mostVoted: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostBig: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null }, mostRecent: { __typename?: 'BotsConnection', nodes?: Array<{ __typename?: 'BotObject', avatar?: string | null, shortDescription: string, name: string, id: string, guildCount: number, certified: boolean, inviteLink?: string | null, tags: Array<{ __typename?: 'BotTagObject', displayName: string }>, votes: { __typename?: 'BotVoteObjectConnection', totalCount: number } }> | null } };
 
 export type SingleBotQueryVariables = Exact<{
   input: GetBotInput;
@@ -1698,7 +1698,7 @@ export const HomeBotsDocument = gql`
       ...BotCard
     }
   }
-  mostReviewed: bots(pagination: {size: 4, sortOrder: DESC, sortBy: "reviews"}) {
+  mostRecent: bots(pagination: {size: 4, sortOrder: DESC, sortBy: "createdAt"}) {
     nodes {
       ...BotCard
     }
